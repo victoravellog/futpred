@@ -11,9 +11,9 @@
     <div class="flex justify-between items-center mb-6">
       <div>
         <h1 class="text-2xl font-bold text-gray-900"><%= @organization.name %></h1>
-        <p class="text-gray-500"><%= @organization.users.count %> miembros</p>
+        <p class="text-gray-500"><%= t("dashboard.members_count", count: @organization.users.count) %></p>
       </div>
-      <%= link_to "Nuevo torneo", new_organization_tournament_path(@organization),
+      <%= link_to t("organizations.new_tournament"), new_organization_tournament_path(@organization),
           class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
     </div>
 
@@ -23,16 +23,16 @@
           <%= link_to tournament_path(tournament), class: "block bg-white overflow-hidden shadow rounded-lg p-6 hover:shadow-md transition-shadow" do %>
             <h3 class="text-lg font-medium text-gray-900"><%= tournament.name %></h3>
             <p class="text-sm text-gray-500 mt-1">
-              <%= tournament.rounds.count %> rondas ·
-              <%= tournament.fixtures.count %> partidos
+              <%= t("tournaments.rounds_count", count: tournament.rounds.count) %> ·
+              <%= t("tournaments.fixtures_count", count: tournament.fixtures.count) %>
             </p>
           <% end %>
         <% end %>
       </div>
     <% else %>
       <div class="text-center py-12 bg-white rounded-lg shadow">
-        <p class="text-gray-500 mb-4">No hay torneos en esta organización todavía.</p>
-        <%= link_to "Crear primer torneo", new_organization_tournament_path(@organization),
+        <p class="text-gray-500 mb-4"><%= t("organizations.no_tournaments") %></p>
+        <%= link_to t("organizations.create_first_tournament"), new_organization_tournament_path(@organization),
             class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
       </div>
     <% end %>

@@ -1,0 +1,110 @@
+es:
+  app_name: "FutPred"
+
+  nav:
+    logout: "Salir"
+
+  auth:
+    login: "Iniciar sesión"
+    register: "Crear cuenta"
+    email: "Email"
+    password: "Contraseña"
+    password_confirmation: "Confirmar contraseña"
+    forgot_password: "¿Olvidaste tu contraseña?"
+    already_have_account: "¿Ya tienes cuenta?"
+    no_account: "¿No tienes cuenta?"
+    login_button: "Iniciar sesión"
+    register_button: "Crear cuenta"
+
+  passwords:
+    forgot_title: "¿Olvidaste tu contraseña?"
+    forgot_description: "Ingresa tu email y te enviaremos instrucciones para restablecer tu contraseña."
+    send_instructions: "Enviar instrucciones"
+    back_to_login: "Volver a iniciar sesión"
+    reset_title: "Restablecer contraseña"
+    reset_description: "Ingresa tu nueva contraseña."
+    new_password: "Nueva contraseña"
+    update_password: "Actualizar contraseña"
+
+  dashboard:
+    my_organizations: "Mis organizaciones"
+    new_organization: "Nueva organización"
+    no_organizations: "No perteneces a ninguna organización todavía."
+    create_organization: "Crear organización"
+    members_count:
+      one: "1 miembro"
+      other: "%{count} miembros"
+    tournaments_count:
+      one: "1 torneo"
+      other: "%{count} torneos"
+
+  organizations:
+    new: "Crear organización"
+    name: "Nombre de la organización"
+    name_placeholder: "Ej: Liga de amigos"
+    name_hint: "Este nombre será visible para todos los miembros"
+    create: "Crear organización"
+    cancel: "Cancelar"
+    created: "Organización creada exitosamente"
+    new_tournament: "Nuevo torneo"
+    no_tournaments: "No hay torneos en esta organización todavía."
+    create_first_tournament: "Crear primer torneo"
+
+  tournaments:
+    new: "Nuevo torneo"
+    name: "Nombre del torneo"
+    name_placeholder: "Ej: Copa América 2026"
+    create: "Crear torneo"
+    created: "Torneo creado exitosamente"
+    no_fixtures: "No hay partidos cargados en este torneo todavía."
+    leaderboard: "Clasificación"
+    points_multiplier: "x%{multiplier} puntos"
+    rounds_count:
+      one: "1 ronda"
+      other: "%{count} rondas"
+    fixtures_count:
+      one: "1 partido"
+      other: "%{count} partidos"
+
+  fixtures:
+    live: "EN VIVO"
+    vs: "vs"
+    closed: "Cerrado"
+    no_prediction: "Sin predicción"
+
+  predictions:
+    save: "Guardar"
+    saved: "Predicción guardada"
+    updated: "Predicción actualizada"
+    your_prediction: "Tu predicción"
+    points: "+%{points} pts"
+    closed: "ya no acepta predicciones"
+
+  leaderboard:
+    title: "Clasificación"
+    position: "Pos"
+    user: "Usuario"
+    points: "Puntos"
+    you: "(tú)"
+    no_scores: "Aún no hay puntuaciones registradas."
+    no_scores_hint: "Los puntos se calculan cuando terminan los partidos."
+
+  scoring:
+    title: "¿Cómo se calculan los puntos?"
+    example_intro: "Si el resultado real es %{home_team} %{home_score} - %{away_score} %{away_team}:"
+    exact_score: "Resultado exacto"
+    correct_result: "Acertaste quién gana"
+    wrong: "No acertaste"
+    points_5: "5 puntos"
+    points_3: "3 puntos"
+    points_0: "0 puntos"
+    predicted: "Predijiste %{home} - %{away}"
+    multiplier_note: "Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, Final x2"
+
+  activerecord:
+    errors:
+      models:
+        prediction:
+          attributes:
+            fixture:
+              closed: "ya no acepta predicciones"

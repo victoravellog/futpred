@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex items-center">
-          <%= link_to "FutPred", root_path, class: "text-xl font-bold text-indigo-600" %>
+          <%= link_to t("app_name"), root_path, class: "text-xl font-bold text-indigo-600" %>
         </div>
       </div>
     </div>
@@ -11,7 +11,7 @@
 
   <main class="max-w-lg mx-auto py-12 px-4">
     <div class="bg-white p-8 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">Crear organización</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-6"><%= t("organizations.new") %></h2>
 
       <%= form_with model: @organization, class: "space-y-6" do |f| %>
         <% if @organization.errors.any? %>
@@ -25,15 +25,15 @@
         <% end %>
 
         <div>
-          <%= f.label :name, "Nombre de la organización", class: "block text-sm font-medium text-gray-700" %>
-          <%= f.text_field :name, required: true, autofocus: true, placeholder: "Ej: Liga de amigos",
+          <%= f.label :name, t("organizations.name"), class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :name, required: true, autofocus: true, placeholder: t("organizations.name_placeholder"),
               class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
-          <p class="mt-1 text-sm text-gray-500">Este nombre será visible para todos los miembros</p>
+          <p class="mt-1 text-sm text-gray-500"><%= t("organizations.name_hint") %></p>
         </div>
 
         <div class="flex space-x-4">
-          <%= link_to "Cancelar", root_path, class: "flex-1 text-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
-          <%= f.submit "Crear organización", class: "flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
+          <%= link_to t("organizations.cancel"), root_path, class: "flex-1 text-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
+          <%= f.submit t("organizations.create"), class: "flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
         </div>
       <% end %>
     </div>

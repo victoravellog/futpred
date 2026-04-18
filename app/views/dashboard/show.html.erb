@@ -10,8 +10,8 @@
 
     <div class="px-4 py-6 sm:px-0">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-900">Mis organizaciones</h2>
-        <%= link_to "Nueva organización", new_organization_path,
+        <h2 class="text-2xl font-bold text-gray-900"><%= t("dashboard.my_organizations") %></h2>
+        <%= link_to t("dashboard.new_organization"), new_organization_path,
             class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
       </div>
 
@@ -21,16 +21,16 @@
             <%= link_to organization_path(org), class: "block bg-white overflow-hidden shadow rounded-lg p-6 hover:shadow-md transition-shadow" do %>
               <h3 class="text-lg font-medium text-gray-900"><%= org.name %></h3>
               <p class="text-sm text-gray-500 mt-1">
-                <%= org.users.count %> miembros ·
-                <%= org.tournaments.count %> torneos
+                <%= t("dashboard.members_count", count: org.users.count) %> ·
+                <%= t("dashboard.tournaments_count", count: org.tournaments.count) %>
               </p>
             <% end %>
           <% end %>
         </div>
       <% else %>
         <div class="text-center py-12 bg-white rounded-lg shadow">
-          <p class="text-gray-500 mb-4">No perteneces a ninguna organización todavía.</p>
-          <%= link_to "Crear organización", new_organization_path,
+          <p class="text-gray-500 mb-4"><%= t("dashboard.no_organizations") %></p>
+          <%= link_to t("dashboard.create_organization"), new_organization_path,
               class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
         </div>
       <% end %>

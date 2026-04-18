@@ -3,7 +3,7 @@
 
   <main class="max-w-lg mx-auto py-12 px-4">
     <div class="bg-white p-8 rounded-lg shadow">
-      <h2 class="text-2xl font-bold text-gray-900 mb-6">Nuevo torneo</h2>
+      <h2 class="text-2xl font-bold text-gray-900 mb-6"><%= t("tournaments.new") %></h2>
 
       <%= form_with model: [@organization, @tournament], class: "space-y-6" do |f| %>
         <% if @tournament.errors.any? %>
@@ -17,15 +17,15 @@
         <% end %>
 
         <div>
-          <%= f.label :name, "Nombre del torneo", class: "block text-sm font-medium text-gray-700" %>
-          <%= f.text_field :name, required: true, autofocus: true, placeholder: "Ej: Copa América 2026",
+          <%= f.label :name, t("tournaments.name"), class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :name, required: true, autofocus: true, placeholder: t("tournaments.name_placeholder"),
               class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
         </div>
 
         <div class="flex space-x-4">
-          <%= link_to "Cancelar", organization_path(@organization),
+          <%= link_to t("organizations.cancel"), organization_path(@organization),
               class: "flex-1 text-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
-          <%= f.submit "Crear torneo",
+          <%= f.submit t("tournaments.create"),
               class: "flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
         </div>
       <% end %>

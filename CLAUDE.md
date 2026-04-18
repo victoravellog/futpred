@@ -44,7 +44,7 @@
 ### Git
 
 - NO incluir `Co-Authored-By` de Claude en los commits
-- Commits en español
+- Commits en inglés
 
 ## Comandos útiles
 

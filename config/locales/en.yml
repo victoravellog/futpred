@@ -1,31 +1,110 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "FutPred"
+
+  nav:
+    logout: "Sign out"
+
+  auth:
+    login: "Sign in"
+    register: "Create account"
+    email: "Email"
+    password: "Password"
+    password_confirmation: "Confirm password"
+    forgot_password: "Forgot your password?"
+    already_have_account: "Already have an account?"
+    no_account: "Don't have an account?"
+    login_button: "Sign in"
+    register_button: "Create account"
+
+  passwords:
+    forgot_title: "Forgot your password?"
+    forgot_description: "Enter your email and we'll send you instructions to reset your password."
+    send_instructions: "Send instructions"
+    back_to_login: "Back to sign in"
+    reset_title: "Reset password"
+    reset_description: "Enter your new password."
+    new_password: "New password"
+    update_password: "Update password"
+
+  dashboard:
+    my_organizations: "My organizations"
+    new_organization: "New organization"
+    no_organizations: "You don't belong to any organization yet."
+    create_organization: "Create organization"
+    members_count:
+      one: "1 member"
+      other: "%{count} members"
+    tournaments_count:
+      one: "1 tournament"
+      other: "%{count} tournaments"
+
+  organizations:
+    new: "Create organization"
+    name: "Organization name"
+    name_placeholder: "E.g.: Friends league"
+    name_hint: "This name will be visible to all members"
+    create: "Create organization"
+    cancel: "Cancel"
+    created: "Organization created successfully"
+    new_tournament: "New tournament"
+    no_tournaments: "There are no tournaments in this organization yet."
+    create_first_tournament: "Create first tournament"
+
+  tournaments:
+    new: "New tournament"
+    name: "Tournament name"
+    name_placeholder: "E.g.: Copa América 2026"
+    create: "Create tournament"
+    created: "Tournament created successfully"
+    no_fixtures: "No fixtures loaded for this tournament yet."
+    leaderboard: "Leaderboard"
+    points_multiplier: "x%{multiplier} points"
+    rounds_count:
+      one: "1 round"
+      other: "%{count} rounds"
+    fixtures_count:
+      one: "1 fixture"
+      other: "%{count} fixtures"
+
+  fixtures:
+    live: "LIVE"
+    vs: "vs"
+    closed: "Closed"
+    no_prediction: "No prediction"
+
+  predictions:
+    save: "Save"
+    saved: "Prediction saved"
+    updated: "Prediction updated"
+    your_prediction: "Your prediction"
+    points: "+%{points} pts"
+    closed: "no longer accepts predictions"
+
+  leaderboard:
+    title: "Leaderboard"
+    position: "Pos"
+    user: "User"
+    points: "Points"
+    you: "(you)"
+    no_scores: "No scores recorded yet."
+    no_scores_hint: "Points are calculated when matches finish."
+
+  scoring:
+    title: "How are points calculated?"
+    example_intro: "If the actual result is %{home_team} %{home_score} - %{away_score} %{away_team}:"
+    exact_score: "Exact score"
+    correct_result: "Correct winner"
+    wrong: "Wrong prediction"
+    points_5: "5 points"
+    points_3: "3 points"
+    points_0: "0 points"
+    predicted: "You predicted %{home} - %{away}"
+    multiplier_note: "Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.75, Final x2"
+
+  activerecord:
+    errors:
+      models:
+        prediction:
+          attributes:
+            fixture:
+              closed: "no longer accepts predictions"

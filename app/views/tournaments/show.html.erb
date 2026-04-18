@@ -18,34 +18,34 @@
         <svg class="w-5 h-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
         </svg>
-        Clasificación
+        <%= t("tournaments.leaderboard") %>
       <% end %>
     </div>
 
     <details class="mb-6 bg-white rounded-lg shadow">
       <summary class="px-4 py-3 cursor-pointer text-sm font-medium text-gray-700 hover:bg-gray-50 rounded-lg">
-        ¿Cómo se calculan los puntos?
+        <%= t("scoring.title") %>
       </summary>
       <div class="px-4 pb-4 pt-2 border-t border-gray-100">
-        <p class="text-sm text-gray-600 mb-3">Si el resultado real es <span class="font-semibold">Argentina 2 - 1 Brasil</span>:</p>
+        <p class="text-sm text-gray-600 mb-3"><%= t("scoring.example_intro", home_team: "Argentina", home_score: 2, away_score: 1, away_team: "Brasil") %></p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div class="bg-green-50 rounded-lg p-3">
-            <div class="font-semibold text-green-700">5 puntos</div>
-            <div class="text-green-600">Predijiste 2 - 1</div>
-            <div class="text-xs text-green-500 mt-1">Resultado exacto</div>
+            <div class="font-semibold text-green-700"><%= t("scoring.points_5") %></div>
+            <div class="text-green-600"><%= t("scoring.predicted", home: 2, away: 1) %></div>
+            <div class="text-xs text-green-500 mt-1"><%= t("scoring.exact_score") %></div>
           </div>
           <div class="bg-blue-50 rounded-lg p-3">
-            <div class="font-semibold text-blue-700">3 puntos</div>
-            <div class="text-blue-600">Predijiste 3 - 0</div>
-            <div class="text-xs text-blue-500 mt-1">Acertaste quién gana</div>
+            <div class="font-semibold text-blue-700"><%= t("scoring.points_3") %></div>
+            <div class="text-blue-600"><%= t("scoring.predicted", home: 3, away: 0) %></div>
+            <div class="text-xs text-blue-500 mt-1"><%= t("scoring.correct_result") %></div>
           </div>
           <div class="bg-gray-100 rounded-lg p-3">
-            <div class="font-semibold text-gray-700">0 puntos</div>
-            <div class="text-gray-600">Predijiste 0 - 2</div>
-            <div class="text-xs text-gray-500 mt-1">No acertaste</div>
+            <div class="font-semibold text-gray-700"><%= t("scoring.points_0") %></div>
+            <div class="text-gray-600"><%= t("scoring.predicted", home: 0, away: 2) %></div>
+            <div class="text-xs text-gray-500 mt-1"><%= t("scoring.wrong") %></div>
           </div>
         </div>
-        <p class="text-xs text-gray-500 mt-3">Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, Final x2</p>
+        <p class="text-xs text-gray-500 mt-3"><%= t("scoring.multiplier_note") %></p>
       </div>
     </details>
 
@@ -56,7 +56,7 @@
             <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
               <div class="flex justify-between items-center">
                 <h2 class="text-lg font-medium text-gray-900"><%= round.name %></h2>
-                <span class="text-sm text-gray-500">x<%= round.scoring_multiplier %> puntos</span>
+                <span class="text-sm text-gray-500"><%= t("tournaments.points_multiplier", multiplier: round.scoring_multiplier) %></span>
               </div>
             </div>
 
@@ -70,7 +70,7 @@
       </div>
     <% else %>
       <div class="text-center py-12 bg-white rounded-lg shadow">
-        <p class="text-gray-500">No hay partidos cargados en este torneo todavía.</p>
+        <p class="text-gray-500"><%= t("tournaments.no_fixtures") %></p>
       </div>
     <% end %>
   </main>
