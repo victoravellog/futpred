@@ -1,0 +1,37 @@
+<%= turbo_frame_tag dom_id(fixture, :prediction_form) do %>
+  <% if fixture.finished? %>
+    <% if prediction.persisted? %>
+      <div class="text-center">
+        <div class="text-sm font-medium <%= prediction.exact_score? ? 'text-green-600' : (prediction.correct_result? ? 'text-blue-600' : 'text-gray-500') %>">
+          Tu predicción: <%= prediction.predicted_home_score %> - <%= prediction.predicted_away_score %>
+        </div>
+        <% if prediction.points_earned.present? %>
+          <div class="text-xs <%= prediction.points_earned > 0 ? 'text-green-600' : 'text-gray-400' %>">
+            +<%= prediction.points_earned %> pts
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <span class="text-sm text-gray-400">Sin predicción</span>
+    <% end %>
+  <% elsif fixture.predictable? %>
+    <%= form_with model: prediction, url: prediction.persisted? ? fixture_prediction_path(fixture) : fixture_prediction_path(fixture),
+        method: prediction.persisted? ? :patch : :post,
+        class: "flex items-center space-x-2" do |f| %>
+      <%= f.number_field :predicted_home_score, min: 0, max: 20, value: prediction.predicted_home_score,
+          class: "w-12 text-center px-2 py-1 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500",
+          placeholder: "0" %>
+      <span class="text-gray-400">-</span>
+      <%= f.number_field :predicted_away_score, min: 0, max: 20, value: prediction.predicted_away_score,
+          class: "w-12 text-center px-2 py-1 border border-gray-300 rounded-md text-sm focus:ring-indigo-500 focus:border-indigo-500",
+          placeholder: "0" %>
+      <%= f.submit prediction.persisted? ? "✓" : "Guardar",
+          class: "px-3 py-1 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 rounded-md cursor-pointer" %>
+    <% end %>
+    <% if prediction.errors.any? %>
+      <p class="mt-1 text-xs text-red-600"><%= prediction.errors.full_messages.first %></p>
+    <% end %>
+  <% else %>
+    <span class="text-sm text-gray-400">Cerrado</span>
+  <% end %>
+<% end %>

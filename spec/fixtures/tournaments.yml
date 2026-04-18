@@ -1,0 +1,9 @@
+copa_america:
+  name: Copa América 2026
+  external_id: copa-2026
+  organization: liga_amigos
+
+mundial:
+  name: Mundial 2026
+  external_id: wc-2026
+  organization: oficina

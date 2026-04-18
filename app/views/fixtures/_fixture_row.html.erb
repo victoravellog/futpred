@@ -1,0 +1,41 @@
+<%= turbo_frame_tag dom_id(fixture) do %>
+  <div class="px-6 py-4" id="<%= dom_id(fixture, :container) %>">
+    <div class="flex items-center justify-between">
+      <div class="flex-1">
+        <div class="flex items-center space-x-4">
+          <div class="flex-1 text-right">
+            <span class="font-medium text-gray-900"><%= fixture.home_team.name %></span>
+          </div>
+
+          <div class="flex items-center space-x-2 min-w-[120px] justify-center">
+            <% if fixture.finished? %>
+              <span class="text-2xl font-bold text-gray-900"><%= fixture.home_score %></span>
+              <span class="text-gray-400">-</span>
+              <span class="text-2xl font-bold text-gray-900"><%= fixture.away_score %></span>
+            <% elsif fixture.live? %>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                EN VIVO
+              </span>
+            <% else %>
+              <span class="text-sm text-gray-500">vs</span>
+            <% end %>
+          </div>
+
+          <div class="flex-1">
+            <span class="font-medium text-gray-900"><%= fixture.away_team.name %></span>
+          </div>
+        </div>
+
+        <div class="mt-1 text-center">
+          <span class="text-xs text-gray-500">
+            <%= l(fixture.kickoff_at, format: :short) rescue fixture.kickoff_at.strftime("%d/%m %H:%M") %>
+          </span>
+        </div>
+      </div>
+
+      <div class="ml-6 min-w-[200px]">
+        <%= render "predictions/form", fixture: fixture, prediction: fixture.predictions.find_by(user: Current.user) || fixture.predictions.build %>
+      </div>
+    </div>
+  </div>
+<% end %>

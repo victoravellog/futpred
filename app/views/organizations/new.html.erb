@@ -1,0 +1,41 @@
+<div class="min-h-screen bg-gray-50">
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <%= link_to "FutPred", root_path, class: "text-xl font-bold text-indigo-600" %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-lg mx-auto py-12 px-4">
+    <div class="bg-white p-8 rounded-lg shadow">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">Crear organización</h2>
+
+      <%= form_with model: @organization, class: "space-y-6" do |f| %>
+        <% if @organization.errors.any? %>
+          <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+            <ul class="list-disc list-inside">
+              <% @organization.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div>
+          <%= f.label :name, "Nombre de la organización", class: "block text-sm font-medium text-gray-700" %>
+          <%= f.text_field :name, required: true, autofocus: true, placeholder: "Ej: Liga de amigos",
+              class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" %>
+          <p class="mt-1 text-sm text-gray-500">Este nombre será visible para todos los miembros</p>
+        </div>
+
+        <div class="flex space-x-4">
+          <%= link_to "Cancelar", root_path, class: "flex-1 text-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
+          <%= f.submit "Crear organización", class: "flex-1 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

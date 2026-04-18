@@ -1,0 +1,25 @@
+argentina_brasil:
+  round: copa_grupos
+  home_team: argentina
+  away_team: brasil
+  kickoff_at: <%= 1.week.from_now %>
+  status: 0
+  external_id: fix-001
+
+chile_colombia:
+  round: copa_grupos
+  home_team: chile
+  away_team: colombia
+  kickoff_at: <%= 1.week.from_now + 3.hours %>
+  status: 0
+  external_id: fix-002
+
+argentina_chile_finished:
+  round: copa_grupos
+  home_team: argentina
+  away_team: chile
+  kickoff_at: <%= 1.day.ago %>
+  home_score: 2
+  away_score: 1
+  status: 2
+  external_id: fix-003

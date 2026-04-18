@@ -1,0 +1,39 @@
+<div class="min-h-screen bg-gray-50">
+  <%= render "shared/navbar" %>
+
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <% if notice %>
+      <div class="mb-4 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <div class="px-4 py-6 sm:px-0">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Mis organizaciones</h2>
+        <%= link_to "Nueva organización", new_organization_path,
+            class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
+      </div>
+
+      <% if Current.user.organizations.any? %>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <% Current.user.organizations.each do |org| %>
+            <%= link_to organization_path(org), class: "block bg-white overflow-hidden shadow rounded-lg p-6 hover:shadow-md transition-shadow" do %>
+              <h3 class="text-lg font-medium text-gray-900"><%= org.name %></h3>
+              <p class="text-sm text-gray-500 mt-1">
+                <%= org.users.count %> miembros ·
+                <%= org.tournaments.count %> torneos
+              </p>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-12 bg-white rounded-lg shadow">
+          <p class="text-gray-500 mb-4">No perteneces a ninguna organización todavía.</p>
+          <%= link_to "Crear organización", new_organization_path,
+              class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>
