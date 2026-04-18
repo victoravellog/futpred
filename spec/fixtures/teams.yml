@@ -1,0 +1,19 @@
+argentina:
+  name: Argentina
+  logo_url: https://example.com/argentina.png
+  external_id: arg-001
+
+brasil:
+  name: Brasil
+  logo_url: https://example.com/brasil.png
+  external_id: bra-001
+
+chile:
+  name: Chile
+  logo_url: https://example.com/chile.png
+  external_id: chi-001
+
+colombia:
+  name: Colombia
+  logo_url: https://example.com/colombia.png
+  external_id: col-001

@@ -1,0 +1,23 @@
+copa_grupos:
+  name: Fase de Grupos
+  scoring_multiplier: 1.0
+  tournament: copa_america
+  position: 1
+
+copa_cuartos:
+  name: Cuartos de Final
+  scoring_multiplier: 1.5
+  tournament: copa_america
+  position: 2
+
+copa_semifinal:
+  name: Semifinal
+  scoring_multiplier: 1.75
+  tournament: copa_america
+  position: 3
+
+copa_final:
+  name: Final
+  scoring_multiplier: 2.0
+  tournament: copa_america
+  position: 4

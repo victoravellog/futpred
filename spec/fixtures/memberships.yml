@@ -1,0 +1,14 @@
+victor_liga_owner:
+  user: victor
+  organization: liga_amigos
+  role: 2
+
+juan_liga_member:
+  user: juan
+  organization: liga_amigos
+  role: 0
+
+victor_oficina_admin:
+  user: victor
+  organization: oficina
+  role: 1

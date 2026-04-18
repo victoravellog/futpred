@@ -1,0 +1,15 @@
+copa_argentina:
+  tournament: copa_america
+  team: argentina
+
+copa_brasil:
+  tournament: copa_america
+  team: brasil
+
+copa_chile:
+  tournament: copa_america
+  team: chile
+
+copa_colombia:
+  tournament: copa_america
+  team: colombia

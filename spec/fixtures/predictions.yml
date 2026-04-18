@@ -1,0 +1,20 @@
+victor_argentina_brasil:
+  user: victor
+  fixture: argentina_brasil
+  predicted_home_score: 2
+  predicted_away_score: 1
+  points_earned:
+
+juan_argentina_brasil:
+  user: juan
+  fixture: argentina_brasil
+  predicted_home_score: 1
+  predicted_away_score: 1
+  points_earned:
+
+victor_finished:
+  user: victor
+  fixture: argentina_chile_finished
+  predicted_home_score: 2
+  predicted_away_score: 1
+  points_earned: 5
