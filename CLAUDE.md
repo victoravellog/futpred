@@ -41,6 +41,11 @@
 - PostgreSQL corriendo en Docker (`docker compose up -d`)
 - Credenciales dev: user=futpred, password=futpred, host=localhost
 
+### Git
+
+- NO incluir `Co-Authored-By` de Claude en los commits
+- Commits en español
+
 ## Comandos útiles
 
 ```bash
