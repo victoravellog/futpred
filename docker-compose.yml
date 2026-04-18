@@ -1,4 +1,53 @@
 services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: futpred_web
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/app/node_modules
+    environment:
+      DATABASE_HOST: postgres
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    stdin_open: true
+    tty: true
+    dns:
+      - 127.0.0.11
+    networks:
+      - futpred
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: futpred_sidekiq
+    command: bundle exec sidekiq
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+      - node_modules:/app/node_modules
+    environment:
+      DATABASE_HOST: postgres
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    dns:
+      - 127.0.0.11
+    networks:
+      - futpred
+
   postgres:
     image: postgres:17
     container_name: futpred_postgres
@@ -10,6 +59,13 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U futpred"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - futpred
 
   redis:
     image: redis:7-alpine
@@ -18,7 +74,15 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    networks:
+      - futpred
 
 volumes:
   postgres_data:
   redis_data:
+  bundle_cache:
+  node_modules:
+
+networks:
+  futpred:
+    driver: bridge

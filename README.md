@@ -22,9 +22,7 @@ Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, 
 
 ### Requisitos
 
-- Ruby 3.3+
 - Docker y Docker Compose
-- Node.js 20+
 
 ### Instalación
 
@@ -33,29 +31,35 @@ Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, 
 git clone https://github.com/tu-usuario/futpred.git
 cd futpred
 
-# Instalar dependencias
-bundle install
-yarn install
+# Iniciar todos los servicios
+docker compose up
 
-# Iniciar PostgreSQL y Redis
-docker compose up -d
+# En otra terminal, crear la base de datos (solo la primera vez)
+docker compose exec web bin/rails db:create db:migrate
 
-# Crear base de datos
-bin/rails db:create db:migrate
-
-# Cargar datos del Mundial 2026 (opcional)
-bin/rails db:seed
-
-# Iniciar servidor
-bin/dev
+# Opcional: cargar datos del Mundial 2026
+docker compose exec web bin/rails db:seed
 ```
 
 Abre http://localhost:3000 y crea tu cuenta.
 
-### Tests
+### Comandos útiles
 
 ```bash
-bundle exec rspec
+# Iniciar en segundo plano
+docker compose up -d
+
+# Ver logs
+docker compose logs -f web
+
+# Consola de Rails
+docker compose exec web bin/rails console
+
+# Correr tests
+docker compose exec web bundle exec rspec
+
+# Detener todo
+docker compose down
 ```
 
 ---
@@ -78,9 +82,7 @@ Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.7
 
 ### Requirements
 
-- Ruby 3.3+
 - Docker and Docker Compose
-- Node.js 20+
 
 ### Installation
 
@@ -89,29 +91,35 @@ Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.7
 git clone https://github.com/your-username/futpred.git
 cd futpred
 
-# Install dependencies
-bundle install
-yarn install
+# Start all services
+docker compose up
 
-# Start PostgreSQL and Redis
-docker compose up -d
+# In another terminal, create the database (first time only)
+docker compose exec web bin/rails db:create db:migrate
 
-# Create database
-bin/rails db:create db:migrate
-
-# Load 2026 World Cup data (optional)
-bin/rails db:seed
-
-# Start server
-bin/dev
+# Optional: load 2026 World Cup data
+docker compose exec web bin/rails db:seed
 ```
 
 Open http://localhost:3000 and create your account.
 
-### Tests
+### Useful commands
 
 ```bash
-bundle exec rspec
+# Start in background
+docker compose up -d
+
+# View logs
+docker compose logs -f web
+
+# Rails console
+docker compose exec web bin/rails console
+
+# Run tests
+docker compose exec web bundle exec rspec
+
+# Stop everything
+docker compose down
 ```
 
 ---
