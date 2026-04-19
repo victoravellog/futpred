@@ -1,7 +1,9 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class="min-h-screen flex flex-col items-center justify-center bg-gray-50">
+  <%= image_tag "futpred-logo.svg", alt: t("app_name"), class: "h-128" %>
+
   <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow">
-    <div>
-      <h2 class="text-center text-3xl font-bold text-gray-900"><%= t("auth.login") %></h2>
+    <div class="text-center">
+      <h2 class="text-3xl font-bold text-gray-900"><%= t("auth.login") %></h2>
       <p class="mt-2 text-center text-sm text-gray-600">
         <%= t("auth.no_account") %>
         <%= link_to t("auth.register"), new_registration_path, class: "font-medium text-indigo-600 hover:text-indigo-500" %>

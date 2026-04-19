@@ -1,7 +1,8 @@
 class Organization < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
-  has_many :tournaments, dependent: :destroy
+  has_many :organization_tournaments, dependent: :destroy
+  has_many :tournaments, through: :organization_tournaments
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true

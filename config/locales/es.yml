@@ -46,9 +46,12 @@ es:
     create: "Crear organización"
     cancel: "Cancelar"
     created: "Organización creada exitosamente"
-    new_tournament: "Nuevo torneo"
+    new_tournament: "Agregar torneo"
     no_tournaments: "No hay torneos en esta organización todavía."
-    create_first_tournament: "Crear primer torneo"
+    create_first_tournament: "Agregar primer torneo"
+
+  common:
+    back: "Volver"
 
   tournaments:
     new: "Nuevo torneo"
@@ -59,6 +62,15 @@ es:
     no_fixtures: "No hay partidos cargados en este torneo todavía."
     leaderboard: "Clasificación"
     points_multiplier: "x%{multiplier} puntos"
+    your_points: "Tus puntos: %{points}"
+    add_tournament: "Agregar torneo"
+    select_to_add: "Selecciona un torneo para agregarlo a tu organización"
+    add: "Agregar"
+    added: "Torneo agregado exitosamente"
+    already_added: "Este torneo ya está en tu organización"
+    not_found: "Torneo no encontrado"
+    all_added: "Ya tienes todos los torneos"
+    no_available: "No hay más torneos disponibles para agregar."
     rounds_count:
       one: "1 ronda"
       other: "%{count} rondas"

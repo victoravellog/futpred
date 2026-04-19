@@ -1,6 +1,7 @@
 class LeaderboardsController < ApplicationController
   def show
-    @tournament = Tournament.joins(organization: :memberships)
+    @tournament = Tournament.joins(:organization_tournaments)
+                            .joins("INNER JOIN memberships ON memberships.organization_id = organization_tournaments.organization_id")
                             .where(memberships: { user_id: Current.user.id })
                             .find(params[:tournament_id])
 

@@ -3,8 +3,9 @@
     <div class="flex items-center justify-between">
       <div class="flex-1">
         <div class="flex items-center space-x-4">
-          <div class="flex-1 text-right">
+          <div class="flex-1 flex items-center justify-end space-x-2">
             <span class="font-medium text-gray-900"><%= fixture.home_team.name %></span>
+            <%= render "teams/logo", team: fixture.home_team %>
           </div>
 
           <div class="flex items-center space-x-2 min-w-[120px] justify-center">
@@ -21,7 +22,8 @@
             <% end %>
           </div>
 
-          <div class="flex-1">
+          <div class="flex-1 flex items-center space-x-2">
+            <%= render "teams/logo", team: fixture.away_team %>
             <span class="font-medium text-gray-900"><%= fixture.away_team.name %></span>
           </div>
         </div>

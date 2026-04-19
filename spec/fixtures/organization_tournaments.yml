@@ -1,0 +1,7 @@
+liga_copa_america:
+  organization: liga_amigos
+  tournament: copa_america
+
+oficina_mundial:
+  organization: oficina
+  tournament: mundial

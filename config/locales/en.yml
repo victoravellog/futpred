@@ -46,9 +46,12 @@ en:
     create: "Create organization"
     cancel: "Cancel"
     created: "Organization created successfully"
-    new_tournament: "New tournament"
+    new_tournament: "Add tournament"
     no_tournaments: "There are no tournaments in this organization yet."
-    create_first_tournament: "Create first tournament"
+    create_first_tournament: "Add first tournament"
+
+  common:
+    back: "Back"
 
   tournaments:
     new: "New tournament"
@@ -59,6 +62,15 @@ en:
     no_fixtures: "No fixtures loaded for this tournament yet."
     leaderboard: "Leaderboard"
     points_multiplier: "x%{multiplier} points"
+    your_points: "Your points: %{points}"
+    add_tournament: "Add tournament"
+    select_to_add: "Select a tournament to add to your organization"
+    add: "Add"
+    added: "Tournament added successfully"
+    already_added: "This tournament is already in your organization"
+    not_found: "Tournament not found"
+    all_added: "You have all tournaments"
+    no_available: "No more tournaments available to add."
     rounds_count:
       one: "1 round"
       other: "%{count} rounds"

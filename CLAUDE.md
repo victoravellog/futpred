@@ -69,12 +69,18 @@ bundle exec sidekiq
 ## Modelo de datos
 
 ```
-Organization → Tournament → Round → Fixture → Prediction
-     ↓              ↓
-Membership      TournamentTeam → Team
+Tournament (global) ←→ Organization (N:N via OrganizationTournament)
+     ↓                        ↓
+   Round                 Membership
+     ↓                        ↓
+  Fixture                   User
      ↓
-   User
+TournamentTeam → Team
+
+OrganizationTournament → Prediction (las predicciones pertenecen al contexto org+torneo)
 ```
+
+Los torneos son globales (ej: Mundial 2026) y las organizaciones los agregan para competir.
 
 ## Sistema de puntos
 

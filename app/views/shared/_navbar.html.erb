@@ -2,7 +2,9 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex items-center space-x-8">
-        <%= link_to t("app_name"), root_path, class: "text-xl font-bold text-indigo-600" %>
+        <%= link_to root_path, class: "inline-block w-fit" do %>
+          <%= image_tag "futpred-logo-navbar.svg", alt: t("app_name"), class: "h-14 w-auto" %>
+        <% end %>
         <% if Current.user.organizations.any? %>
           <div class="hidden md:flex space-x-4">
             <% Current.user.organizations.limit(3).each do |org| %>

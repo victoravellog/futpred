@@ -8,19 +8,25 @@ class TournamentsController < ApplicationController
 
   def show
     @rounds = @tournament.rounds.includes(fixtures: [ :home_team, :away_team, :predictions ])
+    @user_points = Prediction.joins(fixture: :round)
+                             .where(rounds: { tournament_id: @tournament.id })
+                             .where(user: Current.user)
+                             .sum(:points_earned)
   end
 
   def new
-    @tournament = @organization.tournaments.build
+    existing_ids = @organization.tournament_ids
+    @available_tournaments = Tournament.where.not(id: existing_ids).order(:name)
   end
 
   def create
-    @tournament = @organization.tournaments.build(tournament_params)
-    if @tournament.save
-      redirect_to organization_tournaments_path(@organization), notice: "Torneo creado exitosamente"
-    else
-      render :new, status: :unprocessable_entity
-    end
+    tournament = Tournament.find(params[:tournament_id])
+    @organization.tournaments << tournament
+    redirect_to organization_path(@organization), notice: t("tournaments.added")
+  rescue ActiveRecord::RecordNotUnique
+    redirect_to organization_path(@organization), alert: t("tournaments.already_added")
+  rescue ActiveRecord::RecordNotFound
+    redirect_to new_organization_tournament_path(@organization), alert: t("tournaments.not_found")
   end
 
   private
@@ -30,12 +36,9 @@ class TournamentsController < ApplicationController
   end
 
   def set_tournament
-    @tournament = Tournament.joins(organization: :memberships)
+    @tournament = Tournament.joins(:organization_tournaments)
+                            .joins("INNER JOIN memberships ON memberships.organization_id = organization_tournaments.organization_id")
                             .where(memberships: { user_id: Current.user.id })
                             .find(params[:id])
-  end
-
-  def tournament_params
-    params.require(:tournament).permit(:name)
   end
 end

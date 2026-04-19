@@ -1,6 +1,7 @@
 victor_argentina_brasil:
   user: victor
   fixture: argentina_brasil
+  organization_tournament: liga_copa_america
   predicted_home_score: 2
   predicted_away_score: 1
   points_earned:
@@ -8,6 +9,7 @@ victor_argentina_brasil:
 juan_argentina_brasil:
   user: juan
   fixture: argentina_brasil
+  organization_tournament: liga_copa_america
   predicted_home_score: 1
   predicted_away_score: 1
   points_earned:
@@ -15,6 +17,7 @@ juan_argentina_brasil:
 victor_finished:
   user: victor
   fixture: argentina_chile_finished
+  organization_tournament: liga_copa_america
   predicted_home_score: 2
   predicted_away_score: 1
   points_earned: 5

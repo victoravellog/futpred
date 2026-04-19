@@ -1,9 +1,10 @@
 require "rails_helper"
 
 RSpec.describe CalculatePredictionScore do
-  fixtures :users, :organizations, :tournaments, :rounds, :teams, :fixtures, :predictions
+  fixtures :users, :organizations, :tournaments, :organization_tournaments, :rounds, :teams, :fixtures, :predictions
 
   let(:finished_fixture) { fixtures(:argentina_chile_finished) }
+  let(:organization_tournament) { organization_tournaments(:liga_copa_america) }
 
   describe ".call" do
     context "when prediction has exact score" do
@@ -11,6 +12,7 @@ RSpec.describe CalculatePredictionScore do
         prediction = Prediction.new(
           user: users(:maria),
           fixture: finished_fixture,
+          organization_tournament: organization_tournament,
           predicted_home_score: 2,
           predicted_away_score: 1
         )
@@ -29,6 +31,7 @@ RSpec.describe CalculatePredictionScore do
         prediction = Prediction.new(
           user: users(:maria),
           fixture: finished_fixture,
+          organization_tournament: organization_tournament,
           predicted_home_score: 3,
           predicted_away_score: 0
         )
@@ -46,6 +49,7 @@ RSpec.describe CalculatePredictionScore do
         prediction = Prediction.new(
           user: users(:maria),
           fixture: finished_fixture,
+          organization_tournament: organization_tournament,
           predicted_home_score: 0,
           predicted_away_score: 2
         )

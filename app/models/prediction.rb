@@ -1,10 +1,11 @@
 class Prediction < ApplicationRecord
   belongs_to :user
   belongs_to :fixture
+  belongs_to :organization_tournament
 
   validates :predicted_home_score, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :predicted_away_score, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :user_id, uniqueness: { scope: :fixture_id }
+  validates :user_id, uniqueness: { scope: [:fixture_id, :organization_tournament_id] }
   validate :fixture_must_be_predictable, on: :create
 
   def predicted_result

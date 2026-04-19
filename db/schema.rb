@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
+ActiveRecord::Schema[8.0].define(version: 2026_04_19_140618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
+  create_table "organization_tournaments", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "tournament_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id", "tournament_id"], name: "idx_org_tournaments_unique", unique: true
+    t.index ["organization_id"], name: "index_organization_tournaments_on_organization_id"
+    t.index ["tournament_id"], name: "index_organization_tournaments_on_tournament_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -56,7 +66,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
     t.integer "points_earned"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "organization_tournament_id"
     t.index ["fixture_id"], name: "index_predictions_on_fixture_id"
+    t.index ["organization_tournament_id"], name: "index_predictions_on_organization_tournament_id"
     t.index ["user_id", "fixture_id"], name: "index_predictions_on_user_id_and_fixture_id", unique: true
     t.index ["user_id"], name: "index_predictions_on_user_id"
   end
@@ -86,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
     t.string "external_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "country_code"
     t.index ["external_id"], name: "index_teams_on_external_id", unique: true
   end
 
@@ -101,10 +114,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
   create_table "tournaments", force: :cascade do |t|
     t.string "name"
     t.string "external_id"
-    t.bigint "organization_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organization_id"], name: "index_tournaments_on_organization_id"
+    t.string "logo_url"
   end
 
   create_table "users", force: :cascade do |t|
@@ -120,11 +132,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_04_18_183446) do
   add_foreign_key "fixtures", "teams", column: "home_team_id"
   add_foreign_key "memberships", "organizations"
   add_foreign_key "memberships", "users"
+  add_foreign_key "organization_tournaments", "organizations"
+  add_foreign_key "organization_tournaments", "tournaments"
   add_foreign_key "predictions", "fixtures"
+  add_foreign_key "predictions", "organization_tournaments"
   add_foreign_key "predictions", "users"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "sessions", "users"
   add_foreign_key "tournament_teams", "teams"
   add_foreign_key "tournament_teams", "tournaments"
-  add_foreign_key "tournaments", "organizations"
 end
