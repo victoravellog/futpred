@@ -1,5 +1,23 @@
 # Deploy en Railway
 
+El deploy se hace automáticamente via GitHub Actions cuando creas una release (tag `v*`).
+
+## Setup inicial (una sola vez)
+
+### 1. Crear token de Railway
+
+1. Ve a [railway.app/account/tokens](https://railway.app/account/tokens)
+2. Create Token → copia el token
+3. En GitHub repo → Settings → Secrets → Actions
+4. New secret: `RAILWAY_TOKEN` = el token copiado
+
+### 2. Deshabilitar auto-deploy
+
+En Railway, para cada servicio:
+1. Settings → Deploy → Automatic Deploys → OFF
+
+Así solo se deploya cuando creas una release.
+
 ## Servicios necesarios
 
 1. **PostgreSQL** - Base de datos
