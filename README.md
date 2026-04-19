@@ -24,7 +24,19 @@ Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, 
 
 - Docker y Docker Compose
 
-### Instalación
+### Probar rápido (sin clonar)
+
+```bash
+# Descargar docker-compose de producción
+curl -O https://raw.githubusercontent.com/victoravellog/futpred/master/docker-compose.prod.yml
+
+# Iniciar (descarga la imagen automáticamente)
+docker compose -f docker-compose.prod.yml up
+```
+
+Abre http://localhost:3000 y crea tu cuenta.
+
+### Instalación para desarrollo
 
 ```bash
 # Clonar el repositorio
@@ -84,7 +96,19 @@ Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.7
 
 - Docker and Docker Compose
 
-### Installation
+### Quick start (no cloning)
+
+```bash
+# Download production docker-compose
+curl -O https://raw.githubusercontent.com/victoravellog/futpred/master/docker-compose.prod.yml
+
+# Start (downloads image automatically)
+docker compose -f docker-compose.prod.yml up
+```
+
+Open http://localhost:3000 and create your account.
+
+### Development installation
 
 ```bash
 # Clone the repository
