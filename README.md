@@ -156,6 +156,11 @@ docker compose down
 - **Jobs**: Sidekiq + Redis
 - **Testing**: RSpec
 
+## Deploy
+
+- **Railway**: Ver [docs/DEPLOY_RAILWAY.md](docs/DEPLOY_RAILWAY.md)
+- **Docker**: Usar `docker-compose.prod.yml`
+
 ## License
 
 MIT
