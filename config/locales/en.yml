@@ -15,6 +15,17 @@ en:
     no_account: "Don't have an account?"
     login_button: "Sign in"
     register_button: "Create account"
+    account_created: "Account created successfully"
+
+  invites:
+    title: "You've been invited"
+    invited_to: "You've been invited to join %{organization}"
+    join: "Join"
+    joined: "You've joined the organization"
+    already_member: "You're already a member of this organization"
+    register_first: "Create an account to join the organization"
+    copy_link: "Copy invite link"
+    copied: "Copied!"
 
   passwords:
     forgot_title: "Forgot your password?"

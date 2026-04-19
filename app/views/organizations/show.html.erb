@@ -13,8 +13,14 @@
         <h1 class="text-2xl font-bold text-gray-900"><%= @organization.name %></h1>
         <p class="text-gray-500"><%= t("dashboard.members_count", count: @organization.users.count) %></p>
       </div>
-      <%= link_to t("organizations.new_tournament"), new_organization_tournament_path(@organization),
-          class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
+      <div class="flex items-center space-x-3">
+        <button type="button" onclick="navigator.clipboard.writeText('<%= invite_url(@organization.invite_token) %>');this.textContent='<%= t("invites.copied") %>'"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+          📋 <%= t("invites.copy_link") %>
+        </button>
+        <%= link_to t("organizations.new_tournament"), new_organization_tournament_path(@organization),
+            class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700" %>
+      </div>
     </div>
 
     <% if @tournaments.any? %>

@@ -1,7 +1,9 @@
 liga_amigos:
   name: Liga de Amigos
   slug: liga-de-amigos
+  invite_token: abc123liga
 
 oficina:
   name: Prode Oficina
   slug: prode-oficina
+  invite_token: xyz789ofic
