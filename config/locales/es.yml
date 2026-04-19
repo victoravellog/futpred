@@ -1,4 +1,10 @@
 es:
+  date:
+    formats:
+      long: "%A %d de %B"
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+
   app_name: "FutPred"
 
   nav:
@@ -123,6 +129,10 @@ es:
     points_0: "0 puntos"
     predicted: "Predijiste %{home} - %{away}"
     multiplier_note: "Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, Final x2"
+
+  errors:
+    messages:
+      blank: "no puede estar en blanco"
 
   activerecord:
     errors:

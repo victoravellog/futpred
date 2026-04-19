@@ -4,7 +4,7 @@
       <div class="flex-1">
         <div class="flex items-center space-x-4">
           <div class="flex-1 flex items-center justify-end space-x-2">
-            <span class="font-medium text-gray-900"><%= fixture.home_team.name %></span>
+            <span class="font-medium text-gray-900"><%= fixture.home_team.display_name %></span>
             <%= render "teams/logo", team: fixture.home_team %>
           </div>
 
@@ -24,13 +24,15 @@
 
           <div class="flex-1 flex items-center space-x-2">
             <%= render "teams/logo", team: fixture.away_team %>
-            <span class="font-medium text-gray-900"><%= fixture.away_team.name %></span>
+            <span class="font-medium text-gray-900"><%= fixture.away_team.display_name %></span>
           </div>
         </div>
 
         <div class="mt-1 text-center">
-          <span class="text-xs text-gray-500">
-            <%= l(fixture.kickoff_at, format: :short) rescue fixture.kickoff_at.strftime("%d/%m %H:%M") %>
+          <span class="text-xs text-gray-500"
+                data-controller="local-time"
+                data-local-time-datetime-value="<%= fixture.kickoff_at.iso8601 %>">
+            <%= fixture.kickoff_at.strftime("%d/%m %H:%M") %> UTC
           </span>
         </div>
       </div>

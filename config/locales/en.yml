@@ -1,4 +1,8 @@
 en:
+  date:
+    formats:
+      long: "%A, %B %d"
+
   app_name: "FutPred"
 
   nav:

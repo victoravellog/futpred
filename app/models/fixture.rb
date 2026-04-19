@@ -4,7 +4,7 @@ class Fixture < ApplicationRecord
   belongs_to :away_team, class_name: "Team"
   has_many :predictions, dependent: :destroy
 
-  enum :status, { scheduled: 0, live: 1, finished: 2 }
+  enum :status, { scheduled: 0, live: 1, finished: 2, cancelled: 3 }
 
   validates :kickoff_at, presence: true
 

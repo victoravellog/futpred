@@ -64,6 +64,19 @@ bundle exec rspec spec/models/
 
 # Sidekiq
 bundle exec sidekiq
+
+# Football-Data.org API
+bin/rails football_data:competitions          # Listar competiciones disponibles
+bin/rails football_data:import[WC]            # Importar Mundial (WC = World Cup)
+bin/rails football_data:import[EC]            # Importar Eurocopa
+bin/rails football_data:import[CL]            # Importar Champions League
+bin/rails football_data:sync                  # Sincronizar resultados
+```
+
+## Variables de entorno
+
+```bash
+FOOTBALL_DATA_API_KEY=tu_api_key  # Obtener en https://www.football-data.org/
 ```
 
 ## Modelo de datos

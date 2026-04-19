@@ -5,4 +5,8 @@ class Team < ApplicationRecord
   has_many :away_fixtures, class_name: "Fixture", foreign_key: :away_team_id, dependent: :destroy
 
   validates :name, presence: true
+
+  def display_name
+    TeamNames.translate(name)
+  end
 end

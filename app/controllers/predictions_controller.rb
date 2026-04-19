@@ -12,6 +12,7 @@ class PredictionsController < ApplicationController
   def create
     @prediction = @fixture.predictions.build(prediction_params)
     @prediction.user = Current.user
+    @prediction.organization_tournament = find_organization_tournament
 
     if @prediction.save
       respond_to do |format|
@@ -43,7 +44,8 @@ class PredictionsController < ApplicationController
   private
 
   def set_fixture
-    @fixture = Fixture.joins(round: { tournament: { organization: :memberships } })
+    @fixture = Fixture.joins(round: { tournament: :organization_tournaments })
+                      .joins("INNER JOIN memberships ON memberships.organization_id = organization_tournaments.organization_id")
                       .where(memberships: { user_id: Current.user.id })
                       .find(params[:fixture_id])
   end
@@ -54,5 +56,13 @@ class PredictionsController < ApplicationController
 
   def prediction_params
     params.require(:prediction).permit(:predicted_home_score, :predicted_away_score)
+  end
+
+  def find_organization_tournament
+    tournament = @fixture.round.tournament
+    OrganizationTournament
+      .joins(:organization => :memberships)
+      .where(tournament: tournament, memberships: { user_id: Current.user.id })
+      .first
   end
 end

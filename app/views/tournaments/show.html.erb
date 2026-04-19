@@ -60,11 +60,27 @@
               </div>
             </div>
 
-            <div class="divide-y divide-gray-200">
-              <% round.fixtures.each do |fixture| %>
-                <%= render "fixtures/fixture_row", fixture: fixture %>
+            <% if round.fixtures.count > 10 %>
+              <% round.fixtures.order(:kickoff_at).group_by { |f| f.kickoff_at.to_date }.each do |date, fixtures| %>
+                <details class="group">
+                  <summary class="px-6 py-3 bg-gray-100 cursor-pointer hover:bg-gray-200 flex justify-between items-center">
+                    <span class="font-medium text-gray-700"><%= l(date, format: :long) %></span>
+                    <span class="text-sm text-gray-500"><%= t("tournaments.fixtures_count", count: fixtures.count) %></span>
+                  </summary>
+                  <div class="divide-y divide-gray-200">
+                    <% fixtures.each do |fixture| %>
+                      <%= render "fixtures/fixture_row", fixture: fixture %>
+                    <% end %>
+                  </div>
+                </details>
               <% end %>
-            </div>
+            <% else %>
+              <div class="divide-y divide-gray-200">
+                <% round.fixtures.order(:kickoff_at).each do |fixture| %>
+                  <%= render "fixtures/fixture_row", fixture: fixture %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         <% end %>
       </div>
