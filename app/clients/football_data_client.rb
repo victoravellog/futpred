@@ -4,7 +4,7 @@ require "json"
 class FootballDataClient
   BASE_URL = "https://api.football-data.org/v4"
 
-  def initialize(api_key: ENV["FOOTBALL_DATA_API_KEY"])
+  def initialize(api_key: Rails.application.credentials.football_data_api_key)
     @api_key = api_key
   end
 

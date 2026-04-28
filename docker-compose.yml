@@ -21,7 +21,8 @@ services:
     stdin_open: true
     tty: true
     dns:
-      - 127.0.0.11
+      - 8.8.8.8
+      - 8.8.4.4
     networks:
       - futpred
 
@@ -44,7 +45,8 @@ services:
       redis:
         condition: service_started
     dns:
-      - 127.0.0.11
+      - 8.8.8.8
+      - 8.8.4.4
     networks:
       - futpred
 
