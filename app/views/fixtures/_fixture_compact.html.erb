@@ -16,11 +16,14 @@
 
     <%# Marcador %>
     <% if fixture.finished? %>
-      <span class="font-semibold text-white w-10 text-center"><%= fixture.home_score %>-<%= fixture.away_score %></span>
+      <span class="font-semibold text-white w-12 text-center"><%= fixture.home_score %>-<%= fixture.away_score %></span>
     <% elsif fixture.live? %>
-      <span class="text-xs text-red-400 font-medium w-10 text-center animate-pulse">LIVE</span>
+      <div class="flex items-center justify-center gap-1 w-12">
+        <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+        <span class="text-xs text-red-400 font-semibold"><%= fixture.home_score || 0 %>-<%= fixture.away_score || 0 %></span>
+      </div>
     <% else %>
-      <span class="text-white/30 w-10 text-center">vs</span>
+      <span class="text-white/30 w-12 text-center">vs</span>
     <% end %>
 
     <%# Visitante %>

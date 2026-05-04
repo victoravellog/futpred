@@ -1,5 +1,13 @@
 <%= turbo_frame_tag dom_id(fixture) do %>
-  <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 p-2.5 hover:bg-white/15 transition-colors" id="<%= dom_id(fixture, :container) %>">
+  <div class="<%= fixture.live? ? 'bg-red-500/10 border-red-500/30' : 'bg-white/10 border-white/10' %> backdrop-blur-sm rounded-lg border p-2.5 hover:bg-white/15 transition-colors relative overflow-visible" id="<%= dom_id(fixture, :container) %>">
+    <% if fixture.live? %>
+      <%# Badge LIVE %>
+      <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-red-600 px-2 py-0.5 rounded-full z-10">
+        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+        <span class="text-[10px] font-bold text-white uppercase tracking-wide">Live</span>
+      </div>
+    <% end %>
+
     <%# Fecha y hora %>
     <div class="text-[10px] text-white/50 mb-2 text-center">
       <span data-controller="local-time"
@@ -21,7 +29,7 @@
       <% if fixture.finished? %>
         <span class="text-sm font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
       <% elsif fixture.live? %>
-        <span class="text-[10px] font-medium text-red-400 animate-pulse"><%= t("fixtures.live") %></span>
+        <span class="text-sm font-bold text-red-400"><%= fixture.home_score || 0 %> - <%= fixture.away_score || 0 %></span>
       <% else %>
         <span class="text-[10px] text-white/30">vs</span>
       <% end %>
