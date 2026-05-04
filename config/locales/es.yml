@@ -111,6 +111,7 @@ es:
     save: "Guardar"
     saved: "Predicción guardada"
     updated: "Predicción actualizada"
+    pending: "Predicción pendiente"
     your_prediction: "Tu predicción"
     points: "+%{points} pts"
     closed: "ya no acepta predicciones"

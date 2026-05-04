@@ -1,17 +1,28 @@
 <% if fixture.predictable? %>
-  <%= form_with model: prediction, url: fixture_prediction_path(fixture),
-      method: prediction.persisted? ? :patch : :post,
-      class: "flex items-center gap-1.5" do |f| %>
-    <%= f.number_field :predicted_home_score, min: 0, max: 20, value: prediction.predicted_home_score,
-        class: "w-10 text-center px-1 py-1 bg-white/10 border border-white/20 rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent",
-        placeholder: "0" %>
-    <span class="text-white/40 text-sm">-</span>
-    <%= f.number_field :predicted_away_score, min: 0, max: 20, value: prediction.predicted_away_score,
-        class: "w-10 text-center px-1 py-1 bg-white/10 border border-white/20 rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent",
-        placeholder: "0" %>
-    <%= f.submit "✓",
-        class: "ml-1 px-2.5 py-1 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded cursor-pointer transition-all duration-150" %>
-  <% end %>
+  <div class="flex items-center gap-1.5">
+    <% if !prediction.persisted? %>
+      <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" title="<%= t('predictions.pending') %>"></span>
+    <% end %>
+    <%= form_with model: prediction, url: fixture_prediction_path(fixture),
+        method: prediction.persisted? ? :patch : :post,
+        class: "flex items-center gap-1.5" do |f| %>
+      <%= f.number_field :predicted_home_score, min: 0, max: 20, value: prediction.predicted_home_score,
+          class: "w-10 text-center px-1 py-1 bg-white/10 border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'} rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent",
+          placeholder: "0" %>
+      <span class="text-white/40 text-sm">-</span>
+      <%= f.number_field :predicted_away_score, min: 0, max: 20, value: prediction.predicted_away_score,
+          class: "w-10 text-center px-1 py-1 bg-white/10 border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'} rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent",
+          placeholder: "0" %>
+      <% if prediction.persisted? %>
+        <%= f.submit "✓",
+            class: "ml-1 px-2.5 py-1 text-sm font-medium text-white bg-green-600 hover:bg-green-500 rounded cursor-pointer transition-all duration-150",
+            title: t('predictions.saved') %>
+      <% else %>
+        <%= f.submit t("predictions.save"),
+            class: "ml-1 px-2.5 py-1 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded cursor-pointer transition-all duration-150" %>
+      <% end %>
+    <% end %>
+  </div>
   <% if prediction.errors.any? %>
     <p class="mt-1 text-xs text-red-400"><%= prediction.errors.full_messages.first %></p>
   <% end %>
