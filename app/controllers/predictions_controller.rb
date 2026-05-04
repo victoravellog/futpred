@@ -61,7 +61,7 @@ class PredictionsController < ApplicationController
   def find_organization_tournament
     tournament = @fixture.round.tournament
     OrganizationTournament
-      .joins(:organization => :memberships)
+      .joins(organization: :memberships)
       .where(tournament: tournament, memberships: { user_id: Current.user.id })
       .first
   end

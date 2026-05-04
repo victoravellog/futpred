@@ -7,6 +7,6 @@ class CreateOrganizationTournaments < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :organization_tournaments, [:organization_id, :tournament_id], unique: true, name: "idx_org_tournaments_unique"
+    add_index :organization_tournaments, [ :organization_id, :tournament_id ], unique: true, name: "idx_org_tournaments_unique"
   end
 end

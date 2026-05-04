@@ -12,7 +12,7 @@ namespace :football_data do
   end
 
   desc "Import a competition (e.g., rails football_data:import[WC])"
-  task :import, [:code] => :environment do |_t, args|
+  task :import, [ :code ] => :environment do |_t, args|
     code = args[:code]
     abort "Usage: rails football_data:import[CODE]" unless code
 
