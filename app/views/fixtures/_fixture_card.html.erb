@@ -1,0 +1,43 @@
+<%= turbo_frame_tag dom_id(fixture) do %>
+  <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 p-2.5 hover:bg-white/15 transition-colors" id="<%= dom_id(fixture, :container) %>">
+    <%# Fecha y hora %>
+    <div class="text-[10px] text-white/50 mb-2 text-center">
+      <span data-controller="local-time"
+            data-local-time-datetime-value="<%= fixture.kickoff_at.iso8601 %>"
+            data-local-time-format-value="time">
+        <%= fixture.kickoff_at.strftime("%H:%M") %>
+      </span>
+    </div>
+
+    <%# Equipos y marcador %>
+    <div class="flex flex-col items-center gap-1.5">
+      <%# Local %>
+      <div class="flex items-center gap-1.5 w-full justify-center">
+        <%= render "teams/logo", team: fixture.home_team, size: :small %>
+        <span class="text-xs font-medium text-white truncate max-w-20"><%= fixture.home_team.display_name %></span>
+      </div>
+
+      <%# Marcador o VS %>
+      <% if fixture.finished? %>
+        <span class="text-sm font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+      <% elsif fixture.live? %>
+        <span class="text-[10px] font-medium text-red-400 animate-pulse"><%= t("fixtures.live") %></span>
+      <% else %>
+        <span class="text-[10px] text-white/30">vs</span>
+      <% end %>
+
+      <%# Visitante %>
+      <div class="flex items-center gap-1.5 w-full justify-center">
+        <%= render "teams/logo", team: fixture.away_team, size: :small %>
+        <span class="text-xs font-medium text-white truncate max-w-20"><%= fixture.away_team.display_name %></span>
+      </div>
+    </div>
+
+    <%# Predicción %>
+    <div class="mt-2 pt-2 border-t border-white/10">
+      <div class="flex justify-center">
+        <%= render "predictions/form", fixture: fixture, prediction: fixture.predictions.find_by(user: Current.user) || fixture.predictions.build %>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -92,6 +92,12 @@ en:
     fixtures_count:
       one: "1 fixture"
       other: "%{count} fixtures"
+    upcoming_matches: "Upcoming matches"
+    today: "Today"
+    tomorrow: "Tomorrow"
+    more_matches:
+      one: "and 1 more match..."
+      other: "and %{count} more matches..."
 
   fixtures:
     live: "LIVE"

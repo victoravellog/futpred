@@ -1,16 +1,16 @@
-<div class="min-h-screen bg-gray-50">
+<div class="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
   <%= render "shared/navbar" %>
 
   <main class="max-w-4xl mx-auto py-12 px-4">
     <div class="mb-8">
-      <h2 class="text-2xl font-bold text-gray-900"><%= t("tournaments.add_tournament") %></h2>
-      <p class="mt-2 text-gray-600"><%= t("tournaments.select_to_add") %></p>
+      <h2 class="text-2xl font-bold text-white"><%= t("tournaments.add_tournament") %></h2>
+      <p class="mt-2 text-white/60"><%= t("tournaments.select_to_add") %></p>
     </div>
 
     <% if @available_tournaments.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @available_tournaments.each do |tournament| %>
-          <div class="bg-white rounded-lg shadow hover:shadow-md transition-shadow">
+          <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/15 transition-colors">
             <div class="p-6">
               <div class="flex items-center space-x-4">
                 <% if tournament.logo_url.present? %>
@@ -20,32 +20,32 @@
                   <span class="text-5xl">🏆</span>
                 <% end %>
                 <div class="flex-1">
-                  <h3 class="text-lg font-semibold text-gray-900"><%= tournament.name %></h3>
+                  <h3 class="text-lg font-semibold text-white"><%= tournament.name %></h3>
                 </div>
               </div>
               <div class="mt-4">
                 <%= button_to t("tournaments.add"), organization_tournaments_path(@organization, tournament_id: tournament.id),
                     method: :post,
-                    class: "w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
+                    class: "w-full py-2 px-4 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 cursor-pointer transition-colors" %>
               </div>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
-      <div class="bg-white rounded-lg shadow p-8 text-center">
+      <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 p-8 text-center">
         <span class="text-5xl">✅</span>
-        <h3 class="mt-4 text-lg font-medium text-gray-900"><%= t("tournaments.all_added") %></h3>
-        <p class="mt-2 text-gray-500"><%= t("tournaments.no_available") %></p>
+        <h3 class="mt-4 text-lg font-medium text-white"><%= t("tournaments.all_added") %></h3>
+        <p class="mt-2 text-white/60"><%= t("tournaments.no_available") %></p>
         <%= link_to t("common.back"), organization_path(@organization),
-            class: "mt-4 inline-block py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50" %>
+            class: "mt-4 inline-block py-2 px-4 bg-white/10 border border-white/20 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" %>
       </div>
     <% end %>
 
     <% if @available_tournaments.any? %>
       <div class="mt-8">
         <%= link_to t("common.back"), organization_path(@organization),
-            class: "text-indigo-600 hover:text-indigo-500" %>
+            class: "text-indigo-400 hover:text-indigo-300 transition-colors" %>
       </div>
     <% end %>
   </main>

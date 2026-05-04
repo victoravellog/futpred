@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import LocalTimeController from "./local_time_controller"
 application.register("local-time", LocalTimeController)
+
+import PredictionFormController from "./prediction_form_controller"
+application.register("prediction-form", PredictionFormController)

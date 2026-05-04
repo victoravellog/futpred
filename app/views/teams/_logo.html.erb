@@ -1,8 +1,23 @@
+<%
+  size ||= :default
+  text_size = case size
+              when :small then "text-base"
+              when :medium then "text-2xl"
+              when :large then "text-3xl"
+              else "text-xl"
+              end
+  img_size = case size
+             when :small then "w-4 h-4"
+             when :medium then "w-8 h-8"
+             when :large then "w-10 h-10"
+             else "w-6 h-6"
+             end
+%>
 <% if team.country_code.present? %>
-  <span class="text-xl"><%= country_flag(team.country_code) %></span>
+  <span class="<%= text_size %>"><%= country_flag(team.country_code) %></span>
 <% elsif team.logo_url.present? %>
-  <img src="<%= team.logo_url %>" alt="<%= team.name %>" class="w-6 h-6 object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-  <span class="text-xl" style="display:none">⚽</span>
+  <img src="<%= team.logo_url %>" alt="<%= team.name %>" class="<%= img_size %> object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+  <span class="<%= text_size %>" style="display:none">⚽</span>
 <% else %>
-  <span class="text-xl">⚽</span>
+  <span class="<%= text_size %>">⚽</span>
 <% end %>

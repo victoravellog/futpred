@@ -1,14 +1,23 @@
-<div class="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-  <%= image_tag "futpred-logo.svg", alt: t("app_name"), class: "h-32 mb-8" %>
+<div class="min-h-screen flex items-center justify-center relative">
+  <%# Background image with blur %>
+  <div class="absolute inset-0 z-0">
+    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105" %>
+    <div class="absolute inset-0 bg-black/40"></div>
+  </div>
 
-  <div class="max-w-md w-full p-8 bg-white rounded-lg shadow text-center">
-    <h2 class="text-2xl font-bold text-gray-900 mb-4"><%= t("invites.title") %></h2>
-    <p class="text-gray-600 mb-6">
-      <%= t("invites.invited_to", organization: @organization.name) %>
-    </p>
+  <%# Content %>
+  <div class="relative z-10 flex flex-col items-center px-6 py-12">
+    <%= image_tag "futpred-logo.svg", alt: t("app_name"), class: "h-40 drop-shadow-lg mb-8" %>
 
-    <%= button_to t("invites.join"), accept_invite_path(@organization.invite_token),
-        method: :post,
-        class: "w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 cursor-pointer" %>
+    <div class="max-w-md w-full text-center">
+      <h2 class="text-3xl font-bold text-white drop-shadow-lg mb-4"><%= t("invites.title") %></h2>
+      <p class="text-lg text-white/80 mb-8">
+        <%= t("invites.invited_to", organization: @organization.name) %>
+      </p>
+
+      <%= button_to t("invites.join"), accept_invite_path(@organization.invite_token),
+          method: :post,
+          class: "w-full py-3 px-4 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-500 cursor-pointer transition-colors shadow-lg" %>
+    </div>
   </div>
 </div>
