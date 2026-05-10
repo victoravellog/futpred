@@ -1,27 +1,45 @@
-name: Deploy to Railway
+name: Deploy
 
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+  RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+  FUTPRED_DATABASE_PASSWORD: ${{ secrets.FUTPRED_DATABASE_PASSWORD }}
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Railway CLI
-        run: npm install -g @railway/cli
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+          bundler-cache: true
 
-      - name: Deploy to Railway
-        run: railway up --service web --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Deploy Sidekiq worker
-        run: railway up --service worker --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Add server to known_hosts
+        run: ssh-keyscan -H 135.181.33.41 >> ~/.ssh/known_hosts
+
+      - name: Deploy with Kamal
+        run: kamal deploy
