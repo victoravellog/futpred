@@ -9,6 +9,7 @@ es:
 
   nav:
     logout: "Salir"
+    new_organization: "Nuevo grupo"
 
   auth:
     login: "Iniciar sesión"
@@ -27,9 +28,9 @@ es:
     title: "Te han invitado"
     invited_to: "Te han invitado a unirte a %{organization}"
     join: "Unirme"
-    joined: "Te has unido a la organización"
-    already_member: "Ya eres miembro de esta organización"
-    register_first: "Crea una cuenta para unirte a la organización"
+    joined: "Te has unido al grupo"
+    already_member: "Ya eres miembro de este grupo"
+    register_first: "Crea una cuenta para unirte al grupo"
     copy_link: "Copiar link de invitación"
     copied: "Copiado!"
 
@@ -44,10 +45,10 @@ es:
     update_password: "Actualizar contraseña"
 
   dashboard:
-    my_organizations: "Mis organizaciones"
-    new_organization: "Nueva organización"
-    no_organizations: "No perteneces a ninguna organización todavía."
-    create_organization: "Crear organización"
+    my_organizations: "Mis grupos"
+    new_organization: "Nuevo grupo"
+    no_organizations: "No perteneces a ningún grupo todavía."
+    create_organization: "Crear grupo"
     members_count:
       one: "1 miembro"
       other: "%{count} miembros"
@@ -56,15 +57,15 @@ es:
       other: "%{count} torneos"
 
   organizations:
-    new: "Crear organización"
-    name: "Nombre de la organización"
-    name_placeholder: "Ej: Liga de amigos"
+    new: "Crear grupo"
+    name: "Nombre del grupo"
+    name_placeholder: "Ej: Los cracks del barrio"
     name_hint: "Este nombre será visible para todos los miembros"
-    create: "Crear organización"
+    create: "Crear grupo"
     cancel: "Cancelar"
-    created: "Organización creada exitosamente"
+    created: "Grupo creado exitosamente"
     new_tournament: "Agregar torneo"
-    no_tournaments: "No hay torneos en esta organización todavía."
+    no_tournaments: "No hay torneos en este grupo todavía."
     create_first_tournament: "Agregar primer torneo"
 
   common:
@@ -81,10 +82,10 @@ es:
     points_multiplier: "x%{multiplier} puntos"
     your_points: "Tus puntos: %{points}"
     add_tournament: "Agregar torneo"
-    select_to_add: "Selecciona un torneo para agregarlo a tu organización"
+    select_to_add: "Selecciona un torneo para agregarlo a tu grupo"
     add: "Agregar"
     added: "Torneo agregado exitosamente"
-    already_added: "Este torneo ya está en tu organización"
+    already_added: "Este torneo ya está en tu grupo"
     not_found: "Torneo no encontrado"
     all_added: "Ya tienes todos los torneos"
     no_available: "No hay más torneos disponibles para agregar."
