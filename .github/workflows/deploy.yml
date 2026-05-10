@@ -38,8 +38,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Add server to known_hosts
-        run: ssh-keyscan -H 135.181.33.41 >> ~/.ssh/known_hosts
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -t ed25519,rsa,ecdsa 135.181.33.41 >> ~/.ssh/known_hosts 2>/dev/null
+          echo -e "Host 135.181.33.41\n  StrictHostKeyChecking accept-new\n  UserKnownHostsFile ~/.ssh/known_hosts" >> ~/.ssh/config
 
       - name: Deploy with Kamal
         run: kamal deploy
