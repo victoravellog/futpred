@@ -1,10 +1,10 @@
 <%= turbo_frame_tag dom_id(fixture) do %>
-  <div class="<%= fixture.live? ? 'bg-red-500/10 border-red-500/30' : 'bg-white/10 border-white/10' %> backdrop-blur-sm rounded-lg border p-2.5 hover:bg-white/15 transition-colors relative overflow-visible" id="<%= dom_id(fixture, :container) %>">
+  <div class="<%= fixture.live? ? 'bg-red-500/10 border-red-500/30' : 'bg-white/10 border-white/10' %> backdrop-blur-sm rounded-lg border p-2.5 pb-3 hover:bg-white/15 transition-colors relative overflow-hidden" id="<%= dom_id(fixture, :container) %>">
     <% if fixture.live? %>
-      <%# Badge LIVE %>
-      <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 flex items-center gap-1 bg-red-600 px-2 py-0.5 rounded-full z-10">
-        <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-        <span class="text-[10px] font-bold text-white uppercase tracking-wide">Live</span>
+      <div class="absolute top-0 left-0 right-0 h-1 bg-red-500 rounded-t-lg"></div>
+      <div class="flex items-center justify-center gap-1 mb-1">
+        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+        <span class="text-[10px] font-bold text-red-400 uppercase tracking-wide">Live</span>
       </div>
     <% end %>
 
