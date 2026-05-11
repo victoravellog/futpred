@@ -108,3 +108,26 @@ Multiplicador por ronda (Round#scoring_multiplier):
 - Cuartos: x1.5
 - Semifinal: x1.75
 - Final: x2.0
+
+## Deploy (Kamal)
+
+Producción se deploya con **Kamal** a un servidor Hetzner.
+
+```bash
+# Deploy
+kamal deploy
+
+# Ver logs de producción
+kamal app logs -f
+
+# Consola Rails en producción
+kamal console
+
+# Shell en el contenedor
+kamal shell
+
+# Rollback
+kamal rollback
+```
+
+Configuración en `config/deploy.yml`. Usa libvips para procesamiento de imágenes (NO ImageMagick)

@@ -1,4 +1,4 @@
-require "image_processing/mini_magick"
+require "image_processing/vips"
 
 class ProcessAvatar < Actor
   input :file
@@ -8,7 +8,7 @@ class ProcessAvatar < Actor
   def call
     return if file.blank?
 
-    processed = ImageProcessing::MiniMagick
+    processed = ImageProcessing::Vips
       .source(file.tempfile)
       .resize_to_fill(200, 200)
       .saver(quality: 80)

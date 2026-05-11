@@ -7,6 +7,16 @@ class TournamentsController < ApplicationController
   end
 
   def show
+    user_orgs_with_tournament = Current.user.organizations
+                                            .joins(:organization_tournaments)
+                                            .where(organization_tournaments: { tournament_id: @tournament.id })
+
+    @organization = if params[:organization_id].present?
+                      user_orgs_with_tournament.find(params[:organization_id])
+                    else
+                      user_orgs_with_tournament.first!
+                    end
+
     @rounds = @tournament.rounds.includes(fixtures: [ :home_team, :away_team, :predictions ])
     @user_points = Prediction.joins(fixture: :round)
                              .where(rounds: { tournament_id: @tournament.id })
