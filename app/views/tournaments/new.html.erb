@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
+<div
   <%= render "shared/navbar" %>
 
   <main class="max-w-4xl mx-auto py-12 px-4">
@@ -10,7 +10,7 @@
     <% if @available_tournaments.any? %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <% @available_tournaments.each do |tournament| %>
-          <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/15 transition-colors">
+          <div class="card-interactive">
             <div class="p-6">
               <div class="flex items-center space-x-4">
                 <% if tournament.logo_url.present? %>
@@ -26,19 +26,18 @@
               <div class="mt-4">
                 <%= button_to t("tournaments.add"), organization_tournaments_path(@organization, tournament_id: tournament.id),
                     method: :post,
-                    class: "w-full py-2 px-4 rounded-lg text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 cursor-pointer transition-colors" %>
+                    class: "btn-primary w-full" %>
               </div>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
-      <div class="bg-white/10 backdrop-blur-sm rounded-lg border border-white/10 p-8 text-center">
+      <div class="card p-8 text-center">
         <span class="text-5xl">✅</span>
         <h3 class="mt-4 text-lg font-medium text-white"><%= t("tournaments.all_added") %></h3>
         <p class="mt-2 text-white/60"><%= t("tournaments.no_available") %></p>
-        <%= link_to t("common.back"), organization_path(@organization),
-            class: "mt-4 inline-block py-2 px-4 bg-white/10 border border-white/20 rounded-lg text-sm font-medium text-white hover:bg-white/20 transition-colors" %>
+        <%= link_to t("common.back"), organization_path(@organization), class: "btn-secondary mt-4" %>
       </div>
     <% end %>
 

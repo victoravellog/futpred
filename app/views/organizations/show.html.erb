@@ -1,11 +1,9 @@
-<div class="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
+<div
   <%= render "shared/navbar" %>
 
   <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <% if notice %>
-      <div class="mb-4 bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-green-300 px-4 py-3 rounded-lg">
-        <%= notice %>
-      </div>
+      <div class="mb-4 alert-success"><%= notice %></div>
     <% end %>
 
     <div class="flex justify-between items-center mb-6">
@@ -14,19 +12,17 @@
         <p class="text-white/60"><%= t("dashboard.members_count", count: @organization.users.count) %></p>
       </div>
       <div class="flex items-center space-x-3">
-        <button type="button" onclick="navigator.clipboard.writeText('<%= invite_url(@organization.invite_token) %>');this.textContent='<%= t("invites.copied") %>'"
-            class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 text-sm font-medium rounded-lg text-white hover:bg-white/20 transition-colors">
+        <button type="button" onclick="navigator.clipboard.writeText('<%= invite_url(@organization.invite_token) %>');this.textContent='<%= t("invites.copied") %>'" class="btn-secondary">
           📋 <%= t("invites.copy_link") %>
         </button>
-        <%= link_to t("organizations.new_tournament"), new_organization_tournament_path(@organization),
-            class: "inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 transition-colors" %>
+        <%= link_to t("organizations.new_tournament"), new_organization_tournament_path(@organization), class: "btn-primary" %>
       </div>
     </div>
 
     <% if @tournaments.any? %>
       <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <% @tournaments.each do |tournament| %>
-          <%= link_to tournament_path(tournament), class: "block bg-white/10 backdrop-blur-sm overflow-hidden border border-white/10 rounded-lg p-6 hover:bg-white/15 transition-colors" do %>
+          <%= link_to tournament_path(tournament), class: "block card-interactive p-6" do %>
             <div class="flex items-center space-x-4">
               <% if tournament.logo_url.present? %>
                 <img src="<%= tournament.logo_url %>" alt="<%= tournament.name %>" class="w-12 h-12 object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
@@ -46,10 +42,9 @@
         <% end %>
       </div>
     <% else %>
-      <div class="text-center py-12 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+      <div class="empty-state">
         <p class="text-white/50 mb-4"><%= t("organizations.no_tournaments") %></p>
-        <%= link_to t("organizations.create_first_tournament"), new_organization_tournament_path(@organization),
-            class: "inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 transition-colors" %>
+        <%= link_to t("organizations.create_first_tournament"), new_organization_tournament_path(@organization), class: "btn-primary" %>
       </div>
     <% end %>
   </main>

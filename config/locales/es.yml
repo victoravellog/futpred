@@ -71,6 +71,9 @@ es:
   common:
     back: "Volver"
 
+  footer:
+    made_with_love: "Hecho con ⚽ desde UK"
+
   tournaments:
     new: "Nuevo torneo"
     name: "Nombre del torneo"

@@ -22,7 +22,10 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="min-h-screen flex flex-col bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
+    <div class="flex-1">
+      <%= yield %>
+    </div>
+    <%= render "shared/footer" %>
   </body>
 </html>

@@ -69,6 +69,9 @@ en:
   common:
     back: "Back"
 
+  footer:
+    made_with_love: "Made with ⚽ from the UK"
+
   tournaments:
     new: "New tournament"
     name: "Tournament name"

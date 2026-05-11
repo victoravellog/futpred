@@ -1,7 +1,7 @@
-<div class="min-h-screen flex items-center justify-center relative">
+<div class="min-h-screen flex items-center justify-center relative bg-slate-900">
   <%# Background image with blur %>
-  <div class="absolute inset-0 z-0">
-    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105" %>
+  <div class="absolute inset-0 z-0 bg-slate-900">
+    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105", loading: "eager" %>
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
@@ -23,7 +23,7 @@
       </div>
 
       <% if @user.errors.any? %>
-        <div class="mb-4 bg-red-500/80 backdrop-blur-sm text-white px-4 py-3 rounded-lg">
+        <div class="mb-4 alert-error">
           <ul class="list-disc list-inside text-sm">
             <% @user.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -54,7 +54,7 @@
               class: "block w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
         </div>
 
-        <%= f.submit t("auth.register_button"), class: "w-full py-3 px-4 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors shadow-lg" %>
+        <%= f.submit t("auth.register_button"), class: "btn-primary btn-lg w-full shadow-lg" %>
       <% end %>
     </div>
   </div>

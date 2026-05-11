@@ -1,7 +1,7 @@
-<div class="min-h-screen flex items-center justify-center relative">
+<div class="min-h-screen flex items-center justify-center relative bg-slate-900">
   <%# Background image with blur %>
-  <div class="absolute inset-0 z-0">
-    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105" %>
+  <div class="absolute inset-0 z-0 bg-slate-900">
+    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105", loading: "eager" %>
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
@@ -17,7 +17,7 @@
 
       <%= button_to t("invites.join"), accept_invite_path(@organization.invite_token),
           method: :post,
-          class: "w-full py-3 px-4 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-500 cursor-pointer transition-colors shadow-lg" %>
+          class: "btn-primary btn-lg w-full shadow-lg" %>
     </div>
   </div>
 </div>

@@ -1,24 +1,21 @@
-<div class="min-h-screen bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
+<div
   <%= render "shared/navbar" %>
 
   <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
     <% if notice %>
-      <div class="mb-4 bg-green-500/20 backdrop-blur-sm border border-green-400/30 text-green-300 px-4 py-3 rounded-lg">
-        <%= notice %>
-      </div>
+      <div class="mb-4 alert-success"><%= notice %></div>
     <% end %>
 
     <div class="px-4 py-6 sm:px-0">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-white"><%= t("dashboard.my_organizations") %></h2>
-        <%= link_to t("dashboard.new_organization"), new_organization_path,
-            class: "inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 transition-colors" %>
+        <%= link_to t("dashboard.new_organization"), new_organization_path, class: "btn-primary" %>
       </div>
 
       <% if Current.user.organizations.any? %>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <% Current.user.organizations.each do |org| %>
-            <%= link_to organization_path(org), class: "block bg-white/10 backdrop-blur-sm overflow-hidden border border-white/10 rounded-lg p-6 hover:bg-white/15 transition-colors" do %>
+            <%= link_to organization_path(org), class: "block card-interactive p-6" do %>
               <h3 class="text-lg font-medium text-white"><%= org.name %></h3>
               <p class="text-sm text-white/60 mt-1">
                 <%= t("dashboard.members_count", count: org.users.count) %> ·
@@ -28,10 +25,9 @@
           <% end %>
         </div>
       <% else %>
-        <div class="text-center py-12 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
+        <div class="empty-state">
           <p class="text-white/50 mb-4"><%= t("dashboard.no_organizations") %></p>
-          <%= link_to t("dashboard.create_organization"), new_organization_path,
-              class: "inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-500 transition-colors" %>
+          <%= link_to t("dashboard.create_organization"), new_organization_path, class: "btn-primary" %>
         </div>
       <% end %>
     </div>

@@ -1,7 +1,7 @@
-<div class="min-h-screen flex items-center justify-center relative">
+<div class="min-h-screen flex items-center justify-center relative bg-slate-900">
   <%# Background image with blur %>
-  <div class="absolute inset-0 z-0">
-    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105" %>
+  <div class="absolute inset-0 z-0 bg-slate-900">
+    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105", loading: "eager" %>
     <div class="absolute inset-0 bg-black/40"></div>
   </div>
 
@@ -22,15 +22,11 @@
       </div>
 
       <% if flash[:alert] %>
-        <div class="mb-4 bg-red-500/80 backdrop-blur-sm text-white px-4 py-3 rounded-lg">
-          <%= flash[:alert] %>
-        </div>
+        <div class="mb-4 alert-error"><%= flash[:alert] %></div>
       <% end %>
 
       <% if flash[:notice] %>
-        <div class="mb-4 bg-green-500/80 backdrop-blur-sm text-white px-4 py-3 rounded-lg">
-          <%= flash[:notice] %>
-        </div>
+        <div class="mb-4 alert-success"><%= flash[:notice] %></div>
       <% end %>
 
       <%= form_with url: passwords_path, class: "space-y-4" do |f| %>
@@ -41,7 +37,7 @@
               class: "block w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
         </div>
 
-        <%= f.submit t("passwords.send_instructions"), class: "w-full py-3 px-4 rounded-lg text-white font-semibold bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-pointer transition-colors shadow-lg" %>
+        <%= f.submit t("passwords.send_instructions"), class: "btn-primary btn-lg w-full shadow-lg" %>
       <% end %>
 
       <div class="mt-4 text-center lg:text-left">
