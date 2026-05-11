@@ -17,7 +17,20 @@
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <span class="text-white/60 text-sm"><%= Current.user.email_address %></span>
+        <%= link_to profile_path, class: "flex items-center space-x-2 hover:opacity-80 transition-opacity" do %>
+          <% if Current.user.avatar.attached? %>
+            <%= image_tag Current.user.avatar, class: "w-8 h-8 rounded-full object-cover border border-white/20" %>
+          <% elsif Current.user.avatar_emoji %>
+            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/20 flex items-center justify-center">
+              <span class="text-lg"><%= Current.user.avatar_emoji %></span>
+            </div>
+          <% else %>
+            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/20 flex items-center justify-center">
+              <span class="text-sm text-white/80"><%= Current.user.display_name[0].upcase %></span>
+            </div>
+          <% end %>
+          <span class="text-white/80 text-sm hidden sm:inline"><%= Current.user.display_name %></span>
+        <% end %>
         <%= button_to t("nav.logout"), session_path, method: :delete, class: "text-sm text-white/50 hover:text-white transition-colors" %>
       </div>
     </div>

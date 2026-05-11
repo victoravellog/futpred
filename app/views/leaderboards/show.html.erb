@@ -41,12 +41,27 @@
                   <% end %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                  <span class="<%= user.id == Current.user.id ? 'font-bold text-indigo-400' : 'text-white' %>">
-                    <%= user.email_address.split('@').first %>
-                  </span>
-                  <% if user.id == Current.user.id %>
-                    <span class="ml-2 text-xs text-indigo-400"><%= t("leaderboard.you") %></span>
-                  <% end %>
+                  <div class="flex items-center space-x-3">
+                    <% if user.avatar.attached? %>
+                      <%= image_tag user.avatar, class: "w-8 h-8 rounded-full object-cover" %>
+                    <% elsif user.avatar_emoji %>
+                      <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                        <span class="text-lg"><%= user.avatar_emoji %></span>
+                      </div>
+                    <% else %>
+                      <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                        <span class="text-sm text-white/80"><%= user.display_name[0].upcase %></span>
+                      </div>
+                    <% end %>
+                    <div>
+                      <span class="<%= user.id == Current.user.id ? 'font-bold text-indigo-400' : 'text-white' %>">
+                        <%= user.display_name %>
+                      </span>
+                      <% if user.id == Current.user.id %>
+                        <span class="ml-2 text-xs text-indigo-400"><%= t("leaderboard.you") %></span>
+                      <% end %>
+                    </div>
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right">
                   <span class="text-lg font-bold text-white"><%= user.total_points.to_i %></span>

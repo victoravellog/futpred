@@ -8,6 +8,22 @@ en:
   nav:
     logout: "Sign out"
     new_organization: "New group"
+    profile: "My profile"
+
+  profile:
+    title: "My profile"
+    name: "Name"
+    name_placeholder: "Your name"
+    name_hint: "This name will be shown in the leaderboard"
+    avatar: "Avatar"
+    upload_photo: "Upload your photo"
+    or_choose_preset: "Or choose a preset avatar"
+    remove_avatar: "Remove avatar"
+    save: "Save changes"
+    updated: "Profile updated"
+    avatar_removed: "Avatar removed"
+    account: "Account"
+    email: "Email"
 
   auth:
     login: "Sign in"

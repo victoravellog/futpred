@@ -10,7 +10,8 @@ RUN apt-get update -qq && \
     git \
     libpq-dev \
     libyaml-dev \
-    postgresql-client && \
+    postgresql-client \
+    imagemagick && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Node.js

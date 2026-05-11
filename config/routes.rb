@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ]
+  resource :profile, only: [ :show, :update ]
 
   get "invite/:token", to: "invites#show", as: :invite
   post "invite/:token/accept", to: "invites#accept", as: :accept_invite

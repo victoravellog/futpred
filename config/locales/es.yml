@@ -10,6 +10,22 @@ es:
   nav:
     logout: "Salir"
     new_organization: "Nuevo grupo"
+    profile: "Mi perfil"
+
+  profile:
+    title: "Mi perfil"
+    name: "Nombre"
+    name_placeholder: "Tu nombre"
+    name_hint: "Este nombre se mostrará en la clasificación"
+    avatar: "Avatar"
+    upload_photo: "Sube tu foto"
+    or_choose_preset: "O elige un avatar predefinido"
+    remove_avatar: "Quitar avatar"
+    save: "Guardar cambios"
+    updated: "Perfil actualizado"
+    avatar_removed: "Avatar eliminado"
+    account: "Cuenta"
+    email: "Email"
 
   auth:
     login: "Iniciar sesión"
