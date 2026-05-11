@@ -1,15 +1,5 @@
-<div
-  <nav class="bg-white/10 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16">
-        <div class="flex items-center">
-          <%= link_to root_path do %>
-            <%= image_tag "futpred-logo-navbar.svg", alt: t("app_name"), class: "h-14 w-auto drop-shadow" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </nav>
+<div>
+  <%= render "shared/navbar" %>
 
   <main class="max-w-lg mx-auto py-12 px-4">
     <div class="card p-8">
