@@ -1,0 +1,53 @@
+name: Dev Container Setup
+
+on:
+  workflow_call:
+    outputs:
+      container_tag:
+        description: The tag of the container that should be used for this CI run
+        value: ${{ jobs.setup-container.outputs.container_tag }}
+
+jobs:
+  setup-container:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    outputs:
+      container_tag: ${{ steps.gettag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get container tag from SHA of dependencies
+        id: gettag
+        run: echo "tag=$(shasum Dockerfile.dev Gemfile.lock .ruby-version package.json package-lock.json | shasum - | sed 's/ .*//g')" >> "$GITHUB_OUTPUT"
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check image exists
+        id: imageexists
+        continue-on-error: true
+        run: docker manifest inspect ghcr.io/${{ github.repository_owner }}/futpred-dev:${{ steps.gettag.outputs.tag }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        if: steps.imageexists.outcome != 'success'
+
+      - name: Build & push image
+        uses: docker/build-push-action@v5
+        if: steps.imageexists.outcome != 'success'
+        with:
+          context: .
+          file: ./Dockerfile.dev
+          push: true
+          platforms: linux/amd64
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/futpred-dev:${{ steps.gettag.outputs.tag }}

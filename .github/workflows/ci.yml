@@ -6,39 +6,50 @@ on:
     branches: [ master ]
 
 jobs:
-  scan_ruby:
-    runs-on: ubuntu-latest
+  setup-container:
+    uses: ./.github/workflows/setup-container.yml
+    permissions:
+      packages: write
+      contents: read
 
+  scan_ruby:
+    needs: setup-container
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/futpred-dev:${{ needs.setup-container.outputs.container_tag }}
+      credentials:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
+      - name: Scan for common Rails security vulnerabilities
         run: bin/brakeman --no-pager
 
   lint:
+    needs: setup-container
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/futpred-dev:${{ needs.setup-container.outputs.container_tag }}
+      credentials:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
 
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
   test:
+    needs: setup-container
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/futpred-dev:${{ needs.setup-container.outputs.container_tag }}
+      credentials:
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
     services:
       postgres:
@@ -46,44 +57,16 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
 
-      # redis:
-      #   image: redis
-      #   ports:
-      #     - 6379:6379
-      #   options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y build-essential git libpq-dev libyaml-dev libvips42 node-gyp pkg-config python-is-python3 google-chrome-stable
-
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: .ruby-version
-          bundler-cache: true
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-
-      - name: Install JS dependencies
-        run: npm ci
 
       - name: Run tests
         env:
           RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/futpred_test
-          BOOTSNAP_CACHE_DIR: tmp/bootsnap
-          # REDIS_URL: redis://localhost:6379/0
+          DATABASE_URL: postgres://postgres:postgres@postgres:5432/futpred_test
         run: bin/rails db:test:prepare && bundle exec rspec
 
       - name: Keep screenshots from failed system tests
