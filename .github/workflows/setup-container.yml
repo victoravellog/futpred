@@ -42,7 +42,7 @@ jobs:
         if: steps.imageexists.outcome != 'success'
 
       - name: Build & push image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7
         if: steps.imageexists.outcome != 'success'
         with:
           context: .
