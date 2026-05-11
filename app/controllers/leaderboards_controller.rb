@@ -11,9 +11,9 @@ class LeaderboardsController < ApplicationController
 
     @organization = if params[:organization_id].present?
                       user_orgs_with_tournament.find(params[:organization_id])
-                    else
+    else
                       user_orgs_with_tournament.first!
-                    end
+    end
 
     points_subquery = Prediction.joins(fixture: :round)
                                  .where(rounds: { tournament_id: @tournament.id })

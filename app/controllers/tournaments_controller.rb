@@ -13,9 +13,9 @@ class TournamentsController < ApplicationController
 
     @organization = if params[:organization_id].present?
                       user_orgs_with_tournament.find(params[:organization_id])
-                    else
+    else
                       user_orgs_with_tournament.first!
-                    end
+    end
 
     @rounds = @tournament.rounds.includes(fixtures: [ :home_team, :away_team, :predictions ])
     @user_points = Prediction.joins(fixture: :round)
