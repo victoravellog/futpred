@@ -45,6 +45,11 @@
 
 - NO incluir `Co-Authored-By` de Claude en los commits
 - Commits en inglés
+- **Antes de cada commit**, ejecutar:
+  ```bash
+  docker compose exec web bundle exec rspec      # Tests
+  docker compose exec web bin/rubocop -A         # Lint (con autocorrect)
+  ```
 
 ## Comandos útiles
 
