@@ -1,4 +1,14 @@
-<p>
-  You can reset your password within the next 15 minutes on
-  <%= link_to "this password reset page", edit_password_url(@user.password_reset_token) %>.
+<h1 style="margin: 0 0 16px; font-size: 24px; font-weight: 600; color: #18181b;">
+  Restablecer contraseña
+</h1>
+<p style="margin: 0 0 24px; font-size: 16px; line-height: 1.6; color: #3f3f46;">
+  Recibimos una solicitud para restablecer la contraseña de tu cuenta. Haz clic en el botón de abajo para crear una nueva contraseña.
+</p>
+<p style="margin: 0 0 24px;">
+  <a href="<%= edit_password_url(@user.password_reset_token) %>" style="display: inline-block; padding: 12px 24px; background-color: #16a34a; color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 6px;">
+    Restablecer contraseña
+  </a>
+</p>
+<p style="margin: 0; font-size: 14px; color: #71717a;">
+  Este enlace expira en 15 minutos. Si no solicitaste restablecer tu contraseña, ignora este correo.
 </p>

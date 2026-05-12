@@ -2,12 +2,40 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-
-  <body>
-    <%= yield %>
+  <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f5;">
+      <tr>
+        <td align="center" style="padding: 40px 20px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+            <!-- Header -->
+            <tr>
+              <td align="center" style="padding: 32px 40px 24px; border-bottom: 1px solid #e4e4e7;">
+                <img src="https://futpred.com/icon.png" alt="FutPred" width="48" height="48" style="display: block; margin: 0 auto 12px;">
+                <span style="font-size: 28px; font-weight: 700; color: #18181b;">FutPred</span>
+              </td>
+            </tr>
+            <!-- Content -->
+            <tr>
+              <td style="padding: 32px 40px;">
+                <%= yield %>
+              </td>
+            </tr>
+            <!-- Footer -->
+            <tr>
+              <td align="center" style="padding: 24px 40px; background-color: #fafafa; border-top: 1px solid #e4e4e7; border-radius: 0 0 8px 8px;">
+                <p style="margin: 0; font-size: 14px; color: #71717a;">
+                  Este correo fue enviado por FutPred.
+                </p>
+                <p style="margin: 8px 0 0; font-size: 14px; color: #71717a;">
+                  Si no solicitaste este correo, puedes ignorarlo.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
