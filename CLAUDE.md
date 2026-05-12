@@ -113,6 +113,24 @@ Multiplicador por ronda (Round#scoring_multiplier):
 
 Producción se deploya con **Kamal** a un servidor Hetzner.
 
+### Releases y Deploy Automático
+
+El deploy se ejecuta automáticamente via GitHub Actions cuando se publica un release:
+
+```bash
+# Crear release (dispara deploy automático)
+gh release create v1.0.X --title "v1.0.X - Descripción corta" --notes "Changelog..."
+```
+
+El workflow `.github/workflows/deploy.yml` se encarga de hacer `kamal deploy`.
+
+### Deploy Manual
+
+Kamal se ejecuta via Docker con este alias (agregar a ~/.zshrc):
+```bash
+alias kamal='docker run -it --rm -v "${PWD}:/workdir" -v "${HOME}/.ssh:/root/.ssh:ro" -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" -e KAMAL_REGISTRY_PASSWORD -e FUTPRED_DATABASE_PASSWORD -e RAILS_MASTER_KEY -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/basecamp/kamal:latest'
+```
+
 ```bash
 # Deploy
 kamal deploy
