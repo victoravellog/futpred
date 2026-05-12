@@ -1,7 +1,7 @@
 <%= turbo_stream.replace dom_id(@fixture, :prediction_form) do %>
   <%= turbo_frame_tag dom_id(@fixture, :prediction_form) do %>
     <div class="rounded-lg transition-all duration-300 prediction-saved">
-      <%= render "predictions/form_fields", fixture: @fixture, prediction: @prediction %>
+      <%= render "predictions/form_fields", fixture: @fixture, prediction: @prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
     </div>
   <% end %>
 <% end %>

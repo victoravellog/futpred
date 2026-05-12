@@ -133,6 +133,12 @@ en:
     your_prediction: "Your prediction"
     points: "+%{points} pts"
     closed: "no longer accepts predictions"
+    scope_dialog:
+      title: "Where to apply this change?"
+      description: "You're in multiple groups with this tournament. Do you want to change the prediction only here or in all your groups?"
+      this_group_only: "This group only"
+      all_groups: "All my groups"
+      cancel: "Cancel"
 
   leaderboard:
     title: "Leaderboard"

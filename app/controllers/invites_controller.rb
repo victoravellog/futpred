@@ -21,6 +21,7 @@ class InvitesController < ApplicationController
       redirect_to organization_path(@organization), notice: t("invites.already_member")
     else
       Current.user.organizations << @organization
+      CopyPredictionsToOrganization.call(user: Current.user, organization: @organization)
       redirect_to organization_path(@organization), notice: t("invites.joined")
     end
   end

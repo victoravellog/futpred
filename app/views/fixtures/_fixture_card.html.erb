@@ -44,7 +44,8 @@
     <%# Predicción %>
     <div class="mt-2 pt-2 border-t border-white/10">
       <div class="flex justify-center">
-        <%= render "predictions/form", fixture: fixture, prediction: fixture.predictions.find_by(user: Current.user) || fixture.predictions.build %>
+        <% prediction = @user_predictions&.dig(fixture.id) || fixture.predictions.build %>
+        <%= render "predictions/form", fixture: fixture, prediction: prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
       </div>
     </div>
   </div>

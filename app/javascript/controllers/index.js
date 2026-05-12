@@ -12,3 +12,6 @@ application.register("local-time", LocalTimeController)
 
 import PredictionFormController from "./prediction_form_controller"
 application.register("prediction-form", PredictionFormController)
+
+import PredictionScopeController from "./prediction_scope_controller"
+application.register("prediction-scope", PredictionScopeController)

@@ -5,3 +5,7 @@ liga_copa_america:
 oficina_mundial:
   organization: oficina
   tournament: mundial
+
+oficina_copa_america:
+  organization: oficina
+  tournament: copa_america

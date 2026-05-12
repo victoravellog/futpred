@@ -16,7 +16,7 @@
         <span class="text-xs text-white/40"><%= t("fixtures.no_prediction") %></span>
       <% end %>
     <% elsif fixture.predictable? %>
-      <%= render "predictions/form_fields", fixture: fixture, prediction: prediction %>
+      <%= render "predictions/form_fields", fixture: fixture, prediction: prediction, organization_tournament: organization_tournament, user_in_multiple_groups: user_in_multiple_groups %>
     <% else %>
       <span class="text-xs text-white/40"><%= t("fixtures.closed") %></span>
     <% end %>

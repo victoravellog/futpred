@@ -135,6 +135,12 @@ es:
     your_prediction: "Tu predicción"
     points: "+%{points} pts"
     closed: "ya no acepta predicciones"
+    scope_dialog:
+      title: "¿Dónde aplicar el cambio?"
+      description: "Estás en varios grupos con este torneo. ¿Quieres cambiar la predicción solo aquí o en todos tus grupos?"
+      this_group_only: "Solo este grupo"
+      all_groups: "Todos mis grupos"
+      cancel: "Cancelar"
 
   leaderboard:
     title: "Clasificación"

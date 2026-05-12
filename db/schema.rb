@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_11_211226) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_12_171456) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -99,7 +99,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_11_211226) do
     t.bigint "organization_tournament_id"
     t.index ["fixture_id"], name: "index_predictions_on_fixture_id"
     t.index ["organization_tournament_id"], name: "index_predictions_on_organization_tournament_id"
-    t.index ["user_id", "fixture_id"], name: "index_predictions_on_user_id_and_fixture_id", unique: true
+    t.index ["user_id", "fixture_id", "organization_tournament_id"], name: "idx_predictions_user_fixture_org_tournament", unique: true
     t.index ["user_id"], name: "index_predictions_on_user_id"
   end
 

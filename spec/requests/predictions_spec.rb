@@ -53,6 +53,7 @@ RSpec.describe "Predictions", type: :request do
 
       it "updates the prediction" do
         patch fixture_prediction_path(fixture_record), params: {
+          organization_tournament_id: org_tournament.id,
           prediction: { predicted_home_score: 3, predicted_away_score: 2 }
         }
         prediction.reload
