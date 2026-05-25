@@ -22,5 +22,11 @@ Rails.application.routes.draw do
 
   root "dashboard#show"
 
+  namespace :admin do
+    get "/", to: "dashboard#show", as: :root
+    resources :organizations, only: [ :index, :show ]
+    resources :users, only: [ :index, :show ]
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 end

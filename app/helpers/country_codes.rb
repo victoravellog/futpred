@@ -7,6 +7,10 @@ module CountryCodes
     "NIR" => "🇬🇧"
   }.freeze
 
+  OBSOLETE_CODES = {
+    "AN" => "CW"
+  }.freeze
+
   ALPHA3_TO_ALPHA2 = {
     "CUW" => "CW", "CUR" => "CW",
     "AFG" => "AF", "ALB" => "AL", "ALG" => "DZ", "DZA" => "DZ", "AND" => "AD", "AGO" => "AO",
@@ -49,6 +53,9 @@ module CountryCodes
 
     # Banderas especiales de subdivisiones
     return SUBDIVISION_FLAGS[upper] if SUBDIVISION_FLAGS.key?(upper)
+
+    # Convertir códigos obsoletos
+    upper = OBSOLETE_CODES[upper] if OBSOLETE_CODES.key?(upper)
 
     # Convertir a alpha2 si es necesario
     alpha2 = upper.length == 2 ? upper : ALPHA3_TO_ALPHA2[upper]

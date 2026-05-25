@@ -17,6 +17,9 @@
         </div>
       </div>
       <div class="flex items-center space-x-4">
+        <% if Current.user.admin? %>
+          <%= link_to "Admin", admin_root_path, class: "text-xs bg-indigo-500/30 text-indigo-200 px-2 py-1 rounded hover:bg-indigo-500/50 transition" %>
+        <% end %>
         <%= link_to profile_path, class: "flex items-center space-x-2 hover:opacity-80 transition-opacity" do %>
           <% if Current.user.avatar.attached? %>
             <%= image_tag Current.user.avatar, class: "w-8 h-8 rounded-full object-cover border border-white/20" %>

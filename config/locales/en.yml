@@ -2,6 +2,11 @@ en:
   date:
     formats:
       long: "%A, %B %d"
+      short: "%b %d"
+
+  time:
+    formats:
+      short: "%b %d %H:%M"
 
   app_name: "FutPred"
 
@@ -160,6 +165,48 @@ en:
     points_0: "0 points"
     predicted: "You predicted %{home} - %{away}"
     multiplier_note: "Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.75, Final x2"
+
+  admin:
+    access_denied: "You don't have access to this section"
+    back: "Back"
+    nav:
+      dashboard: "Dashboard"
+      organizations: "Groups"
+      users: "Users"
+      back_to_app: "Back to app"
+    dashboard:
+      title: "Admin Dashboard"
+      total_users: "Total users"
+      total_organizations: "Total groups"
+      total_predictions: "Total predictions"
+      total_tournaments: "Total tournaments"
+      recent_organizations: "Recent groups"
+      recent_users: "Recent users"
+      view_all: "View all"
+    organizations:
+      title: "Groups"
+      name: "Name"
+      members: "Members"
+      tournaments: "Tournaments"
+      predictions: "Predictions"
+      created_at: "Created"
+      slug: "Slug"
+      members_list: "Members list"
+      tournaments_list: "Tournaments"
+      no_tournaments: "No tournaments"
+    users:
+      title: "Users"
+      user: "User"
+      email: "Email"
+      organizations: "Groups"
+      predictions: "Predictions"
+      created_at: "Registered"
+      joined: "Joined"
+      organizations_list: "Groups"
+      no_organizations: "No groups"
+      recent_predictions: "Recent predictions"
+      no_predictions: "No predictions"
+      predicted: "Predicted"
 
   activerecord:
     errors:

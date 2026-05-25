@@ -2,8 +2,14 @@ es:
   date:
     formats:
       long: "%A %d de %B"
+      short: "%d %b"
     day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
     month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+
+  time:
+    formats:
+      short: "%d %b %H:%M"
 
   app_name: "FutPred"
 
@@ -166,6 +172,48 @@ es:
   errors:
     messages:
       blank: "no puede estar en blanco"
+
+  admin:
+    access_denied: "No tienes acceso a esta sección"
+    back: "Volver"
+    nav:
+      dashboard: "Dashboard"
+      organizations: "Grupos"
+      users: "Usuarios"
+      back_to_app: "Volver a la app"
+    dashboard:
+      title: "Panel de administración"
+      total_users: "Total usuarios"
+      total_organizations: "Total grupos"
+      total_predictions: "Total predicciones"
+      total_tournaments: "Total torneos"
+      recent_organizations: "Grupos recientes"
+      recent_users: "Usuarios recientes"
+      view_all: "Ver todos"
+    organizations:
+      title: "Grupos"
+      name: "Nombre"
+      members: "Miembros"
+      tournaments: "Torneos"
+      predictions: "Predicciones"
+      created_at: "Creado"
+      slug: "Slug"
+      members_list: "Lista de miembros"
+      tournaments_list: "Torneos"
+      no_tournaments: "Sin torneos"
+    users:
+      title: "Usuarios"
+      user: "Usuario"
+      email: "Email"
+      organizations: "Grupos"
+      predictions: "Predicciones"
+      created_at: "Registrado"
+      joined: "Registrado"
+      organizations_list: "Grupos"
+      no_organizations: "Sin grupos"
+      recent_predictions: "Predicciones recientes"
+      no_predictions: "Sin predicciones"
+      predicted: "Predijo"
 
   activerecord:
     errors:

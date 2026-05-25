@@ -1,0 +1,24 @@
+<nav class="bg-indigo-900/50 backdrop-blur-md border-b border-indigo-500/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16">
+      <div class="flex items-center space-x-8">
+        <%= link_to admin_root_path, class: "flex items-center space-x-2" do %>
+          <span class="text-lg font-bold text-white">FutPred</span>
+          <span class="text-xs bg-indigo-500/30 text-indigo-200 px-2 py-0.5 rounded">Admin</span>
+        <% end %>
+        <div class="hidden md:flex items-center space-x-6">
+          <%= link_to t("admin.nav.dashboard"), admin_root_path,
+              class: "text-white/70 hover:text-white transition-colors #{'text-white font-medium' if controller_name == 'dashboard'}" %>
+          <%= link_to t("admin.nav.organizations"), admin_organizations_path,
+              class: "text-white/70 hover:text-white transition-colors #{'text-white font-medium' if controller_name == 'organizations'}" %>
+          <%= link_to t("admin.nav.users"), admin_users_path,
+              class: "text-white/70 hover:text-white transition-colors #{'text-white font-medium' if controller_name == 'users'}" %>
+        </div>
+      </div>
+      <div class="flex items-center space-x-4">
+        <%= link_to t("admin.nav.back_to_app"), root_path, class: "text-sm text-white/50 hover:text-white transition-colors" %>
+        <%= button_to t("nav.logout"), session_path, method: :delete, class: "text-sm text-white/50 hover:text-white transition-colors" %>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,49 @@
+<div>
+  <%= render "admin/shared/navbar" %>
+
+  <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <div class="px-4 sm:px-0">
+      <h1 class="text-2xl font-bold text-white mb-6"><%= t("admin.users.title") %></h1>
+
+      <div class="card overflow-hidden">
+        <table class="min-w-full divide-y divide-white/10">
+          <thead class="bg-white/5">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider">
+                <%= t("admin.users.user") %>
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider">
+                <%= t("admin.users.email") %>
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider">
+                <%= t("admin.users.organizations") %>
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider">
+                <%= t("admin.users.predictions") %>
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-white/60 uppercase tracking-wider">
+                <%= t("admin.users.created_at") %>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-white/10">
+            <% @users.each do |user| %>
+              <tr class="hover:bg-white/5 transition">
+                <td class="px-6 py-4">
+                  <%= link_to user.display_name, admin_user_path(user), class: "text-white font-medium hover:text-indigo-400" %>
+                  <% if user.admin? %>
+                    <span class="ml-2 text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded">Admin</span>
+                  <% end %>
+                </td>
+                <td class="px-6 py-4 text-white/80"><%= user.email_address %></td>
+                <td class="px-6 py-4 text-white/80"><%= user.organizations_count %></td>
+                <td class="px-6 py-4 text-white/80"><%= user.predictions_count %></td>
+                <td class="px-6 py-4 text-white/60"><%= l(user.created_at, format: :short) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
