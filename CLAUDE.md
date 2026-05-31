@@ -36,6 +36,31 @@
 - Turbo Streams para respuestas de formularios
 - Stimulus solo cuando sea necesario JS custom
 
+#### CSS y Tailwind
+
+Preferir clases CSS con `@apply` sobre Tailwind inline para mantener HTML legible:
+
+**Extraer a CSS (`application.tailwind.css`) cuando:**
+- Es un patrón que se repite (containers, sections, cards)
+- La línea tiene 5+ clases de Tailwind
+- Es un componente reutilizable
+
+**Mantener inline cuando:**
+- Es un ajuste puntual (`mt-4`, `hidden md:block`)
+- Solo se usa una vez y son pocas clases
+
+```css
+/* Bien: clases semánticas en CSS */
+.section { @apply py-20 lg:py-32; }
+.section-container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+
+/* Usar en HTML */
+<section class="section">
+  <div class="section-container">
+```
+
+Partials reutilizables van en `app/views/shared/`.
+
 ### Base de datos
 
 - PostgreSQL corriendo en Docker (`docker compose up -d`)

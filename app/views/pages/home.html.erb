@@ -2,14 +2,14 @@
 
 <div class="min-h-screen">
   <%# Navbar %>
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-slate-900/80 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <nav class="landing-nav">
+    <div class="section-container">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center gap-8">
           <%= image_tag "futpred-logo-navbar.svg", alt: "FutPred", class: "h-8" %>
           <div class="hidden md:flex items-center gap-6">
-            <a href="#como-funciona" class="text-sm text-white/70 hover:text-white transition-colors"><%= t("landing.nav.how_it_works") %></a>
-            <a href="#empresas" class="text-sm text-white/70 hover:text-white transition-colors"><%= t("landing.nav.for_companies") %></a>
+            <a href="#como-funciona" class="nav-link"><%= t("landing.nav.how_it_works") %></a>
+            <a href="#empresas" class="nav-link"><%= t("landing.nav.for_companies") %></a>
           </div>
         </div>
         <div class="flex items-center gap-4">
@@ -18,8 +18,8 @@
             <span class="text-white/30">|</span>
             <%= link_to "EN", localized_root_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
           </div>
-          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "hidden sm:inline-flex text-sm text-white/70 hover:text-white transition-colors" %>
-          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 text-white hover:bg-emerald-500 transition-colors" %>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "hidden sm:inline-flex nav-link" %>
+          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing" %>
         </div>
       </div>
     </div>
@@ -32,13 +32,10 @@
       <div class="absolute inset-0 bg-gradient-to-b from-slate-900/50 via-slate-900/80 to-slate-900"></div>
     </div>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="section-container relative z-10">
       <div class="max-w-3xl mx-auto text-center">
-        <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-6">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
+        <span class="badge badge-lg mb-6">
+          <%= render "pages/ping_indicator" %>
           <%= t("landing.hero.badge") %>
         </span>
 
@@ -51,13 +48,11 @@
         </p>
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <%= link_to new_registration_path, class: "w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl bg-emerald-600 text-white hover:bg-emerald-500 transition-all hover:scale-105 shadow-lg shadow-emerald-600/25" do %>
+          <%= link_to new_registration_path, class: "w-full sm:w-auto btn-landing btn-lg px-8 rounded-xl shadow-lg shadow-emerald-600/25 hover:scale-105" do %>
             <%= t("landing.hero.cta_primary") %>
-            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+            <%= render "shared/icons/icon_arrow_right" %>
           <% end %>
-          <a href="#como-funciona" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-base font-semibold rounded-xl bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all">
+          <a href="#como-funciona" class="w-full sm:w-auto btn-landing-secondary btn-lg px-8">
             <%= t("landing.hero.cta_secondary") %>
           </a>
         </div>
@@ -66,69 +61,56 @@
   </section>
 
   <%# Cómo funciona %>
-  <section id="como-funciona" class="py-20 lg:py-32 bg-slate-900/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4"><%= t("landing.how_it_works.title") %></h2>
-        <p class="text-lg text-white/60 max-w-2xl mx-auto">
-          <%= t("landing.how_it_works.subtitle") %>
-        </p>
+  <section id="como-funciona" class="section-alt">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title"><%= t("landing.how_it_works.title") %></h2>
+        <p class="section-subtitle"><%= t("landing.how_it_works.subtitle") %></p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
-        <div class="relative text-center group">
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </div>
-          <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-6xl font-bold text-white/5">1</span>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.how_it_works.step1_title") %></h3>
-          <p class="text-white/60">
-            <%= t("landing.how_it_works.step1_description") %>
-          </p>
-        </div>
+        <%= render "pages/step_card",
+            number: 1,
+            icon: capture { %>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            <% },
+            title: t("landing.how_it_works.step1_title"),
+            description: t("landing.how_it_works.step1_description") %>
 
-        <div class="relative text-center group">
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-            </svg>
-          </div>
-          <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-6xl font-bold text-white/5">2</span>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.how_it_works.step2_title") %></h3>
-          <p class="text-white/60">
-            <%= t("landing.how_it_works.step2_description") %>
-          </p>
-        </div>
+        <%= render "pages/step_card",
+            number: 2,
+            icon: capture { %>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+              </svg>
+            <% },
+            title: t("landing.how_it_works.step2_title"),
+            description: t("landing.how_it_works.step2_description") %>
 
-        <div class="relative text-center group">
-          <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-          </div>
-          <span class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 text-6xl font-bold text-white/5">3</span>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.how_it_works.step3_title") %></h3>
-          <p class="text-white/60">
-            <%= t("landing.how_it_works.step3_description") %>
-          </p>
-        </div>
+        <%= render "pages/step_card",
+            number: 3,
+            icon: capture { %>
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+            <% },
+            title: t("landing.how_it_works.step3_title"),
+            description: t("landing.how_it_works.step3_description") %>
       </div>
     </div>
   </section>
 
   <%# Caso de éxito %>
-  <section class="py-20 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="section">
+    <div class="section-container">
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600/20 to-emerald-900/20 border border-emerald-500/20 p-8 lg:p-12">
         <div class="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
 
         <div class="relative grid lg:grid-cols-2 gap-8 items-center">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 mb-4">
-              <%= t("landing.success_story.badge") %>
-            </div>
+            <span class="badge mb-4"><%= t("landing.success_story.badge") %></span>
             <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">
               <%= t("landing.success_story.quote") %>
             </h3>
@@ -137,25 +119,25 @@
             </p>
             <div class="flex items-center gap-6 text-sm">
               <div>
-                <div class="text-2xl font-bold text-white"><%= t("landing.success_story.stat1_value") %></div>
-                <div class="text-white/50"><%= t("landing.success_story.stat1_label") %></div>
+                <div class="stat-value"><%= t("landing.success_story.stat1_value") %></div>
+                <div class="stat-label"><%= t("landing.success_story.stat1_label") %></div>
               </div>
-              <div class="h-8 w-px bg-white/20"></div>
+              <div class="stat-divider"></div>
               <div>
-                <div class="text-2xl font-bold text-white"><%= t("landing.success_story.stat2_value") %></div>
-                <div class="text-white/50"><%= t("landing.success_story.stat2_label") %></div>
+                <div class="stat-value"><%= t("landing.success_story.stat2_value") %></div>
+                <div class="stat-label"><%= t("landing.success_story.stat2_label") %></div>
               </div>
-              <div class="h-8 w-px bg-white/20"></div>
+              <div class="stat-divider"></div>
               <div>
-                <div class="text-2xl font-bold text-white"><%= t("landing.success_story.stat3_value") %></div>
-                <div class="text-white/50"><%= t("landing.success_story.stat3_label") %></div>
+                <div class="stat-value"><%= t("landing.success_story.stat3_value") %></div>
+                <div class="stat-label"><%= t("landing.success_story.stat3_label") %></div>
               </div>
             </div>
           </div>
           <div class="hidden lg:flex items-center justify-center">
             <div class="relative">
               <div class="absolute inset-0 bg-emerald-500/20 rounded-2xl blur-xl"></div>
-              <div class="relative bg-slate-800/80 rounded-2xl border border-white/10 p-6">
+              <div class="card p-6">
                 <div class="flex items-center gap-3 mb-4">
                   <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">🏆</div>
                   <div>
@@ -189,118 +171,65 @@
   </section>
 
   <%# Para quién es %>
-  <section id="empresas" class="py-20 lg:py-32 bg-slate-900/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16">
-        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4"><%= t("landing.audience.title") %></h2>
-        <p class="text-lg text-white/60 max-w-2xl mx-auto">
-          <%= t("landing.audience.subtitle") %>
-        </p>
+  <section id="empresas" class="section-alt">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title"><%= t("landing.audience.title") %></h2>
+        <p class="section-subtitle"><%= t("landing.audience.subtitle") %></p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="group p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all">
-          <div class="w-14 h-14 rounded-xl bg-blue-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.audience.companies.title") %></h3>
-          <p class="text-white/60 mb-4">
-            <%= t("landing.audience.companies.description") %>
-          </p>
-          <ul class="space-y-2 text-sm text-white/50">
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        <%= render "pages/audience_card",
+            icon_bg: "bg-blue-500/20",
+            icon: capture { %>
+              <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
-              <%= t("landing.audience.companies.feature1") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.companies.feature2") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.companies.feature3") %>
-            </li>
-          </ul>
-        </div>
+            <% },
+            title: t("landing.audience.companies.title"),
+            description: t("landing.audience.companies.description"),
+            features: [
+              t("landing.audience.companies.feature1"),
+              t("landing.audience.companies.feature2"),
+              t("landing.audience.companies.feature3")
+            ] %>
 
-        <div class="group p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all">
-          <div class="w-14 h-14 rounded-xl bg-amber-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.audience.friends.title") %></h3>
-          <p class="text-white/60 mb-4">
-            <%= t("landing.audience.friends.description") %>
-          </p>
-          <ul class="space-y-2 text-sm text-white/50">
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        <%= render "pages/audience_card",
+            icon_bg: "bg-amber-500/20",
+            icon: capture { %>
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <%= t("landing.audience.friends.feature1") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.friends.feature2") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.friends.feature3") %>
-            </li>
-          </ul>
-        </div>
+            <% },
+            title: t("landing.audience.friends.title"),
+            description: t("landing.audience.friends.description"),
+            features: [
+              t("landing.audience.friends.feature1"),
+              t("landing.audience.friends.feature2"),
+              t("landing.audience.friends.feature3")
+            ] %>
 
-        <div class="group p-8 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-emerald-500/30 transition-all">
-          <div class="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-white mb-3"><%= t("landing.audience.clubs.title") %></h3>
-          <p class="text-white/60 mb-4">
-            <%= t("landing.audience.clubs.description") %>
-          </p>
-          <ul class="space-y-2 text-sm text-white/50">
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+        <%= render "pages/audience_card",
+            icon_bg: "bg-purple-500/20",
+            icon: capture { %>
+              <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
               </svg>
-              <%= t("landing.audience.clubs.feature1") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.clubs.feature2") %>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-              </svg>
-              <%= t("landing.audience.clubs.feature3") %>
-            </li>
-          </ul>
-        </div>
+            <% },
+            title: t("landing.audience.clubs.title"),
+            description: t("landing.audience.clubs.description"),
+            features: [
+              t("landing.audience.clubs.feature1"),
+              t("landing.audience.clubs.feature2"),
+              t("landing.audience.clubs.feature3")
+            ] %>
       </div>
     </div>
   </section>
 
   <%# CTA Final %>
-  <section class="py-20 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="section">
+    <div class="section-container">
       <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-600 to-emerald-700 p-12 lg:p-16 text-center">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-30"></div>
 
@@ -313,9 +242,7 @@
           </p>
           <%= link_to new_registration_path, class: "inline-flex items-center justify-center px-10 py-4 text-lg font-semibold rounded-xl bg-white text-emerald-700 hover:bg-white/90 transition-all hover:scale-105 shadow-xl" do %>
             <%= t("landing.cta.button") %>
-            <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+            <%= render "shared/icons/icon_arrow_right" %>
           <% end %>
         </div>
       </div>
