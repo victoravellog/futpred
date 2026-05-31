@@ -1,56 +1,24 @@
-<div class="min-h-screen flex items-center justify-center relative bg-slate-900">
-  <%# Background image with blur %>
-  <div class="absolute inset-0 z-0 bg-slate-900">
-    <%= image_tag "bg-stadium.jpg", class: "w-full h-full object-cover blur-sm scale-105", loading: "eager" %>
-    <div class="absolute inset-0 bg-black/40"></div>
-  </div>
-
-  <%# Content - 2 columns %>
-  <div class="relative z-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 px-6 py-12 max-w-5xl mx-auto">
-    <%# Left - Logo %>
-    <div class="flex-1 flex items-center justify-center">
-      <%= image_tag "futpred-logo.svg", alt: t("app_name"), class: "h-56 lg:h-96 drop-shadow-lg" %>
+<%= render layout: "shared/auth_layout", locals: { title: t("auth.login"), subtitle: capture { %>
+  <%= t("auth.no_account") %>
+  <%= link_to t("auth.register"), new_registration_path, class: "font-medium text-indigo-300 hover:text-indigo-200" %>
+<% } } do %>
+  <%= form_with url: session_path, class: "space-y-4" do |f| %>
+    <div>
+      <%= f.label :email_address, t("auth.email"), class: "auth-label" %>
+      <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+          value: params[:email_address], placeholder: "tu@email.com", class: "auth-input" %>
     </div>
 
-    <%# Right - Form %>
-    <div class="w-full max-w-sm">
-      <div class="text-center lg:text-left mb-6">
-        <h2 class="text-3xl font-bold text-white drop-shadow-lg"><%= t("auth.login") %></h2>
-        <p class="mt-2 text-sm text-white/80">
-          <%= t("auth.no_account") %>
-          <%= link_to t("auth.register"), new_registration_path, class: "font-medium text-indigo-300 hover:text-indigo-200" %>
-        </p>
-      </div>
-
-      <% if flash[:alert] %>
-        <div class="mb-4 alert-error"><%= flash[:alert] %></div>
-      <% end %>
-
-      <% if flash[:notice] %>
-        <div class="mb-4 alert-success"><%= flash[:notice] %></div>
-      <% end %>
-
-      <%= form_with url: session_path, class: "space-y-4" do |f| %>
-        <div>
-          <%= f.label :email_address, t("auth.email"), class: "block text-sm font-medium text-white/90 mb-1" %>
-          <%= f.email_field :email_address, required: true, autofocus: true, autocomplete: "username", value: params[:email_address],
-              placeholder: "tu@email.com",
-              class: "block w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
-        </div>
-
-        <div>
-          <%= f.label :password, t("auth.password"), class: "block text-sm font-medium text-white/90 mb-1" %>
-          <%= f.password_field :password, required: true, autocomplete: "current-password", maxlength: 72,
-              placeholder: "********",
-              class: "block w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
-        </div>
-
-        <div class="flex justify-end">
-          <%= link_to t("auth.forgot_password"), new_password_path, class: "text-sm text-white/70 hover:text-white" %>
-        </div>
-
-        <%= f.submit t("auth.login_button"), class: "btn-primary btn-lg w-full shadow-lg" %>
-      <% end %>
+    <div>
+      <%= f.label :password, t("auth.password"), class: "auth-label" %>
+      <%= f.password_field :password, required: true, autocomplete: "current-password",
+          maxlength: 72, placeholder: "********", class: "auth-input" %>
     </div>
-  </div>
-</div>
+
+    <div class="flex justify-end">
+      <%= link_to t("auth.forgot_password"), new_password_path, class: "text-sm text-white/70 hover:text-white" %>
+    </div>
+
+    <%= f.submit t("auth.login_button"), class: "btn-primary btn-lg w-full shadow-lg" %>
+  <% end %>
+<% end %>
