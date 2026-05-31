@@ -93,6 +93,65 @@ en:
   footer:
     made_with_love: "Made with ⚽ from the UK"
 
+  landing:
+    nav:
+      how_it_works: "How it works"
+      for_companies: "For companies"
+      sign_in: "Sign in"
+      create_group: "Create group free"
+    hero:
+      badge: "World Cup 2026 — now available"
+      headline: "Predict, compete and win with your friends or team"
+      subtitle: "Create your prediction group for the World Cup, Champions League or any tournament. Invite with your link, predict the results and compete for first place."
+      cta_primary: "Create group free"
+      cta_secondary: "See how it works"
+    how_it_works:
+      title: "How it works"
+      subtitle: "Get started in less than 2 minutes. No credit card, no hassle."
+      step1_title: "Create your group"
+      step1_description: "Sign up and create a group for your company, friends or fan club. Choose the tournament you want to follow."
+      step2_title: "Invite with your link"
+      step2_description: "Share the invite link via WhatsApp, Slack or email. No complicated account creation needed."
+      step3_title: "Predict and compete"
+      step3_description: "Everyone makes their predictions before each match. Points are calculated automatically."
+    success_story:
+      badge: "Success story"
+      quote: "\"Copa América was the most talked-about event of the year at our company\""
+      description_html: "A tech company with 150 employees used FutPred during Copa América 2024. <span class='text-emerald-300 font-semibold'>60 active participants</span> competed throughout the tournament, sparking Slack conversations, coffee bets and a great sense of community."
+      stat1_value: "60"
+      stat1_label: "participants"
+      stat2_value: "40%"
+      stat2_label: "of the company"
+      stat3_value: "28"
+      stat3_label: "matches predicted"
+      leaderboard_title: "Final Leaderboard"
+      leaderboard_tournament: "Copa América 2024"
+    audience:
+      title: "Who is FutPred for"
+      subtitle: "Perfect for any group that wants to add excitement to football tournaments."
+      companies:
+        title: "Companies"
+        description: "Create engagement across teams during the World Cup or Champions League. Perfect for HR, culture or just having fun."
+        feature1: "Private invite link"
+        feature2: "Real-time leaderboard"
+        feature3: "Unlimited participants"
+      friends:
+        title: "Friend groups"
+        description: "Take your prediction game to the next level. No Excel, no chaotic WhatsApp groups, no calculators."
+        feature1: "Free forever"
+        feature2: "Automatic scoring"
+        feature3: "Works on mobile"
+      clubs:
+        title: "Fan clubs"
+        description: "Ideal for football fan clubs or sports communities that want to compete among their members."
+        feature1: "Multiple tournaments"
+        feature2: "Round multipliers"
+        feature3: "Season history"
+    cta:
+      title: "World Cup 2026 is here"
+      subtitle: "Don't wait for kickoff to organize your group. Create your space now and be ready for the first match."
+      button: "Start free"
+
   tournaments:
     new: "New tournament"
     name: "Tournament name"

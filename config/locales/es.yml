@@ -96,6 +96,65 @@ es:
   footer:
     made_with_love: "Hecho con ⚽ desde UK"
 
+  landing:
+    nav:
+      how_it_works: "Cómo funciona"
+      for_companies: "Para empresas"
+      sign_in: "Iniciar sesión"
+      create_group: "Crear grupo gratis"
+    hero:
+      badge: "Mundial 2026 — ya disponible"
+      headline: "Predice, compite y gana con tus amigos o tu equipo"
+      subtitle: "Crea tu grupo de predicciones para el Mundial, la Champions o cualquier torneo. Invita con tu link, predice los resultados y compite por el primer lugar."
+      cta_primary: "Crear grupo gratis"
+      cta_secondary: "Ver cómo funciona"
+    how_it_works:
+      title: "Cómo funciona"
+      subtitle: "Empieza en menos de 2 minutos. Sin tarjeta de crédito, sin complicaciones."
+      step1_title: "Crea tu grupo"
+      step1_description: "Regístrate y crea un grupo para tu empresa, amigos o peña. Elige el torneo que quieras seguir."
+      step2_title: "Invita con tu link"
+      step2_description: "Comparte el link de invitación por WhatsApp, Slack o email. Sin necesidad de crear cuentas complicadas."
+      step3_title: "Predice y compite"
+      step3_description: "Cada uno hace sus predicciones antes de cada partido. Los puntos se calculan automáticamente."
+    success_story:
+      badge: "Caso de éxito"
+      quote: "\"La Copa América fue el evento más comentado del año en nuestra empresa\""
+      description_html: "Una empresa de tecnología de 150 empleados usó FutPred durante la Copa América 2024. <span class='text-emerald-300 font-semibold'>60 participantes activos</span> compitieron durante todo el torneo, generando conversaciones en Slack, apuestas de café y un gran sentido de comunidad."
+      stat1_value: "60"
+      stat1_label: "participantes"
+      stat2_value: "40%"
+      stat2_label: "de la empresa"
+      stat3_value: "28"
+      stat3_label: "partidos predichos"
+      leaderboard_title: "Leaderboard Final"
+      leaderboard_tournament: "Copa América 2024"
+    audience:
+      title: "Para quién es FutPred"
+      subtitle: "Perfecto para cualquier grupo que quiera agregar emoción a los torneos de fútbol."
+      companies:
+        title: "Empresas"
+        description: "Crea engagement entre equipos durante el Mundial o la Champions. Perfecto para HR, culture o simplemente para pasarla bien."
+        feature1: "Invitación por link privado"
+        feature2: "Leaderboard en tiempo real"
+        feature3: "Sin límite de participantes"
+      friends:
+        title: "Grupos de amigos"
+        description: "Lleva la pichanga de predicciones al siguiente nivel. Sin Excel, sin WhatsApp caóticos, sin calculadoras."
+        feature1: "Gratis para siempre"
+        feature2: "Puntos automáticos"
+        feature3: "Funciona en el celular"
+      clubs:
+        title: "Peñas y clubes"
+        description: "Ideal para peñas de fútbol, clubes de fans o comunidades deportivas que quieren competir entre sus miembros."
+        feature1: "Múltiples torneos"
+        feature2: "Multiplicadores por ronda"
+        feature3: "Historial de temporadas"
+    cta:
+      title: "El Mundial 2026 ya está aquí"
+      subtitle: "No esperes a que empiece para organizar tu grupo. Crea tu espacio ahora y ten todo listo para el saque inicial."
+      button: "Empezar gratis"
+
   tournaments:
     new: "Nuevo torneo"
     name: "Nombre del torneo"

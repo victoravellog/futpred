@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # Landing page with locale support
+  get "/:locale", to: "pages#home", as: :localized_root, constraints: { locale: /en|es/ }
+  root "pages#home"
+
   resource :session
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ]
@@ -20,7 +24,7 @@ Rails.application.routes.draw do
     resource :prediction, only: [ :show, :create, :update ]
   end
 
-  root "dashboard#show"
+  get "dashboard", to: "dashboard#show"
 
   namespace :admin do
     get "/", to: "dashboard#show", as: :root
