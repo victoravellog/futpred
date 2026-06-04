@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_04_151451) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_04_183720) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -85,6 +85,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_04_151451) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "invite_token"
+    t.string "locale", default: "es", null: false
     t.index ["invite_token"], name: "index_organizations_on_invite_token", unique: true
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
   end
@@ -133,6 +134,19 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_04_151451) do
     t.index ["external_id"], name: "index_teams_on_external_id", unique: true
   end
 
+  create_table "tournament_notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tournament_id", null: false
+    t.string "notification_type", null: false
+    t.string "channel", null: false
+    t.datetime "sent_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tournament_id"], name: "index_tournament_notifications_on_tournament_id"
+    t.index ["user_id", "tournament_id", "notification_type", "channel"], name: "idx_tournament_notifications_unique", unique: true
+    t.index ["user_id"], name: "index_tournament_notifications_on_user_id"
+  end
+
   create_table "tournament_teams", force: :cascade do |t|
     t.bigint "tournament_id", null: false
     t.bigint "team_id", null: false
@@ -175,6 +189,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_04_151451) do
   add_foreign_key "predictions", "users"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "sessions", "users"
+  add_foreign_key "tournament_notifications", "tournaments"
+  add_foreign_key "tournament_notifications", "users"
   add_foreign_key "tournament_teams", "teams"
   add_foreign_key "tournament_teams", "tournaments"
 end

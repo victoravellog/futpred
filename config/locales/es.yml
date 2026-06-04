@@ -87,10 +87,16 @@ es:
     name_hint: "Este nombre será visible para todos los miembros"
     create: "Crear grupo"
     cancel: "Cancelar"
+    save: "Guardar cambios"
     created: "Grupo creado exitosamente"
+    updated: "Grupo actualizado"
     new_tournament: "Agregar torneo"
     no_tournaments: "No hay torneos en este grupo todavía."
     create_first_tournament: "Agregar primer torneo"
+    settings: "Configuración del grupo"
+    locale: "Idioma de comunicaciones"
+    locale_hint: "Los emails de recordatorio se enviarán en este idioma"
+    not_authorized: "No tienes permisos para realizar esta acción"
 
   common:
     back: "Volver"
@@ -278,6 +284,40 @@ es:
       recent_predictions: "Predicciones recientes"
       no_predictions: "Sin predicciones"
       predicted: "Predijo"
+
+  mailer:
+    footer:
+      sent_by: "Enviado por FutPred"
+      made_with: "Hecho con ⚽ desde UK"
+    tournament_reminder:
+      subject:
+        month_start: "FutPred: ¡Ya llegó %{month}! %{tournament} está por comenzar"
+        one_week: "FutPred: %{tournament} comienza en 1 semana"
+        one_day: "FutPred: %{tournament} comienza mañana - ¡Última oportunidad!"
+        soon: "FutPred: %{tournament} está por comenzar"
+      greeting: "¡Hola %{name}!"
+      month_start_body: "¡Ya llegó %{month} y está por comenzar %{tournament}!"
+      month_start_days: "Quedan %{days} días para el inicio. Es el momento perfecto para revisar los equipos y preparar tus predicciones."
+      one_week_body: "%{tournament} comienza en 1 semana."
+      one_week_hint: "¡La emoción está cerca! Asegúrate de tener listas tus predicciones para los primeros partidos."
+      one_day_body: "%{tournament} comienza mañana."
+      one_day_hint: "¡Es tu última oportunidad! No te quedes fuera de la competencia."
+      soon_body: "%{tournament} está por comenzar."
+      cta: "Hacer mis predicciones"
+      good_luck: "¡Buena suerte!"
+      signature: "El equipo de FutPred"
+
+  banners:
+    tournament:
+      starts_today: "¡Comienza hoy!"
+      starts_tomorrow: "Comienza mañana"
+      starts_in_days:
+        one: "Comienza en 1 día"
+        other: "Comienza en %{count} días"
+      starts_in_weeks:
+        one: "Comienza en 1 semana"
+        other: "Comienza en %{count} semanas"
+      make_predictions: "Hacer predicciones"
 
   activerecord:
     errors:

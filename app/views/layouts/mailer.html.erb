@@ -4,32 +4,37 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <body style="margin: 0; padding: 0; background-color: #f4f4f5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f5;">
+  <body style="margin: 0; padding: 0; background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #0f172a;">
       <tr>
         <td align="center" style="padding: 40px 20px;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px;">
             <!-- Header -->
             <tr>
-              <td align="center" style="padding: 32px 40px 24px; border-bottom: 1px solid #e4e4e7;">
-                <img src="https://futpred.com/icon.png" alt="FutPred" width="48" height="48" style="display: block; margin: 0 auto 12px;">
-                <span style="font-size: 28px; font-weight: 700; color: #18181b;">FutPred</span>
+              <td align="center" style="padding: 0 0 32px;">
+                <img src="<%= image_url('futpred-logo-dark.svg') %>" alt="FutPred" height="48" style="display: block;">
               </td>
             </tr>
-            <!-- Content -->
+            <!-- Content Card -->
             <tr>
-              <td style="padding: 32px 40px;">
-                <%= yield %>
+              <td>
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;">
+                  <tr>
+                    <td style="padding: 40px;">
+                      <%= yield %>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
             <!-- Footer -->
             <tr>
-              <td align="center" style="padding: 24px 40px; background-color: #fafafa; border-top: 1px solid #e4e4e7; border-radius: 0 0 8px 8px;">
-                <p style="margin: 0; font-size: 14px; color: #71717a;">
-                  Este correo fue enviado por FutPred.
+              <td align="center" style="padding: 32px 0 0;">
+                <p style="margin: 0; font-size: 14px; color: rgba(255,255,255,0.5);">
+                  <%= t("mailer.footer.sent_by", default: "Enviado por FutPred") %>
                 </p>
-                <p style="margin: 8px 0 0; font-size: 14px; color: #71717a;">
-                  Si no solicitaste este correo, puedes ignorarlo.
+                <p style="margin: 8px 0 0; font-size: 14px; color: rgba(255,255,255,0.4);">
+                  <%= t("mailer.footer.made_with", default: "Hecho con ⚽ desde UK") %>
                 </p>
               </td>
             </tr>

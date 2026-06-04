@@ -1,0 +1,18 @@
+<% upcoming_tournaments_for_user(Current.user).each do |tournament| %>
+  <div class="tournament-banner <%= tournament_urgency_class(tournament.days_until_start) %>">
+    <div class="tournament-banner-content">
+      <% if tournament.logo_url.present? %>
+        <%= image_tag tournament.logo_url, class: "tournament-banner-logo", alt: tournament.name %>
+      <% else %>
+        <div class="tournament-banner-icon">⚽</div>
+      <% end %>
+      <div class="tournament-banner-text">
+        <strong><%= tournament.name %></strong>
+        <span><%= tournament_countdown_text(tournament) %></span>
+      </div>
+    </div>
+    <%= link_to t("banners.tournament.make_predictions"),
+                tournament_path(tournament),
+                class: "tournament-banner-cta" %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<% I18n.with_locale(@locale) do %>
+<%= t("mailer.tournament_reminder.greeting", name: @user.display_name) %>
+
+<% case @reminder_type %>
+<% when :month_start %>
+<%= t("mailer.tournament_reminder.month_start_body", month: @current_month, tournament: @tournament.name) %>
+
+<%= t("mailer.tournament_reminder.month_start_days", days: @days_until) %>
+<% when :one_week %>
+<%= t("mailer.tournament_reminder.one_week_body", tournament: @tournament.name) %>
+
+<%= t("mailer.tournament_reminder.one_week_hint") %>
+<% when :one_day %>
+<%= t("mailer.tournament_reminder.one_day_body", tournament: @tournament.name) %>
+
+<%= t("mailer.tournament_reminder.one_day_hint") %>
+<% else %>
+<%= t("mailer.tournament_reminder.soon_body", tournament: @tournament.name) %>
+<% end %>
+
+<%= t("mailer.tournament_reminder.cta") %>: <%= root_url %>
+
+<%= t("mailer.tournament_reminder.good_luck") %>
+
+<%= t("mailer.tournament_reminder.signature") %>
+<% end %>

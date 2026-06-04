@@ -1,0 +1,6 @@
+one_week_email_victor:
+  user: victor
+  tournament: copa_america
+  notification_type: one_week
+  channel: email
+  sent_at: <%= 1.day.ago %>

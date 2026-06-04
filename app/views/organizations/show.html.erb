@@ -12,6 +12,11 @@
         <p class="text-white/60"><%= t("dashboard.members_count", count: @organization.users.count) %></p>
       </div>
       <div class="flex items-center space-x-3">
+        <% if @membership&.owner? %>
+          <%= link_to edit_organization_path(@organization), class: "btn-secondary", title: t("organizations.settings") do %>
+            ⚙️
+          <% end %>
+        <% end %>
         <button type="button" onclick="navigator.clipboard.writeText('<%= invite_url(@organization.invite_token) %>');this.textContent='<%= t("invites.copied") %>'" class="btn-secondary">
           📋 <%= t("invites.copy_link") %>
         </button>

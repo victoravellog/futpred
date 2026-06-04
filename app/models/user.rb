@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_many :memberships, dependent: :destroy
   has_many :organizations, through: :memberships
   has_many :predictions, dependent: :destroy
+  has_many :tournament_notifications, dependent: :destroy
   has_one_attached :avatar
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }

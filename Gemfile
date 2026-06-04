@@ -28,6 +28,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Background jobs
 gem "sidekiq"
+gem "sidekiq-cron"
 
 # Cache and Action Cable
 gem "solid_cache"

@@ -1,0 +1,9 @@
+tournament_reminders:
+  cron: "0 8 * * *"
+  class: "SendTournamentRemindersJob"
+  description: "Send tournament reminder emails and create banner notifications"
+
+sync_results:
+  cron: "*/15 * * * *"
+  class: "SyncResultsJob"
+  description: "Sync fixture results from Football-Data API"
