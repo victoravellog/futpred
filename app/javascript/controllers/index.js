@@ -18,3 +18,9 @@ application.register("prediction-scope", PredictionScopeController)
 
 import FixtureModalController from "./fixture_modal_controller"
 application.register("fixture-modal", FixtureModalController)
+
+import MobileMenuController from "./mobile_menu_controller"
+application.register("mobile-menu", MobileMenuController)
+
+import DropdownController from "./dropdown_controller"
+application.register("dropdown", DropdownController)

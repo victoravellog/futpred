@@ -1,40 +1,71 @@
-<nav class="bg-white/10 backdrop-blur-md border-b border-white/10">
+<nav class="bg-white/10 backdrop-blur-md border-b border-white/10 relative z-50">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex items-center space-x-8">
-        <%= link_to root_path, class: "inline-block w-fit" do %>
-          <%= image_tag "futpred-logo-navbar.svg", alt: t("app_name"), class: "h-14 w-auto drop-shadow" %>
+    <div class="flex justify-between items-center h-16">
+      <%# Logo + Groups dropdown %>
+      <div class="flex items-center gap-4">
+        <%= link_to root_path, class: "inline-block" do %>
+          <%= image_tag "futpred-logo-navbar.svg", alt: t("app_name"), class: "h-10 w-auto drop-shadow" %>
         <% end %>
-        <div class="hidden md:flex items-center space-x-4">
-          <% Current.user.organizations.limit(3).each do |org| %>
-            <%= link_to org.name, organization_path(org), class: "text-white/70 hover:text-white transition-colors" %>
-          <% end %>
-          <%= link_to new_organization_path, class: "text-white/40 hover:text-white transition-colors", title: t("nav.new_organization") do %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-            </svg>
-          <% end %>
-        </div>
+
+        <%# Groups dropdown %>
+        <% if Current.user.organizations.any? %>
+          <div class="relative" data-controller="dropdown">
+            <button type="button" class="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm" data-action="dropdown#toggle">
+              <span><%= t("nav.my_groups") %></span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-dropdown-target="menu" class="hidden absolute left-0 mt-2 w-48 bg-slate-800 border border-white/10 rounded-lg shadow-xl z-50">
+              <div class="py-2">
+                <% Current.user.organizations.each do |org| %>
+                  <%= link_to org.name, organization_path(org), class: "block px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
-      <div class="flex items-center space-x-4">
-        <% if Current.user.admin? %>
-          <%= link_to "Admin", admin_root_path, class: "text-xs bg-indigo-500/30 text-indigo-200 px-2 py-1 rounded hover:bg-indigo-500/50 transition" %>
-        <% end %>
-        <%= link_to profile_path, class: "flex items-center space-x-2 hover:opacity-80 transition-opacity" do %>
-          <% if Current.user.avatar.attached? %>
-            <%= image_tag Current.user.avatar, class: "w-8 h-8 rounded-full object-cover border border-white/20" %>
-          <% elsif Current.user.avatar_emoji %>
-            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/20 flex items-center justify-center">
-              <span class="text-lg"><%= Current.user.avatar_emoji %></span>
-            </div>
-          <% else %>
-            <div class="w-8 h-8 rounded-full bg-white/20 border border-white/20 flex items-center justify-center">
-              <span class="text-sm text-white/80"><%= Current.user.display_name[0].upcase %></span>
-            </div>
-          <% end %>
-          <span class="text-white/80 text-sm hidden sm:inline"><%= Current.user.display_name %></span>
-        <% end %>
-        <%= button_to t("nav.logout"), session_path, method: :delete, class: "text-sm text-white/50 hover:text-white transition-colors" %>
+
+      <%# Menu button %>
+      <div class="relative" data-controller="dropdown">
+        <button type="button" class="text-2xl p-2 transition-transform duration-300" data-action="dropdown#toggle" data-dropdown-target="button">
+          ⚽
+        </button>
+        <div data-dropdown-target="menu" class="hidden absolute right-0 mt-2 w-48 bg-slate-800 border border-white/10 rounded-lg shadow-xl z-50">
+          <div class="py-2">
+            <%= link_to new_organization_path, class: "flex items-center gap-2 px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+              <%= t("nav.new_organization") %>
+            <% end %>
+
+            <%= link_to profile_path, class: "flex items-center gap-2 px-4 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 transition-colors" do %>
+              <% if Current.user.avatar.attached? %>
+                <%= image_tag Current.user.avatar, class: "w-5 h-5 rounded-full object-cover" %>
+              <% elsif Current.user.avatar_emoji %>
+                <span class="text-sm"><%= Current.user.avatar_emoji %></span>
+              <% else %>
+                <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-xs"><%= Current.user.display_name[0].upcase %></span>
+              <% end %>
+              <%= t("nav.profile") %>
+            <% end %>
+
+            <% if Current.user.admin? %>
+              <%= link_to "Admin", admin_root_path, class: "flex items-center gap-2 px-4 py-2 text-sm text-indigo-300 hover:text-indigo-200 hover:bg-white/10 transition-colors" %>
+            <% end %>
+
+            <div class="border-t border-white/10 my-2"></div>
+
+            <%= button_to session_path, method: :delete, class: "flex items-center gap-2 w-full px-4 py-2 text-sm text-white/50 hover:text-white hover:bg-white/10 transition-colors text-left" do %>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <%= t("nav.logout") %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

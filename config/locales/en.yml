@@ -15,6 +15,7 @@ en:
     logout: "Sign out"
     new_organization: "New group"
     profile: "My profile"
+    my_groups: "My groups"
 
   profile:
     title: "My profile"

@@ -2,7 +2,7 @@
 
 <div class="min-h-screen">
   <%# Navbar %>
-  <nav class="landing-nav">
+  <nav class="landing-nav" data-controller="mobile-menu">
     <div class="section-container">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center gap-8">
@@ -12,14 +12,36 @@
             <a href="#empresas" class="nav-link"><%= t("landing.nav.for_companies") %></a>
           </div>
         </div>
-        <div class="flex items-center gap-4">
+
+        <%# Desktop nav %>
+        <div class="hidden sm:flex items-center gap-4">
           <div class="flex items-center gap-1 text-sm">
             <%= link_to "ES", localized_root_path(locale: :es), class: "px-2 py-1 rounded #{I18n.locale == :es ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
             <span class="text-white/30">|</span>
             <%= link_to "EN", localized_root_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
           </div>
-          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "hidden sm:inline-flex nav-link" %>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "nav-link" %>
           <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing" %>
+        </div>
+
+        <%# Mobile hamburger %>
+        <button type="button" class="sm:hidden text-2xl p-2 transition-transform duration-300" data-action="mobile-menu#toggle" data-mobile-menu-target="button">
+          ⚽
+        </button>
+      </div>
+
+      <%# Mobile menu %>
+      <div data-mobile-menu-target="menu" class="hidden sm:hidden pb-4 border-t border-white/10 mt-2 pt-4">
+        <div class="flex flex-col gap-4">
+          <a href="#como-funciona" class="nav-link" data-action="click->mobile-menu#close"><%= t("landing.nav.how_it_works") %></a>
+          <a href="#empresas" class="nav-link" data-action="click->mobile-menu#close"><%= t("landing.nav.for_companies") %></a>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "nav-link" %>
+          <div class="flex items-center gap-2 text-sm">
+            <%= link_to "ES", localized_root_path(locale: :es), class: "px-2 py-1 rounded #{I18n.locale == :es ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+            <span class="text-white/30">|</span>
+            <%= link_to "EN", localized_root_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+          </div>
+          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing text-center" %>
         </div>
       </div>
     </div>

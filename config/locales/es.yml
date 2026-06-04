@@ -18,6 +18,7 @@ es:
     logout: "Salir"
     new_organization: "Nuevo grupo"
     profile: "Mi perfil"
+    my_groups: "Mis grupos"
 
   profile:
     title: "Mi perfil"
