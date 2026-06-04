@@ -38,4 +38,42 @@ namespace :football_data do
       puts "#{tournament.name}: #{result.updated_count} fixtures updated"
     end
   end
+
+  desc "Backfill group names for existing fixtures"
+  task backfill_groups: :environment do
+    client = FootballDataClient.new
+
+    Tournament.find_each do |tournament|
+      code = tournament.external_id
+      next unless code
+
+      puts "Backfilling groups for #{tournament.name}..."
+
+      begin
+        competition = client.competition(code)
+        current_season = competition["currentSeason"]
+        next unless current_season
+
+        matches = client.matches(code, season: current_season["startDate"].to_s[0..3].to_i)
+        updated = 0
+
+        matches.each do |match_data|
+          next unless match_data["group"]
+
+          fixture = Fixture.find_by(external_id: match_data["id"].to_s)
+          next unless fixture
+
+          group_name = match_data["group"].match(/GROUP_(\w+)/)&.then { |m| "Grupo #{m[1]}" }
+          if group_name && fixture.group_name != group_name
+            fixture.update!(group_name: group_name)
+            updated += 1
+          end
+        end
+
+        puts "  Updated #{updated} fixtures"
+      rescue FootballDataClient::ApiError => e
+        puts "  Error: #{e.message}"
+      end
+    end
+  end
 end

@@ -1,5 +1,8 @@
 <%= turbo_frame_tag dom_id(fixture) do %>
-  <div class="<%= fixture.live? ? 'bg-red-500/10 border-red-500/30' : 'bg-white/10 border-white/10' %> backdrop-blur-sm rounded-lg border p-3 hover:bg-white/15 transition-colors relative" id="<%= dom_id(fixture, :container) %>">
+  <div class="fixture-card <%= 'fixture-card-live' if fixture.live? %> cursor-pointer"
+       id="<%= dom_id(fixture, :container) %>"
+       data-controller="fixture-modal"
+       data-action="click->fixture-modal#open">
     <% if fixture.live? %>
       <div class="absolute top-0 left-0 right-0 h-1 bg-red-500 rounded-t-lg"></div>
       <div class="flex items-center justify-center gap-1 mb-1">
@@ -9,10 +12,11 @@
     <% end %>
 
     <%# Fecha y hora %>
-    <div class="text-[10px] text-white/50 mb-2 text-center">
+    <div class="text-[10px] text-white/50 mb-1.5 text-center">
       <span data-controller="local-time"
             data-local-time-datetime-value="<%= fixture.kickoff_at.iso8601 %>"
-            data-local-time-format-value="time">
+            data-local-time-format-value="time"
+            data-local-time-accordion-date-value="<%= local_assigns[:accordion_date] %>">
         <%= fixture.kickoff_at.strftime("%H:%M") %>
       </span>
     </div>
@@ -22,7 +26,7 @@
       <%# Local %>
       <div class="flex items-center gap-1.5 w-full justify-center">
         <%= render "teams/logo", team: fixture.home_team, size: :small %>
-        <span class="text-xs font-medium text-white truncate max-w-20"><%= fixture.home_team.display_name %></span>
+        <span class="team-name-truncate"><%= fixture.home_team.display_name %></span>
       </div>
 
       <%# Marcador o VS %>
@@ -37,16 +41,19 @@
       <%# Visitante %>
       <div class="flex items-center gap-1.5 w-full justify-center">
         <%= render "teams/logo", team: fixture.away_team, size: :small %>
-        <span class="text-xs font-medium text-white truncate max-w-20"><%= fixture.away_team.display_name %></span>
+        <span class="team-name-truncate"><%= fixture.away_team.display_name %></span>
       </div>
     </div>
 
-    <%# Predicción %>
+    <%# Predicción compacta %>
     <div class="mt-2 pt-2 border-t border-white/10">
       <div class="flex justify-center">
         <% prediction = @user_predictions&.dig(fixture.id) || fixture.predictions.build %>
         <%= render "predictions/form", fixture: fixture, prediction: prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
       </div>
     </div>
+
+    <%# Modal %>
+    <%= render "fixtures/fixture_modal", fixture: fixture %>
   </div>
 <% end %>

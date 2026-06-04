@@ -15,3 +15,6 @@ application.register("prediction-form", PredictionFormController)
 
 import PredictionScopeController from "./prediction_scope_controller"
 application.register("prediction-scope", PredictionScopeController)
+
+import FixtureModalController from "./fixture_modal_controller"
+application.register("fixture-modal", FixtureModalController)

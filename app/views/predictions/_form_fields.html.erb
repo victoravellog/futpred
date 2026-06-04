@@ -1,31 +1,28 @@
 <% if fixture.predictable? %>
   <% show_multi_group_dialog = prediction.persisted? && local_assigns[:user_in_multiple_groups] %>
-  <div class="flex items-center gap-1.5"
+  <div class="prediction-form"
        <% if show_multi_group_dialog %>
        data-controller="prediction-scope"
        data-prediction-scope-fixture-id-value="<%= fixture.id %>"
        data-prediction-scope-organization-tournament-id-value="<%= organization_tournament&.id %>"
        <% end %>>
     <% if !prediction.persisted? %>
-      <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" title="<%= t('predictions.pending') %>"></span>
+      <span class="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse shrink-0" title="<%= t('predictions.pending') %>"></span>
     <% end %>
     <%= form_with model: prediction, url: fixture_prediction_path(fixture),
         method: prediction.persisted? ? :patch : :post,
-        class: "flex items-center gap-1.5",
+        class: "flex items-center gap-1",
         data: show_multi_group_dialog ? { prediction_scope_target: "form", action: "submit->prediction-scope#intercept" } : {} do |f| %>
       <%= hidden_field_tag :organization_tournament_id, organization_tournament&.id %>
       <%= f.number_field :predicted_home_score, min: 0, max: 20, value: prediction.predicted_home_score || 0,
-          class: "w-10 text-center px-1 py-1 bg-white/10 border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'} rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
-      <span class="text-white/40 text-sm">-</span>
+          class: "prediction-input border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'}" %>
+      <span class="text-white/40 text-xs">-</span>
       <%= f.number_field :predicted_away_score, min: 0, max: 20, value: prediction.predicted_away_score || 0,
-          class: "w-10 text-center px-1 py-1 bg-white/10 border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'} rounded text-sm text-white placeholder-white/40 focus:ring-2 focus:ring-indigo-400 focus:border-transparent" %>
+          class: "prediction-input border #{prediction.persisted? ? 'border-green-500/30' : 'border-amber-400/30'}" %>
       <% if prediction.persisted? %>
-        <%= f.submit "✓",
-            class: "ml-1 px-2.5 py-1 text-sm font-medium text-white bg-green-600 hover:bg-green-500 rounded cursor-pointer transition-all duration-150",
-            title: t('predictions.saved') %>
+        <%= f.submit "✓", class: "prediction-btn bg-green-600 hover:bg-green-500", title: t('predictions.saved') %>
       <% else %>
-        <%= f.submit t("predictions.save"),
-            class: "ml-1 px-2.5 py-1 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded cursor-pointer transition-all duration-150" %>
+        <%= f.submit "OK", class: "prediction-btn bg-indigo-600 hover:bg-indigo-500" %>
       <% end %>
     <% end %>
 

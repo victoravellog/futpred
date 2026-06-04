@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "pending_badge_#{round.id}_#{date.to_s}" do %>
+  <% if pending_count > 0 %>
+    <span class="badge-pending"><%= t("tournaments.pending_predictions", count: pending_count) %></span>
+  <% end %>
+<% end %>

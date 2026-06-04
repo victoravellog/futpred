@@ -1,0 +1,87 @@
+<dialog data-fixture-modal-target="dialog"
+        data-action="click->fixture-modal#closeOnBackdrop keydown.esc->fixture-modal#close"
+        class="fixture-modal backdrop:bg-black/60 backdrop:backdrop-blur-sm">
+  <div class="fixture-modal-content">
+    <%# Header %>
+    <div class="flex justify-between items-start mb-4">
+      <div>
+        <span class="text-xs text-indigo-400 font-medium"><%= fixture.round.name %><%= " · #{fixture.group_name}" if fixture.group_name.present? %></span>
+        <div class="text-sm text-white/50 mt-0.5"
+             data-controller="local-time"
+             data-local-time-datetime-value="<%= fixture.kickoff_at.iso8601 %>"
+             data-local-time-format-value="long">
+          <%= l(fixture.kickoff_at, format: :long) %>
+        </div>
+      </div>
+      <button type="button" data-action="fixture-modal#close" class="text-white/50 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <%# Teams %>
+    <div class="flex items-center justify-center gap-4 py-4">
+      <%# Home team %>
+      <div class="flex-1 text-center">
+        <%= render "teams/logo", team: fixture.home_team, size: :large %>
+        <p class="text-sm font-medium text-white mt-2"><%= fixture.home_team.display_name %></p>
+      </div>
+
+      <%# Score / VS %>
+      <div class="px-4">
+        <% if fixture.finished? %>
+          <span class="text-2xl font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+        <% elsif fixture.live? %>
+          <div class="text-center">
+            <span class="text-2xl font-bold text-red-400"><%= fixture.home_score || 0 %> - <%= fixture.away_score || 0 %></span>
+            <div class="flex items-center justify-center gap-1 mt-1">
+              <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              <span class="text-xs text-red-400 font-medium">EN VIVO</span>
+            </div>
+          </div>
+        <% else %>
+          <span class="text-lg text-white/30 font-medium">vs</span>
+        <% end %>
+      </div>
+
+      <%# Away team %>
+      <div class="flex-1 text-center">
+        <%= render "teams/logo", team: fixture.away_team, size: :large %>
+        <p class="text-sm font-medium text-white mt-2"><%= fixture.away_team.display_name %></p>
+      </div>
+    </div>
+
+    <%# Prediction %>
+    <div class="border-t border-white/10 pt-4 mt-4">
+      <% if fixture.finished? %>
+        <% prediction = @user_predictions&.dig(fixture.id) %>
+        <% if prediction %>
+          <div class="text-center">
+            <span class="text-xs text-white/50 block mb-1">Tu predicción</span>
+            <span class="text-lg font-medium <%= prediction.exact_score? ? 'text-green-400' : (prediction.correct_result? ? 'text-blue-400' : 'text-white/50') %>">
+              <%= prediction.predicted_home_score %> - <%= prediction.predicted_away_score %>
+            </span>
+            <% if prediction.points_earned.present? && prediction.points_earned > 0 %>
+              <span class="ml-2 text-sm font-semibold px-2 py-0.5 rounded-full <%= prediction.exact_score? ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400' %>">
+                +<%= prediction.points_earned %> pts
+              </span>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="text-center text-sm text-white/40">No hiciste predicción</p>
+        <% end %>
+      <% elsif fixture.predictable? %>
+        <p class="text-xs text-white/50 text-center mb-3">Tu predicción</p>
+        <div class="flex justify-center">
+          <%= turbo_frame_tag dom_id(fixture, :modal_prediction) do %>
+            <% prediction = @user_predictions&.dig(fixture.id) || fixture.predictions.build %>
+            <%= render "predictions/form_modal", fixture: fixture, prediction: prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-center text-sm text-white/40">Predicciones cerradas</p>
+      <% end %>
+    </div>
+  </div>
+</dialog>

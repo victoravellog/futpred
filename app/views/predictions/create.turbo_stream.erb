@@ -1,7 +1,29 @@
+<%
+  round = @fixture.round
+  date = @fixture.kickoff_at.to_date
+  day_fixture_ids = round.fixtures.select { |f| f.kickoff_at.to_date == date }.map(&:id)
+  user_prediction_fixture_ids = @organization_tournament.predictions
+    .where(user: Current.user, fixture_id: day_fixture_ids)
+    .pluck(:fixture_id)
+  pending_count = round.fixtures.count { |f| f.kickoff_at.to_date == date && !f.finished? && !user_prediction_fixture_ids.include?(f.id) }
+%>
+
 <%= turbo_stream.replace dom_id(@fixture, :prediction_form) do %>
   <%= turbo_frame_tag dom_id(@fixture, :prediction_form) do %>
     <div class="rounded-lg transition-all duration-300 prediction-saved">
       <%= render "predictions/form_fields", fixture: @fixture, prediction: @prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
     </div>
   <% end %>
+<% end %>
+
+<%= turbo_stream.replace dom_id(@fixture, :modal_prediction) do %>
+  <%= turbo_frame_tag dom_id(@fixture, :modal_prediction) do %>
+    <div class="prediction-saved-modal">
+      <%= render "predictions/form_modal", fixture: @fixture, prediction: @prediction, organization_tournament: @organization_tournament, user_in_multiple_groups: @user_in_multiple_groups %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "pending_badge_#{round.id}_#{date}" do %>
+  <%= render "fixtures/pending_badge", round: round, date: date, pending_count: pending_count %>
 <% end %>

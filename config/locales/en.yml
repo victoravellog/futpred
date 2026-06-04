@@ -7,6 +7,7 @@ en:
   time:
     formats:
       short: "%b %d %H:%M"
+      long: "%A, %B %d at %H:%M"
 
   app_name: "FutPred"
 
@@ -182,6 +183,9 @@ en:
     more_matches:
       one: "and 1 more match..."
       other: "and %{count} more matches..."
+    pending_predictions:
+      one: "1 pending"
+      other: "%{count} pending"
 
   fixtures:
     live: "LIVE"

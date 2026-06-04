@@ -75,7 +75,8 @@ class ImportCompetition < Actor
         kickoff_at: Time.parse(match_data["utcDate"]),
         status: map_status(match_data["status"]),
         home_score: match_data.dig("score", "fullTime", "home"),
-        away_score: match_data.dig("score", "fullTime", "away")
+        away_score: match_data.dig("score", "fullTime", "away"),
+        group_name: humanize_group(match_data["group"])
       )
     end
   end
@@ -100,6 +101,12 @@ class ImportCompetition < Actor
       "FINAL" => 2.0,
       "THIRD_PLACE" => 1.5
     }[stage] || 1.0
+  end
+
+  def humanize_group(group)
+    return nil unless group
+    match = group.match(/GROUP_(\w+)/)
+    match ? "Grupo #{match[1]}" : nil
   end
 
   def map_status(api_status)

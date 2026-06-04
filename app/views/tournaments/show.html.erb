@@ -100,7 +100,9 @@
             </div>
 
             <% fixtures_by_date = round.fixtures.order(:kickoff_at).group_by { |f| f.kickoff_at.to_date } %>
-            <% fixtures_by_date.each do |date, fixtures| %>
+            <% fixtures_by_date.each do |date, day_fixtures| %>
+              <% sorted_fixtures = day_fixtures.sort_by(&:kickoff_at) %>
+              <% pending_count = sorted_fixtures.count { |f| !f.finished? && @user_predictions&.dig(f.id).nil? } %>
               <details class="group" <%= "open" if date.between?(today, tomorrow) %>>
                 <summary class="px-4 py-2 bg-white/5 cursor-pointer hover:bg-white/10 flex justify-between items-center text-sm transition-colors">
                   <span class="font-medium text-white/80">
@@ -111,11 +113,14 @@
                     <% end %>
                     <%= l(date, format: :long) %>
                   </span>
-                  <span class="text-xs text-white/50"><%= t("tournaments.fixtures_count", count: fixtures.count) %></span>
+                  <div class="flex items-center gap-2">
+                    <%= render "fixtures/pending_badge", round: round, date: date, pending_count: pending_count %>
+                    <span class="text-xs text-white/50"><%= t("tournaments.fixtures_count", count: sorted_fixtures.count) %></span>
+                  </div>
                 </summary>
-                <div class="divide-y divide-white/5">
-                  <% fixtures.each do |fixture| %>
-                    <%= render "fixtures/fixture_compact", fixture: fixture %>
+                <div class="fixture-cards-grid p-3">
+                  <% sorted_fixtures.each do |fixture| %>
+                    <%= render "fixtures/fixture_card", fixture: fixture, accordion_date: date %>
                   <% end %>
                 </div>
               </details>
