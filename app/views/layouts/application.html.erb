@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "Futpred" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= display_meta_tags site: "FutPred",
+                          separator: "—",
+                          reverse: true,
+                          viewport: "width=device-width,initial-scale=1",
+                          og: {
+                            site_name: "FutPred",
+                            type: "website",
+                            locale: I18n.locale == :es ? "es_ES" : "en_US"
+                          },
+                          twitter: {
+                            card: "summary_large_image"
+                          } %>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <link rel="canonical" href="<%= request.original_url.split('?').first %>">
 
     <%= yield :head %>
 

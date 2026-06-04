@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  attr_accessor :terms_accepted
+
   AVATAR_PRESETS = {
     "soccer_ball" => "⚽",
     "goal" => "🥅",
@@ -26,6 +28,7 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: true
   validates :avatar_preset, inclusion: { in: AVATAR_PRESETS.keys }, allow_blank: true
+  validates :terms_accepted, acceptance: { message: :must_accept_terms }, on: :create
   validate :acceptable_avatar
 
   def display_name

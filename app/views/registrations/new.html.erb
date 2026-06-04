@@ -31,6 +31,16 @@
           placeholder: "********", class: "auth-input" %>
     </div>
 
+    <div class="flex items-start gap-2">
+      <%= f.check_box :terms_accepted, required: true, class: "mt-1 rounded border-white/20 bg-white/5 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0" %>
+      <%= f.label :terms_accepted, class: "text-sm text-white/70" do %>
+        <%= t("auth.terms_acceptance") %>
+        <%= link_to t("auth.terms_link"), terms_path, class: "text-emerald-400 hover:underline", target: "_blank" %>
+        <%= t("auth.and") %>
+        <%= link_to t("auth.privacy_link"), privacy_path, class: "text-emerald-400 hover:underline", target: "_blank" %>
+      <% end %>
+    </div>
+
     <%= f.submit t("auth.register_button"), class: "btn-primary btn-lg w-full shadow-lg" %>
   <% end %>
 <% end %>

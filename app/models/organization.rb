@@ -1,5 +1,8 @@
 class Organization < ApplicationRecord
   LOCALES = %w[es en].freeze
+  FREE_MEMBERS_LIMIT = 20
+
+  enum :plan, { free: 0, pro: 1, enterprise: 2 }
 
   has_many :memberships, dependent: :destroy
   has_many :users, through: :memberships
@@ -16,6 +19,14 @@ class Organization < ApplicationRecord
 
   def owner
     memberships.find_by(role: :owner)&.user
+  end
+
+  def members_limit
+    free? ? FREE_MEMBERS_LIMIT : Float::INFINITY
+  end
+
+  def can_add_members?
+    memberships.count < members_limit
   end
 
   def invite_url(host:)

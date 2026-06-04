@@ -2,7 +2,15 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/60">
       <p>&copy; <%= Date.current.year %> FutPred</p>
-      <p><%= t("footer.made_with_love") %></p>
+      <div class="flex items-center gap-4">
+        <%= link_to t("footer.contact"), contact_path, class: "hover:text-white transition-colors" %>
+        <span class="text-white/30">|</span>
+        <%= link_to t("footer.privacy"), privacy_path, class: "hover:text-white transition-colors" %>
+        <span class="text-white/30">|</span>
+        <%= link_to t("footer.terms"), terms_path, class: "hover:text-white transition-colors" %>
+        <span class="text-white/30">|</span>
+        <p><%= t("footer.made_with_love") %></p>
+      </div>
     </div>
   </div>
 </footer>

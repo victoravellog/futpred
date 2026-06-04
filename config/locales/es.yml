@@ -47,6 +47,11 @@ es:
     login_button: "Iniciar sesión"
     register_button: "Crear cuenta"
     account_created: "Cuenta creada exitosamente"
+    terms_acceptance: "Acepto los"
+    terms_link: "términos de servicio"
+    and: "y la"
+    privacy_link: "política de privacidad"
+    must_accept_terms: "Debes aceptar los términos y la política de privacidad"
 
   invites:
     title: "Te han invitado"
@@ -103,6 +108,70 @@ es:
 
   footer:
     made_with_love: "Hecho con ⚽ desde UK"
+    contact: "Contacto"
+    privacy: "Privacidad"
+    terms: "Términos"
+
+  contact:
+    title: "Contacto"
+    subtitle: "¿Tienes alguna pregunta o sugerencia? Escríbenos."
+    meta_description: "Contacta con el equipo de FutPred. Estamos aquí para ayudarte con cualquier pregunta sobre predicciones de fútbol."
+    name: "Nombre"
+    name_placeholder: "Tu nombre"
+    email_label: "Email"
+    message_label: "Mensaje"
+    message_placeholder: "¿En qué podemos ayudarte?"
+    send: "Enviar mensaje"
+    success: "¡Mensaje enviado! Te responderemos pronto."
+    error: "Por favor completa todos los campos."
+    mailer:
+      from: "De"
+      message: "Mensaje"
+
+  pricing:
+    title: "Planes y precios"
+    subtitle: "Paga por torneo, no por mes. Solo $0.50 por participante."
+    questions: "¿Eres una empresa? Prueba tu primer torneo gratis"
+    contact_us: "Contáctanos"
+    free:
+      name: "Gratis"
+      price: "$0"
+      period: "/torneo"
+      description: "Para grupos de amigos"
+      features:
+        - "Hasta 20 participantes"
+        - "Leaderboard en tiempo real"
+        - "Link de invitación"
+      cta: "Empezar gratis"
+    pro:
+      name: "Torneo"
+      badge: "Popular"
+      price: "$50"
+      period: "/torneo"
+      description: "Para empresas pequeñas"
+      features:
+        - "Hasta 100 participantes"
+        - "Solo $0.50 por persona"
+        - "Soporte por email"
+      cta: "Contactar"
+    enterprise:
+      name: "Empresa"
+      price: "$250"
+      period: "/torneo"
+      description: "Para empresas grandes"
+      features:
+        - "Hasta 500 participantes"
+        - "Solo $0.50 por persona"
+        - "Soporte prioritario"
+      cta: "Contactar"
+    tournaments:
+      title: "Próximos torneos"
+      subtitle: "Estos son los torneos disponibles para competir"
+      starts_today: "Comienza hoy"
+      starts_tomorrow: "Comienza mañana"
+      starts_in_days:
+        one: "Comienza en 1 día"
+        other: "Comienza en %{count} días"
 
   landing:
     nav:
@@ -146,6 +215,7 @@ es:
         feature1: "Invitación por link privado"
         feature2: "Leaderboard en tiempo real"
         feature3: "Sin límite de participantes"
+        cta: "Ver planes para empresas"
       friends:
         title: "Grupos de amigos"
         description: "Lleva la pichanga de predicciones al siguiente nivel. Sin Excel, sin WhatsApp caóticos, sin calculadoras."
@@ -322,7 +392,137 @@ es:
   activerecord:
     errors:
       models:
+        membership:
+          members_limit_reached: "Este grupo ha alcanzado el límite de 20 participantes del plan gratuito"
         prediction:
           attributes:
             fixture:
               closed: "ya no acepta predicciones"
+
+  meta_tags:
+    pages:
+      home:
+        title: "Predice, compite y gana con tus amigos o tu equipo"
+        description: "Crea tu grupo de predicciones para el Mundial, la Champions o cualquier torneo. Invita con tu link, predice los resultados y compite por el primer lugar."
+      pricing:
+        title: "Planes y precios"
+        description: "Paga por torneo, no por mes. Gratis para amigos, $0.50 por participante para empresas."
+      privacy:
+        title: "Política de Privacidad"
+        description: "Conoce cómo FutPred protege tu privacidad y gestiona tus datos personales."
+      terms:
+        title: "Términos de Servicio"
+        description: "Lee los términos y condiciones de uso de FutPred."
+    sessions:
+      new:
+        title: "Iniciar sesión"
+        description: "Inicia sesión en FutPred para hacer tus predicciones de fútbol y competir con tus amigos."
+    registrations:
+      new:
+        title: "Crear cuenta"
+        description: "Crea tu cuenta en FutPred y empieza a predecir resultados de fútbol. Gratis para siempre."
+    contacts:
+      new:
+        title: "Contacto"
+        description: "Contacta con el equipo de FutPred. Estamos aquí para ayudarte con cualquier pregunta sobre predicciones de fútbol."
+
+  privacy:
+    title: "Política de Privacidad"
+    last_updated: "Última actualización: %{date}"
+    sections:
+      intro:
+        title: "Introducción"
+        content: "En FutPred nos tomamos muy en serio la privacidad de nuestros usuarios. Esta política describe qué información recopilamos, cómo la usamos y qué derechos tienes sobre tus datos."
+      data_collected:
+        title: "Datos que recopilamos"
+        intro: "Recopilamos la siguiente información cuando usas FutPred:"
+        items:
+          - "Email: para crear tu cuenta y enviarte notificaciones"
+          - "Nombre (opcional): para mostrarlo en la clasificación"
+          - "Avatar (opcional): imagen de perfil que elijas subir"
+          - "Predicciones: los resultados que predices para cada partido"
+          - "Grupos: las organizaciones a las que perteneces"
+      data_use:
+        title: "Cómo usamos tus datos"
+        intro: "Usamos tu información para:"
+        items:
+          - "Gestionar tu cuenta y autenticación"
+          - "Mostrar clasificaciones y estadísticas"
+          - "Enviar recordatorios de torneos (puedes desactivarlos)"
+          - "Responder a tus consultas de soporte"
+          - "Mejorar el servicio basándonos en el uso"
+      data_sharing:
+        title: "Con quién compartimos tus datos"
+        intro: "No vendemos tus datos. Solo compartimos información con:"
+        items:
+          - "Resend: para enviar emails transaccionales y notificaciones"
+          - "Hetzner: donde alojamos nuestros servidores (Alemania, cumple GDPR)"
+          - "Autoridades: solo si es requerido legalmente"
+      rights:
+        title: "Tus derechos"
+        intro: "Tienes derecho a:"
+        items:
+          - "Acceder a tus datos personales"
+          - "Rectificar información incorrecta"
+          - "Eliminar tu cuenta y todos tus datos"
+          - "Exportar tus datos en formato legible"
+          - "Retirar tu consentimiento en cualquier momento"
+        contact_html: "Para ejercer estos derechos, contacta a <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"
+      cookies:
+        title: "Cookies"
+        content: "Usamos únicamente cookies de sesión técnicas, necesarias para mantener tu sesión activa. No usamos cookies de seguimiento ni de publicidad."
+      security:
+        title: "Seguridad"
+        content: "Protegemos tus datos con cifrado en tránsito (HTTPS) y en reposo. Las contraseñas se almacenan hasheadas con bcrypt. Realizamos copias de seguridad regulares."
+      changes:
+        title: "Cambios en esta política"
+        content: "Podemos actualizar esta política ocasionalmente. Te notificaremos de cambios significativos por email. El uso continuado del servicio implica aceptación de los cambios."
+      contact:
+        title: "Contacto"
+        content_html: "Para cualquier pregunta sobre privacidad, contacta a <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"
+
+  terms:
+    title: "Términos de Servicio"
+    last_updated: "Última actualización: %{date}"
+    sections:
+      acceptance:
+        title: "Aceptación de los términos"
+        content: "Al crear una cuenta o usar FutPred, aceptas estos términos de servicio. Si no estás de acuerdo, no uses el servicio."
+      service:
+        title: "Descripción del servicio"
+        content: "FutPred es una plataforma de predicciones de fútbol que permite a usuarios crear grupos, predecir resultados de partidos y competir en clasificaciones. El servicio se ofrece 'tal cual' sin garantías."
+      accounts:
+        title: "Cuentas de usuario"
+        intro: "Al crear una cuenta, te comprometes a:"
+        items:
+          - "Proporcionar información veraz"
+          - "Mantener la seguridad de tu contraseña"
+          - "No compartir tu cuenta con terceros"
+          - "Notificarnos de cualquier uso no autorizado"
+      conduct:
+        title: "Conducta del usuario"
+        intro: "No está permitido:"
+        items:
+          - "Usar el servicio para actividades ilegales"
+          - "Intentar acceder a cuentas de otros usuarios"
+          - "Enviar spam o contenido ofensivo"
+          - "Manipular clasificaciones o resultados"
+          - "Usar bots o scripts automatizados"
+      intellectual_property:
+        title: "Propiedad intelectual"
+        content: "FutPred y su contenido (logos, diseño, código) son propiedad de sus creadores. Los datos de partidos provienen de Football-Data.org. Los logos de torneos pertenecen a sus respectivas organizaciones."
+      disclaimer:
+        title: "Exención de responsabilidad"
+        content: "FutPred es un servicio de entretenimiento. No promovemos ni facilitamos apuestas con dinero real. No nos hacemos responsables de decisiones tomadas basándose en predicciones del servicio."
+      liability:
+        title: "Limitación de responsabilidad"
+        content: "En la máxima medida permitida por la ley, FutPred no será responsable de daños indirectos, incidentales o consecuentes derivados del uso del servicio."
+      termination:
+        title: "Terminación"
+        content: "Podemos suspender o terminar tu cuenta si violas estos términos. Puedes eliminar tu cuenta en cualquier momento desde tu perfil."
+      changes:
+        title: "Cambios en los términos"
+        content: "Podemos modificar estos términos. Los cambios significativos se notificarán por email con 30 días de antelación. El uso continuado implica aceptación."
+      contact:
+        title: "Contacto"
+        content_html: "Para preguntas sobre estos términos, contacta a <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"

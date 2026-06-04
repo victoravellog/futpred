@@ -1,0 +1,169 @@
+<div class="min-h-screen">
+  <%# Navbar %>
+  <nav class="landing-nav">
+    <div class="section-container">
+      <div class="flex items-center justify-between h-16">
+        <%= link_to root_path do %>
+          <%= image_tag "futpred-logo-dark.svg", alt: "FutPred", class: "h-8" %>
+        <% end %>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1 text-sm">
+            <%= link_to "ES", pricing_path(locale: :es), class: "px-2 py-1 rounded #{I18n.locale == :es ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+            <span class="text-white/30">|</span>
+            <%= link_to "EN", pricing_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+          </div>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "nav-link" %>
+          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing" %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <%# Hero %>
+  <section class="pt-32 pb-16">
+    <div class="section-container text-center">
+      <h1 class="text-4xl sm:text-5xl font-bold text-white mb-6">
+        <%= t("pricing.title") %>
+      </h1>
+      <p class="text-lg text-white/70 max-w-2xl mx-auto">
+        <%= t("pricing.subtitle") %>
+      </p>
+    </div>
+  </section>
+
+  <%# Pricing Cards %>
+  <section class="pb-20">
+    <div class="section-container">
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+
+        <%# Free Plan %>
+        <div class="card p-8 flex flex-col">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-white/60 mb-2"><%= t("pricing.free.name") %></h3>
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-white"><%= t("pricing.free.price") %></span>
+              <span class="text-white/50"><%= t("pricing.free.period") %></span>
+            </div>
+            <p class="text-white/50 mt-2"><%= t("pricing.free.description") %></p>
+          </div>
+
+          <ul class="space-y-3 mb-8 flex-1">
+            <% t("pricing.free.features").each do |feature| %>
+              <li class="flex items-start gap-3 text-white/70">
+                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <%= feature %>
+              </li>
+            <% end %>
+          </ul>
+
+          <%= link_to t("pricing.free.cta"), new_registration_path, class: "btn-landing-secondary w-full text-center" %>
+        </div>
+
+        <%# Pro Plan - Featured %>
+        <div class="card p-8 flex flex-col ring-2 ring-emerald-500 relative">
+          <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+            <span class="bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+              <%= t("pricing.pro.badge") %>
+            </span>
+          </div>
+
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-emerald-400 mb-2"><%= t("pricing.pro.name") %></h3>
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-white"><%= t("pricing.pro.price") %></span>
+              <span class="text-white/50"><%= t("pricing.pro.period") %></span>
+            </div>
+            <p class="text-white/50 mt-2"><%= t("pricing.pro.description") %></p>
+          </div>
+
+          <ul class="space-y-3 mb-8 flex-1">
+            <% t("pricing.pro.features").each do |feature| %>
+              <li class="flex items-start gap-3 text-white/70">
+                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <%= feature %>
+              </li>
+            <% end %>
+          </ul>
+
+          <%= link_to t("pricing.pro.cta"), contact_path, class: "btn-landing w-full text-center" %>
+        </div>
+
+        <%# Enterprise Plan %>
+        <div class="card p-8 flex flex-col">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-white/60 mb-2"><%= t("pricing.enterprise.name") %></h3>
+            <div class="flex items-baseline gap-1">
+              <span class="text-4xl font-bold text-white"><%= t("pricing.enterprise.price") %></span>
+              <span class="text-white/50"><%= t("pricing.enterprise.period") %></span>
+            </div>
+            <p class="text-white/50 mt-2"><%= t("pricing.enterprise.description") %></p>
+          </div>
+
+          <ul class="space-y-3 mb-8 flex-1">
+            <% t("pricing.enterprise.features").each do |feature| %>
+              <li class="flex items-start gap-3 text-white/70">
+                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <%= feature %>
+              </li>
+            <% end %>
+          </ul>
+
+          <%= link_to t("pricing.enterprise.cta"), contact_path, class: "btn-landing-secondary w-full text-center" %>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <% if @tournaments.any? %>
+    <%# Upcoming Tournaments %>
+    <section class="section-alt">
+      <div class="section-container">
+        <div class="text-center mb-10">
+          <h2 class="text-2xl font-bold text-white mb-2"><%= t("pricing.tournaments.title") %></h2>
+          <p class="text-white/60"><%= t("pricing.tournaments.subtitle") %></p>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4">
+          <% @tournaments.each do |tournament| %>
+            <div class="card px-6 py-4 flex items-center gap-4">
+              <% if tournament.logo_url.present? %>
+                <img src="<%= tournament.logo_url %>" alt="<%= tournament.name %>" class="w-12 h-12 object-contain">
+              <% else %>
+                <div class="text-3xl">⚽</div>
+              <% end %>
+              <div>
+                <div class="font-semibold text-white"><%= tournament.name %></div>
+                <div class="text-sm text-white/50">
+                  <% if tournament.days_until_start == 0 %>
+                    <%= t("pricing.tournaments.starts_today") %>
+                  <% elsif tournament.days_until_start == 1 %>
+                    <%= t("pricing.tournaments.starts_tomorrow") %>
+                  <% elsif tournament.days_until_start && tournament.days_until_start < 30 %>
+                    <%= t("pricing.tournaments.starts_in_days", count: tournament.days_until_start) %>
+                  <% else %>
+                    <%= l(tournament.starts_at, format: :short) %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
+  <%# FAQ or CTA %>
+  <section class="section">
+    <div class="section-container text-center">
+      <p class="text-white/70 mb-4"><%= t("pricing.questions") %></p>
+      <%= link_to t("pricing.contact_us"), contact_path, class: "text-emerald-400 hover:text-emerald-300 font-medium" %>
+    </div>
+  </section>
+</div>

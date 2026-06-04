@@ -1,1 +1,35 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+# https://www.robotstxt.org/robotstxt.html
+
+User-agent: *
+
+# Public pages - allowed
+Allow: /
+Allow: /es
+Allow: /en
+Allow: /pricing
+Allow: /es/pricing
+Allow: /en/pricing
+Allow: /contact
+Allow: /es/contact
+Allow: /en/contact
+Allow: /privacy
+Allow: /es/privacy
+Allow: /en/privacy
+Allow: /terms
+Allow: /es/terms
+Allow: /en/terms
+Allow: /session/new
+Allow: /registration/new
+Allow: /passwords/new
+
+# Authenticated pages - blocked
+Disallow: /dashboard
+Disallow: /organizations
+Disallow: /tournaments
+Disallow: /fixtures
+Disallow: /profile
+Disallow: /admin
+Disallow: /invite
+
+# Sitemap
+Sitemap: https://futpred.com/sitemap.xml

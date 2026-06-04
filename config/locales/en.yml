@@ -44,6 +44,11 @@ en:
     login_button: "Sign in"
     register_button: "Create account"
     account_created: "Account created successfully"
+    terms_acceptance: "I accept the"
+    terms_link: "terms of service"
+    and: "and the"
+    privacy_link: "privacy policy"
+    must_accept_terms: "You must accept the terms and privacy policy"
 
   invites:
     title: "You've been invited"
@@ -100,6 +105,70 @@ en:
 
   footer:
     made_with_love: "Made with ⚽ from the UK"
+    contact: "Contact"
+    privacy: "Privacy"
+    terms: "Terms"
+
+  contact:
+    title: "Contact"
+    subtitle: "Have a question or suggestion? Get in touch."
+    meta_description: "Contact the FutPred team. We're here to help with any questions about football predictions."
+    name: "Name"
+    name_placeholder: "Your name"
+    email_label: "Email"
+    message_label: "Message"
+    message_placeholder: "How can we help you?"
+    send: "Send message"
+    success: "Message sent! We'll get back to you soon."
+    error: "Please fill in all fields."
+    mailer:
+      from: "From"
+      message: "Message"
+
+  pricing:
+    title: "Plans and pricing"
+    subtitle: "Pay per tournament, not per month. Just $0.50 per participant."
+    questions: "Are you a company? Try your first tournament free"
+    contact_us: "Contact us"
+    free:
+      name: "Free"
+      price: "$0"
+      period: "/tournament"
+      description: "For friend groups"
+      features:
+        - "Up to 20 participants"
+        - "Real-time leaderboard"
+        - "Invite link"
+      cta: "Start free"
+    pro:
+      name: "Tournament"
+      badge: "Popular"
+      price: "$50"
+      period: "/tournament"
+      description: "For small companies"
+      features:
+        - "Up to 100 participants"
+        - "Just $0.50 per person"
+        - "Email support"
+      cta: "Contact"
+    enterprise:
+      name: "Business"
+      price: "$250"
+      period: "/tournament"
+      description: "For large companies"
+      features:
+        - "Up to 500 participants"
+        - "Just $0.50 per person"
+        - "Priority support"
+      cta: "Contact"
+    tournaments:
+      title: "Upcoming tournaments"
+      subtitle: "These are the tournaments available to compete"
+      starts_today: "Starts today"
+      starts_tomorrow: "Starts tomorrow"
+      starts_in_days:
+        one: "Starts in 1 day"
+        other: "Starts in %{count} days"
 
   landing:
     nav:
@@ -143,6 +212,7 @@ en:
         feature1: "Private invite link"
         feature2: "Real-time leaderboard"
         feature3: "Unlimited participants"
+        cta: "See plans for companies"
       friends:
         title: "Friend groups"
         description: "Take your prediction game to the next level. No Excel, no chaotic WhatsApp groups, no calculators."
@@ -315,7 +385,137 @@ en:
   activerecord:
     errors:
       models:
+        membership:
+          members_limit_reached: "This group has reached the 20 participant limit for the free plan"
         prediction:
           attributes:
             fixture:
               closed: "no longer accepts predictions"
+
+  meta_tags:
+    pages:
+      home:
+        title: "Predict, compete and win with your friends or team"
+        description: "Create your prediction group for the World Cup, Champions League or any tournament. Invite with your link, predict the results and compete for first place."
+      pricing:
+        title: "Plans and pricing"
+        description: "Pay per tournament, not per month. Free for friends, $0.50 per participant for companies."
+      privacy:
+        title: "Privacy Policy"
+        description: "Learn how FutPred protects your privacy and manages your personal data."
+      terms:
+        title: "Terms of Service"
+        description: "Read FutPred's terms and conditions of use."
+    sessions:
+      new:
+        title: "Sign in"
+        description: "Sign in to FutPred to make your football predictions and compete with your friends."
+    registrations:
+      new:
+        title: "Create account"
+        description: "Create your FutPred account and start predicting football results. Free forever."
+    contacts:
+      new:
+        title: "Contact"
+        description: "Contact the FutPred team. We're here to help with any questions about football predictions."
+
+  privacy:
+    title: "Privacy Policy"
+    last_updated: "Last updated: %{date}"
+    sections:
+      intro:
+        title: "Introduction"
+        content: "At FutPred, we take user privacy very seriously. This policy describes what information we collect, how we use it, and what rights you have over your data."
+      data_collected:
+        title: "Data we collect"
+        intro: "We collect the following information when you use FutPred:"
+        items:
+          - "Email: to create your account and send notifications"
+          - "Name (optional): to display on leaderboards"
+          - "Avatar (optional): profile picture you choose to upload"
+          - "Predictions: the results you predict for each match"
+          - "Groups: the organizations you belong to"
+      data_use:
+        title: "How we use your data"
+        intro: "We use your information to:"
+        items:
+          - "Manage your account and authentication"
+          - "Display leaderboards and statistics"
+          - "Send tournament reminders (you can disable these)"
+          - "Respond to your support inquiries"
+          - "Improve the service based on usage"
+      data_sharing:
+        title: "Who we share your data with"
+        intro: "We do not sell your data. We only share information with:"
+        items:
+          - "Resend: to send transactional emails and notifications"
+          - "Hetzner: where we host our servers (Germany, GDPR compliant)"
+          - "Authorities: only if legally required"
+      rights:
+        title: "Your rights"
+        intro: "You have the right to:"
+        items:
+          - "Access your personal data"
+          - "Rectify incorrect information"
+          - "Delete your account and all your data"
+          - "Export your data in a readable format"
+          - "Withdraw your consent at any time"
+        contact_html: "To exercise these rights, contact <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"
+      cookies:
+        title: "Cookies"
+        content: "We only use technical session cookies, necessary to keep your session active. We do not use tracking or advertising cookies."
+      security:
+        title: "Security"
+        content: "We protect your data with encryption in transit (HTTPS) and at rest. Passwords are stored hashed with bcrypt. We perform regular backups."
+      changes:
+        title: "Changes to this policy"
+        content: "We may update this policy occasionally. We will notify you of significant changes by email. Continued use of the service implies acceptance of changes."
+      contact:
+        title: "Contact"
+        content_html: "For any privacy questions, contact <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"
+
+  terms:
+    title: "Terms of Service"
+    last_updated: "Last updated: %{date}"
+    sections:
+      acceptance:
+        title: "Acceptance of terms"
+        content: "By creating an account or using FutPred, you accept these terms of service. If you do not agree, do not use the service."
+      service:
+        title: "Service description"
+        content: "FutPred is a football prediction platform that allows users to create groups, predict match results, and compete on leaderboards. The service is provided 'as is' without warranties."
+      accounts:
+        title: "User accounts"
+        intro: "When creating an account, you agree to:"
+        items:
+          - "Provide accurate information"
+          - "Keep your password secure"
+          - "Not share your account with others"
+          - "Notify us of any unauthorized use"
+      conduct:
+        title: "User conduct"
+        intro: "You may not:"
+        items:
+          - "Use the service for illegal activities"
+          - "Attempt to access other users' accounts"
+          - "Send spam or offensive content"
+          - "Manipulate leaderboards or results"
+          - "Use bots or automated scripts"
+      intellectual_property:
+        title: "Intellectual property"
+        content: "FutPred and its content (logos, design, code) are owned by its creators. Match data comes from Football-Data.org. Tournament logos belong to their respective organizations."
+      disclaimer:
+        title: "Disclaimer"
+        content: "FutPred is an entertainment service. We do not promote or facilitate real-money gambling. We are not responsible for decisions made based on predictions from the service."
+      liability:
+        title: "Limitation of liability"
+        content: "To the maximum extent permitted by law, FutPred will not be liable for indirect, incidental, or consequential damages arising from use of the service."
+      termination:
+        title: "Termination"
+        content: "We may suspend or terminate your account if you violate these terms. You can delete your account at any time from your profile."
+      changes:
+        title: "Changes to terms"
+        content: "We may modify these terms. Significant changes will be notified by email with 30 days notice. Continued use implies acceptance."
+      contact:
+        title: "Contact"
+        content_html: "For questions about these terms, contact <a href='mailto:%{email}' class='text-emerald-400 hover:underline'>%{email}</a>"

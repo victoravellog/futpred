@@ -61,6 +61,36 @@ Preferir clases CSS con `@apply` sobre Tailwind inline para mantener HTML legibl
 
 Partials reutilizables van en `app/views/shared/`.
 
+### SEO
+
+Usamos la gema `meta-tags` para gestionar títulos, descripciones y Open Graph.
+
+**Al crear una nueva página pública:**
+
+1. Añadir meta tags en `config/locales/{es,en}.yml` bajo la clave `meta_tags.{controller}.{action}`:
+   ```yaml
+   meta_tags:
+     pages:
+       pricing:
+         title: "Planes y precios"
+         description: "Descripción de 150-160 caracteres..."
+   ```
+
+2. Asegurar que la página tenga exactamente un `<h1>` bien definido
+
+3. Actualizar `config/sitemap.rb` para incluir la nueva ruta
+
+4. Actualizar `public/robots.txt`:
+   - Añadir `Allow: /nueva-ruta` si es pública
+   - Las páginas autenticadas ya tienen `noindex` automático
+
+**Estructura de archivos SEO:**
+- `config/initializers/meta_tags.rb` - Configuración y concern `MetaTagsDefaults`
+- `config/sitemap.rb` - Definición del sitemap (generar con `rake sitemap:create`)
+- `public/robots.txt` - Reglas de indexación
+
+**Open Graph:** Se genera automáticamente con imagen `/icon.png`. Para páginas especiales, crear imagen 1200x630px.
+
 ### Base de datos
 
 - PostgreSQL corriendo en Docker (`docker compose up -d`)

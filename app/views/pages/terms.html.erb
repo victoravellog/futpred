@@ -1,0 +1,92 @@
+<div class="min-h-screen">
+  <nav class="landing-nav">
+    <div class="section-container">
+      <div class="flex items-center justify-between h-16">
+        <%= link_to root_path do %>
+          <%= image_tag "futpred-logo-dark.svg", alt: "FutPred", class: "h-8" %>
+        <% end %>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1 text-sm">
+            <%= link_to "ES", terms_path(locale: :es), class: "px-2 py-1 rounded #{I18n.locale == :es ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+            <span class="text-white/30">|</span>
+            <%= link_to "EN", terms_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+          </div>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "nav-link" %>
+          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing" %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-20">
+    <div class="section-container">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-8"><%= t("terms.title") %></h1>
+
+        <div class="prose prose-invert prose-emerald max-w-none space-y-8">
+          <p class="text-white/70"><%= t("terms.last_updated", date: l(Date.new(2026, 6, 4), format: :short)) %></p>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.acceptance.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.acceptance.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.service.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.service.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.accounts.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("terms.sections.accounts.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("terms.sections.accounts.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.conduct.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("terms.sections.conduct.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("terms.sections.conduct.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.intellectual_property.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.intellectual_property.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.disclaimer.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.disclaimer.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.liability.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.liability.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.termination.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.termination.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.changes.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.changes.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("terms.sections.contact.title") %></h2>
+            <p class="text-white/70"><%= t("terms.sections.contact.content_html", email: "contact@futpred.com") %></p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

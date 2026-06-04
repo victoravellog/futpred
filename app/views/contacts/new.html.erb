@@ -1,0 +1,31 @@
+<%= render layout: "shared/auth_layout", locals: { title: t("contact.title"), subtitle: t("contact.subtitle") } do %>
+  <% if flash[:notice] %>
+    <div class="mb-4 alert-success"><%= flash[:notice] %></div>
+  <% end %>
+
+  <%= form_with url: contact_path, method: :post, class: "space-y-4" do |f| %>
+    <div>
+      <%= f.label :name, t("contact.name"), class: "auth-label" %>
+      <%= f.text_field :name, required: true, autofocus: true,
+          value: params[:name], placeholder: t("contact.name_placeholder"), class: "auth-input" %>
+    </div>
+
+    <div>
+      <%= f.label :email, t("contact.email_label"), class: "auth-label" %>
+      <%= f.email_field :email, required: true,
+          value: params[:email], placeholder: "tu@email.com", class: "auth-input" %>
+    </div>
+
+    <div>
+      <%= f.label :message, t("contact.message_label"), class: "auth-label" %>
+      <%= f.text_area :message, required: true, rows: 4, value: params[:message],
+          placeholder: t("contact.message_placeholder"), class: "auth-input" %>
+    </div>
+
+    <%= f.submit t("contact.send"), class: "btn-primary btn-lg w-full shadow-lg" %>
+  <% end %>
+
+  <div class="mt-6 text-center">
+    <%= link_to t("common.back"), root_path, class: "text-sm text-white/70 hover:text-white" %>
+  </div>
+<% end %>

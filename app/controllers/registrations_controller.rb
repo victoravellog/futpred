@@ -20,7 +20,7 @@ class RegistrationsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email_address, :password, :password_confirmation)
+    params.require(:user).permit(:email_address, :password, :password_confirmation, :terms_accepted)
   end
 
   def join_organization_from_invite

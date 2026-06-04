@@ -1,0 +1,98 @@
+<div class="min-h-screen">
+  <nav class="landing-nav">
+    <div class="section-container">
+      <div class="flex items-center justify-between h-16">
+        <%= link_to root_path do %>
+          <%= image_tag "futpred-logo-dark.svg", alt: "FutPred", class: "h-8" %>
+        <% end %>
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-1 text-sm">
+            <%= link_to "ES", privacy_path(locale: :es), class: "px-2 py-1 rounded #{I18n.locale == :es ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+            <span class="text-white/30">|</span>
+            <%= link_to "EN", privacy_path(locale: :en), class: "px-2 py-1 rounded #{I18n.locale == :en ? 'text-white font-medium' : 'text-white/50 hover:text-white'} transition-colors" %>
+          </div>
+          <%= link_to t("landing.nav.sign_in"), new_session_path, class: "nav-link" %>
+          <%= link_to t("landing.nav.create_group"), new_registration_path, class: "btn-landing" %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="pt-32 pb-20">
+    <div class="section-container">
+      <div class="max-w-3xl mx-auto">
+        <h1 class="text-3xl font-bold text-white mb-8"><%= t("privacy.title") %></h1>
+
+        <div class="prose prose-invert prose-emerald max-w-none space-y-8">
+          <p class="text-white/70"><%= t("privacy.last_updated", date: l(Date.new(2026, 6, 4), format: :short)) %></p>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.intro.title") %></h2>
+            <p class="text-white/70"><%= t("privacy.sections.intro.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.data_collected.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("privacy.sections.data_collected.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("privacy.sections.data_collected.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.data_use.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("privacy.sections.data_use.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("privacy.sections.data_use.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.data_sharing.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("privacy.sections.data_sharing.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("privacy.sections.data_sharing.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.rights.title") %></h2>
+            <p class="text-white/70 mb-4"><%= t("privacy.sections.rights.intro") %></p>
+            <ul class="list-disc list-inside text-white/70 space-y-2">
+              <% t("privacy.sections.rights.items").each do |item| %>
+                <li><%= item %></li>
+              <% end %>
+            </ul>
+            <p class="text-white/70 mt-4"><%= t("privacy.sections.rights.contact_html", email: "contact@futpred.com") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.cookies.title") %></h2>
+            <p class="text-white/70"><%= t("privacy.sections.cookies.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.security.title") %></h2>
+            <p class="text-white/70"><%= t("privacy.sections.security.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.changes.title") %></h2>
+            <p class="text-white/70"><%= t("privacy.sections.changes.content") %></p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-semibold text-white mb-4"><%= t("privacy.sections.contact.title") %></h2>
+            <p class="text-white/70"><%= t("privacy.sections.contact.content_html", email: "contact@futpred.com") %></p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

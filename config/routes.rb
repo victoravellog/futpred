@@ -3,6 +3,16 @@ Rails.application.routes.draw do
   get "/:locale", to: "pages#home", as: :localized_root, constraints: { locale: /en|es/ }
   root "pages#home"
 
+  # Public pages with optional locale
+  scope "(:locale)", constraints: { locale: /en|es/ } do
+    get "pricing", to: "pages#pricing", as: :pricing
+    get "contact", to: "contacts#new", as: :contact
+    post "contact", to: "contacts#create"
+    get "privacy", to: "pages#privacy", as: :privacy
+    get "terms", to: "pages#terms", as: :terms
+  end
+
+
   resource :session
   resources :passwords, param: :token
   resource :registration, only: [ :new, :create ]
