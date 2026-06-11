@@ -4,6 +4,6 @@ tournament_reminders:
   description: "Send tournament reminder emails and create banner notifications"
 
 sync_results:
-  cron: "*/15 * * * *"
+  cron: "*/5 * * * *"
   class: "SyncResultsJob"
-  description: "Sync fixture results from Football-Data API"
+  description: "Sync fixture results from Football-Data API (only runs when matches are live or upcoming)"

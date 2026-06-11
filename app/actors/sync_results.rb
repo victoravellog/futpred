@@ -6,10 +6,13 @@ class SyncResults < Actor
   def call
     self.updated_count = 0
 
-    tournament.fixtures.where.not(status: :finished).find_each do |fixture|
-      next unless fixture.external_id.present?
+    matches_by_external_id = fetch_all_matches
+    return if matches_by_external_id.empty?
 
-      match_data = client.match(fixture.external_id)
+    pending_fixtures.find_each do |fixture|
+      match_data = matches_by_external_id[fixture.external_id]
+      next unless match_data
+
       update_fixture(fixture, match_data)
     end
   end
@@ -18,6 +21,21 @@ class SyncResults < Actor
 
   def client
     @client ||= FootballDataClient.new
+  end
+
+  def pending_fixtures
+    tournament.fixtures.where.not(status: :finished).where.not(external_id: nil)
+  end
+
+  def fetch_all_matches
+    competition_code = tournament.external_id
+    return {} unless competition_code
+
+    matches = client.matches(competition_code)
+    matches.index_by { |m| m["id"].to_s }
+  rescue FootballDataClient::ApiError => e
+    Rails.logger.error("SyncResults API error for #{tournament.name}: #{e.message}")
+    {}
   end
 
   def update_fixture(fixture, match_data)
