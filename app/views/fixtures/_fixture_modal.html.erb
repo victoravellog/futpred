@@ -80,7 +80,18 @@
           <% end %>
         </div>
       <% else %>
-        <p class="text-center text-sm text-white/40">Predicciones cerradas</p>
+        <% prediction = @user_predictions&.dig(fixture.id) %>
+        <% if prediction %>
+          <div class="text-center">
+            <span class="text-xs text-white/50 block mb-1">Tu predicción</span>
+            <span class="text-lg font-medium text-white/70">
+              <%= prediction.predicted_home_score %> - <%= prediction.predicted_away_score %>
+            </span>
+            <p class="text-xs text-white/40 mt-2">Predicciones cerradas</p>
+          </div>
+        <% else %>
+          <p class="text-center text-sm text-white/40">No hiciste predicción</p>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -18,7 +18,16 @@
     <% elsif fixture.predictable? %>
       <%= render "predictions/form_fields", fixture: fixture, prediction: prediction, organization_tournament: organization_tournament, user_in_multiple_groups: user_in_multiple_groups %>
     <% else %>
-      <span class="text-xs text-white/40"><%= t("fixtures.closed") %></span>
+      <% if prediction.persisted? %>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-medium text-white/70">
+            <%= prediction.predicted_home_score %> - <%= prediction.predicted_away_score %>
+          </span>
+          <span class="text-[10px] text-white/40"><%= t("fixtures.closed") %></span>
+        </div>
+      <% else %>
+        <span class="text-xs text-white/40"><%= t("fixtures.closed") %></span>
+      <% end %>
     <% end %>
   </div>
 <% end %>
