@@ -34,7 +34,9 @@ class SyncResults < Actor
   end
 
   def pending_fixtures
-    tournament.fixtures.where.not(status: :finished).where.not(external_id: nil)
+    tournament.fixtures
+      .where.not(external_id: nil)
+      .where("status != ? OR home_score IS NULL OR away_score IS NULL", Fixture.statuses[:finished])
   end
 
   def fetch_all_matches
@@ -49,17 +51,27 @@ class SyncResults < Actor
   end
 
   def sync_fixture(fixture, match_data)
-    new_status = map_status(match_data["status"])
+    api_status = match_data["status"]
     score = match_data.dig("score", "fullTime")
+    home_score = score&.dig("home")
+    away_score = score&.dig("away")
+
+    # Don't mark as finished if score is missing
+    new_status = if api_status == "FINISHED" && (home_score.nil? || away_score.nil?)
+      Rails.logger.warn("SyncResults: Fixture #{fixture.id} is FINISHED but score is missing, keeping as live")
+      :live
+    else
+      map_status(api_status)
+    end
 
     fixture.update!(
       status: new_status,
-      home_score: score&.dig("home"),
-      away_score: score&.dig("away")
+      home_score: home_score,
+      away_score: away_score
     )
 
     if new_status == :finished && fixture.saved_change_to_status?
-      Rails.logger.info("SyncResults: Fixture #{fixture.id} finished - calculating predictions")
+      Rails.logger.info("SyncResults: Fixture #{fixture.id} finished (#{home_score}-#{away_score}) - calculating predictions")
       calculate_predictions(fixture)
       self.updated_count += 1
     end
