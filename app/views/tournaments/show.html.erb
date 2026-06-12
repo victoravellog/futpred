@@ -68,13 +68,7 @@
         <div class="mb-8">
           <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
             <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <% if featured_date == today %>
-              <%= t("tournaments.today") %>
-            <% elsif featured_date == tomorrow %>
-              <%= t("tournaments.tomorrow") %>
-            <% else %>
-              <%= l(featured_date, format: :long) %>
-            <% end %>
+            <%= t("tournaments.upcoming") %>
           </h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
             <% featured_fixtures.first(6).each do |fixture| %>
@@ -103,6 +97,7 @@
             <% fixtures_by_date.each do |date, day_fixtures| %>
               <% sorted_fixtures = day_fixtures.sort_by(&:kickoff_at) %>
               <% pending_count = sorted_fixtures.count { |f| !f.finished? && @user_predictions&.dig(f.id).nil? } %>
+              <% day_points = sorted_fixtures.sum { |f| @user_predictions&.dig(f.id)&.points_earned || 0 } if date < today %>
               <details class="group" <%= "open" if date.between?(today, tomorrow) %>>
                 <summary class="px-4 py-2 bg-white/5 cursor-pointer hover:bg-white/10 flex justify-between items-center text-sm transition-colors">
                   <span class="font-medium text-white/80">
@@ -114,6 +109,11 @@
                     <%= l(date, format: :long) %>
                   </span>
                   <div class="flex items-center gap-2">
+                    <% if date < today && day_points && day_points > 0 %>
+                      <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400">
+                        +<%= day_points %> pts
+                      </span>
+                    <% end %>
                     <%= render "fixtures/pending_badge", round: round, date: date, pending_count: pending_count %>
                     <span class="text-xs text-white/50"><%= t("tournaments.fixtures_count", count: sorted_fixtures.count) %></span>
                   </div>

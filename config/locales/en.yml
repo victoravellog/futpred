@@ -255,6 +255,7 @@ en:
       one: "1 fixture"
       other: "%{count} fixtures"
     upcoming_matches: "Upcoming matches"
+    upcoming: "Coming up"
     today: "Today"
     tomorrow: "Tomorrow"
     more_matches:
@@ -391,6 +392,8 @@ en:
           attributes:
             fixture:
               closed: "no longer accepts predictions"
+            user_id:
+              taken: "you already have a prediction for this match"
 
   meta_tags:
     pages:

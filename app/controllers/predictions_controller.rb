@@ -18,9 +18,11 @@ class PredictionsController < ApplicationController
   end
 
   def create
-    @prediction = @fixture.predictions.build(prediction_params)
-    @prediction.user = Current.user
-    @prediction.organization_tournament = @organization_tournament
+    @prediction = @organization_tournament.predictions.find_or_initialize_by(
+      user: Current.user,
+      fixture: @fixture
+    )
+    @prediction.assign_attributes(prediction_params)
 
     if @prediction.save
       respond_to do |format|

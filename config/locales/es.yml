@@ -258,6 +258,7 @@ es:
       one: "1 partido"
       other: "%{count} partidos"
     upcoming_matches: "Próximos partidos"
+    upcoming: "Próximos"
     today: "Hoy"
     tomorrow: "Mañana"
     more_matches:
@@ -398,6 +399,8 @@ es:
           attributes:
             fixture:
               closed: "ya no acepta predicciones"
+            user_id:
+              taken: "ya tienes una predicción para este partido"
 
   meta_tags:
     pages:

@@ -7,14 +7,24 @@ class SyncResults < Actor
     self.updated_count = 0
 
     matches_by_external_id = fetch_all_matches
-    return if matches_by_external_id.empty?
+    if matches_by_external_id.empty?
+      Rails.logger.warn("SyncResults: No matches fetched for #{tournament.name}")
+      return
+    end
+
+    Rails.logger.info("SyncResults: Processing #{pending_fixtures.count} pending fixtures for #{tournament.name}")
 
     pending_fixtures.find_each do |fixture|
       match_data = matches_by_external_id[fixture.external_id]
-      next unless match_data
+      unless match_data
+        Rails.logger.warn("SyncResults: No API data for fixture #{fixture.id} (external_id: #{fixture.external_id})")
+        next
+      end
 
-      update_fixture(fixture, match_data)
+      sync_fixture(fixture, match_data)
     end
+
+    Rails.logger.info("SyncResults: Completed for #{tournament.name}, #{updated_count} fixtures finished")
   end
 
   private
@@ -38,7 +48,7 @@ class SyncResults < Actor
     {}
   end
 
-  def update_fixture(fixture, match_data)
+  def sync_fixture(fixture, match_data)
     new_status = map_status(match_data["status"])
     score = match_data.dig("score", "fullTime")
 
@@ -49,9 +59,12 @@ class SyncResults < Actor
     )
 
     if new_status == :finished && fixture.saved_change_to_status?
+      Rails.logger.info("SyncResults: Fixture #{fixture.id} finished - calculating predictions")
       calculate_predictions(fixture)
       self.updated_count += 1
     end
+  rescue StandardError => e
+    Rails.logger.error("SyncResults: Error updating fixture #{fixture.id}: #{e.message}")
   end
 
   def calculate_predictions(fixture)
