@@ -34,7 +34,7 @@ namespace :reminders do
         tournament: tournament,
         new_fixtures_count: new_fixtures,
         locale: locale
-      ).deliver_later
+      ).deliver_now
 
       count += 1
     end
