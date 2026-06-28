@@ -17,6 +17,21 @@ class TournamentReminderMailer < ApplicationMailer
     end
   end
 
+  def new_fixtures_available(user:, tournament:, new_fixtures_count:, locale: "es")
+    @user = user
+    @tournament = tournament
+    @new_fixtures_count = new_fixtures_count
+    @locale = locale.to_sym
+    @next_fixture = tournament.fixtures.where(status: :scheduled).order(:kickoff_at).first
+
+    I18n.with_locale(@locale) do
+      mail(
+        to: @user.email_address,
+        subject: t("mailer.tournament_reminder.subject.new_fixtures", tournament: @tournament.name)
+      )
+    end
+  end
+
   private
 
   def infer_reminder_type(days)

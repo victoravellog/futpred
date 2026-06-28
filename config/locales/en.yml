@@ -359,6 +359,7 @@ en:
         one_week: "FutPred: %{tournament} starts in 1 week"
         one_day: "FutPred: %{tournament} starts tomorrow - Last chance!"
         soon: "FutPred: %{tournament} is about to start"
+        new_fixtures: "FutPred: New phase available in %{tournament}!"
       greeting: "Hi %{name}!"
       month_start_body: "%{month} is here and %{tournament} is about to start!"
       month_start_days: "Only %{days} days until kickoff. It's the perfect time to review the teams and prepare your predictions."
@@ -367,7 +368,12 @@ en:
       one_day_body: "%{tournament} starts tomorrow."
       one_day_hint: "This is your last chance! Don't miss out on the competition."
       soon_body: "%{tournament} is about to start."
+      new_fixtures_body:
+        one: "There's 1 new match available in %{tournament}!"
+        other: "There are %{count} new matches available in %{tournament}!"
+      next_match: "The next match is on %{date}: %{home} vs %{away}."
       cta: "Make my predictions"
+      cta_predict: "Make predictions"
       good_luck: "Good luck!"
       signature: "The FutPred team"
 
