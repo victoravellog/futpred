@@ -17,7 +17,7 @@ jobs:
       container_tag: ${{ steps.gettag.outputs.tag }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Get container tag from SHA of dependencies
         id: gettag
