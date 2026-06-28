@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  # PWA
+  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
   # Landing page with locale support
   get "/:locale", to: "pages#home", as: :localized_root, constraints: { locale: /en|es/ }
   root "pages#home"
