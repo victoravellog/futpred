@@ -39,6 +39,66 @@ namespace :football_data do
     end
   end
 
+  desc "Re-sync knockout fixtures to fix penalty scores and recalculate predictions"
+  task fix_knockout_scores: :environment do
+    client = FootballDataClient.new
+
+    Tournament.find_each do |tournament|
+      code = tournament.external_id
+      next unless code
+
+      puts "Processing #{tournament.name}..."
+
+      begin
+        matches = client.matches(code)
+        matches_by_id = matches.index_by { |m| m["id"].to_s }
+
+        knockout_rounds = tournament.rounds.where.not(stage_type: :group_stage)
+        knockout_fixtures = Fixture.finished.where(round: knockout_rounds)
+
+        knockout_fixtures.find_each do |fixture|
+          match_data = matches_by_id[fixture.external_id]
+          next unless match_data
+
+          score_data = match_data["score"]
+          penalties = score_data&.dig("penalties")
+
+          if penalties && penalties["home"].present?
+            regular = score_data.dig("regularTime") || {}
+            extra = score_data.dig("extraTime") || {}
+
+            new_home = (regular["home"] || 0) + (extra["home"] || 0)
+            new_away = (regular["away"] || 0) + (extra["away"] || 0)
+
+            if fixture.home_score != new_home || fixture.away_score != new_away
+              puts "  Fixing #{fixture.home_team.name} vs #{fixture.away_team.name}:"
+              puts "    Old: #{fixture.home_score}-#{fixture.away_score}"
+              puts "    New: #{new_home}-#{new_away} (#{penalties['home']}-#{penalties['away']} pen)"
+
+              fixture.update!(
+                home_score: new_home,
+                away_score: new_away,
+                home_penalty_score: penalties["home"],
+                away_penalty_score: penalties["away"]
+              )
+
+              fixture.predictions.where.not(points_earned: nil).find_each do |prediction|
+                old_points = prediction.points_earned
+                prediction.update!(points_earned: nil)
+                CalculatePredictionScore.call(prediction: prediction)
+                puts "    Prediction #{prediction.id}: #{old_points} -> #{prediction.reload.points_earned} pts"
+              end
+            end
+          end
+        end
+      rescue FootballDataClient::ApiError => e
+        puts "  Error: #{e.message}"
+      end
+    end
+
+    puts "Done!"
+  end
+
   desc "Backfill group names for existing fixtures"
   task backfill_groups: :environment do
     client = FootballDataClient.new

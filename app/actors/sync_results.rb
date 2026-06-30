@@ -52,12 +52,10 @@ class SyncResults < Actor
 
   def sync_fixture(fixture, match_data)
     api_status = match_data["status"]
-    score = match_data.dig("score", "fullTime")
-    home_score = score&.dig("home")
-    away_score = score&.dig("away")
+    scores = extract_scores(match_data)
 
     # Don't mark as finished if score is missing
-    new_status = if api_status == "FINISHED" && (home_score.nil? || away_score.nil?)
+    new_status = if api_status == "FINISHED" && (scores[:home].nil? || scores[:away].nil?)
       Rails.logger.warn("SyncResults: Fixture #{fixture.id} is FINISHED but score is missing, keeping as live")
       :live
     else
@@ -66,8 +64,10 @@ class SyncResults < Actor
 
     fixture.update!(
       status: new_status,
-      home_score: home_score,
-      away_score: away_score
+      home_score: scores[:home],
+      away_score: scores[:away],
+      home_penalty_score: scores[:home_penalty],
+      away_penalty_score: scores[:away_penalty]
     )
 
     if new_status == :finished && fixture.saved_change_to_status?
@@ -92,6 +92,34 @@ class SyncResults < Actor
     when "FINISHED" then :finished
     when "POSTPONED", "CANCELLED" then :cancelled
     else :scheduled
+    end
+  end
+
+  def extract_scores(match_data)
+    score_data = match_data["score"]
+    penalties = score_data&.dig("penalties")
+
+    if penalties && penalties["home"].present?
+      # Match went to penalties - use regularTime + extraTime for prediction scoring
+      regular = score_data.dig("regularTime") || {}
+      extra = score_data.dig("extraTime") || {}
+
+      {
+        home: (regular["home"] || 0) + (extra["home"] || 0),
+        away: (regular["away"] || 0) + (extra["away"] || 0),
+        home_penalty: penalties["home"],
+        away_penalty: penalties["away"]
+      }
+    else
+      # Normal match - use fullTime
+      full_time = score_data&.dig("fullTime") || {}
+
+      {
+        home: full_time["home"],
+        away: full_time["away"],
+        home_penalty: nil,
+        away_penalty: nil
+      }
     end
   end
 end

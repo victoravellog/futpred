@@ -31,7 +31,12 @@
       <%# Score / VS %>
       <div class="px-4">
         <% if fixture.finished? %>
-          <span class="text-2xl font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+          <div class="text-center">
+            <span class="text-2xl font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+            <% if fixture.decided_by_penalties? %>
+              <div class="text-xs text-white/50 mt-1">(<%= fixture.home_penalty_score %>-<%= fixture.away_penalty_score %> pen)</div>
+            <% end %>
+          </div>
         <% elsif fixture.live? %>
           <div class="text-center">
             <span class="text-2xl font-bold text-red-400"><%= fixture.home_score || 0 %> - <%= fixture.away_score || 0 %></span>

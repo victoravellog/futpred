@@ -16,7 +16,12 @@
 
     <%# Marcador %>
     <% if fixture.finished? %>
-      <span class="font-semibold text-white w-12 text-center"><%= fixture.home_score %>-<%= fixture.away_score %></span>
+      <div class="flex flex-col items-center w-12">
+        <span class="font-semibold text-white"><%= fixture.home_score %>-<%= fixture.away_score %></span>
+        <% if fixture.decided_by_penalties? %>
+          <span class="text-[8px] text-white/50 leading-none">(<%= fixture.home_penalty_score %>-<%= fixture.away_penalty_score %>p)</span>
+        <% end %>
+      </div>
     <% elsif fixture.live? %>
       <div class="flex items-center justify-center gap-1 w-12">
         <span class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>

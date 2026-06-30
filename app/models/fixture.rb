@@ -29,6 +29,22 @@ class Fixture < ApplicationRecord
     end
   end
 
+  def decided_by_penalties?
+    home_penalty_score.present? && away_penalty_score.present?
+  end
+
+  def penalty_winner
+    return nil unless decided_by_penalties?
+    home_penalty_score > away_penalty_score ? :home : :away
+  end
+
+  def score_display
+    return nil unless finished?
+    base = "#{home_score} - #{away_score}"
+    return base unless decided_by_penalties?
+    "#{base} (#{home_penalty_score}-#{away_penalty_score} pen)"
+  end
+
   private
 
   def just_finished?

@@ -31,7 +31,12 @@
 
       <%# Marcador o VS %>
       <% if fixture.finished? %>
-        <span class="text-sm font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+        <div class="flex flex-col items-center">
+          <span class="text-sm font-bold text-white"><%= fixture.home_score %> - <%= fixture.away_score %></span>
+          <% if fixture.decided_by_penalties? %>
+            <span class="text-[10px] text-white/50">(<%= fixture.home_penalty_score %>-<%= fixture.away_penalty_score %> pen)</span>
+          <% end %>
+        </div>
       <% elsif fixture.live? %>
         <span class="text-sm font-bold text-red-400"><%= fixture.home_score || 0 %> - <%= fixture.away_score || 0 %></span>
       <% else %>
