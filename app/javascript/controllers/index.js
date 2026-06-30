@@ -24,3 +24,6 @@ application.register("mobile-menu", MobileMenuController)
 
 import DropdownController from "./dropdown_controller"
 application.register("dropdown", DropdownController)
+
+import ThemeController from "./theme_controller"
+application.register("theme", ThemeController)

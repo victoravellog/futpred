@@ -27,8 +27,12 @@
         <% end %>
       </div>
 
-      <%# Menu button %>
-      <div class="relative" data-controller="dropdown">
+      <div class="flex items-center gap-2">
+        <%# Theme selector %>
+        <%= render "shared/theme_selector" %>
+
+        <%# Menu button %>
+        <div class="relative" data-controller="dropdown">
         <button type="button" class="text-2xl p-2 transition-transform duration-300" data-action="dropdown#toggle" data-dropdown-target="button">
           ⚽
         </button>
@@ -65,6 +69,7 @@
               <%= t("nav.logout") %>
             <% end %>
           </div>
+        </div>
         </div>
       </div>
     </div>

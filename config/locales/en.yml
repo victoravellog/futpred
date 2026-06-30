@@ -31,6 +31,12 @@ en:
     avatar_removed: "Avatar removed"
     account: "Account"
     email: "Email"
+    theme: "Theme"
+    theme_hint: "Customize the app appearance"
+    themes:
+      dark: "Dark"
+      light: "Light"
+      pitch: "Pitch"
 
   auth:
     login: "Sign in"

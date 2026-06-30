@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   attr_accessor :terms_accepted
 
+  THEMES = %w[dark light pitch].freeze
+
   AVATAR_PRESETS = {
     "soccer_ball" => "⚽",
     "goal" => "🥅",
@@ -28,6 +30,7 @@ class User < ApplicationRecord
 
   validates :email_address, presence: true, uniqueness: true
   validates :avatar_preset, inclusion: { in: AVATAR_PRESETS.keys }, allow_blank: true
+  validates :theme, inclusion: { in: THEMES }
   validates :terms_accepted, acceptance: { message: :must_accept_terms }, on: :create
   validate :acceptable_avatar
 

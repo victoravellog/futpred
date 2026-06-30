@@ -1,6 +1,286 @@
 @import "tailwindcss";
 
+/* Theme definitions */
+:root,
+[data-theme="dark"] {
+  --color-bg-primary: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-bg-tertiary: #334155;
+  --color-bg-card: rgba(255, 255, 255, 0.1);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.15);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.2);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+  --gradient-bg: linear-gradient(to bottom right, #0f172a, #1e293b, #312e81);
+}
+
+[data-theme="light"] {
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #a5ffd6;
+  --color-bg-tertiary: #84dcc6;
+  --color-bg-card: #ffffff;
+  --color-bg-card-hover: #f0fff8;
+  --color-border: #84dcc6;
+  --color-border-strong: #5cc4aa;
+  --color-text-primary: #1a3a34;
+  --color-text-secondary: #2d5a52;
+  --color-text-muted: #4a7a70;
+  --color-accent: #ff686b;
+  --color-accent-hover: #e55558;
+  --gradient-bg: linear-gradient(to bottom right, #ffffff, #a5ffd6, #84dcc6);
+}
+
+[data-theme="pitch"] {
+  --color-bg-primary: #004b23;
+  --color-bg-secondary: #006400;
+  --color-bg-tertiary: #007200;
+  --color-bg-card: rgba(255, 255, 255, 0.12);
+  --color-bg-card-hover: rgba(255, 255, 255, 0.2);
+  --color-border: rgba(255, 255, 255, 0.4);
+  --color-border-strong: rgba(255, 255, 255, 0.7);
+  --color-text-primary: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.9);
+  --color-text-muted: rgba(255, 255, 255, 0.7);
+  --color-accent: #9ef01a;
+  --color-accent-hover: #70e000;
+  --gradient-bg: linear-gradient(to bottom right, #004b23, #006400, #008000);
+}
+
 @layer components {
+  /* Themed background */
+  .themed-bg {
+    background: var(--gradient-bg);
+  }
+
+  /* Themed text colors - use these instead of text-white */
+  .text-themed {
+    color: var(--color-text-primary);
+  }
+
+  .text-themed-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .text-themed-muted {
+    color: var(--color-text-muted);
+  }
+
+  /* Light theme: override all white text colors */
+  body[data-theme="light"] {
+    color: var(--color-text-primary);
+  }
+
+  body[data-theme="light"] [class*="text-white"] {
+    color: var(--color-text-primary) !important;
+  }
+
+  body[data-theme="light"] [class*="text-white/9"],
+  body[data-theme="light"] [class*="text-white/8"],
+  body[data-theme="light"] [class*="text-white/7"] {
+    color: var(--color-text-secondary) !important;
+  }
+
+  body[data-theme="light"] [class*="text-white/6"],
+  body[data-theme="light"] [class*="text-white/5"],
+  body[data-theme="light"] [class*="text-white/4"] {
+    color: var(--color-text-muted) !important;
+  }
+
+  /* Light theme borders */
+  body[data-theme="light"] [class*="border-white"] {
+    border-color: var(--color-border-strong) !important;
+  }
+
+  /* Light theme backgrounds */
+  body[data-theme="light"] [class*="bg-white/"] {
+    background-color: rgba(0, 0, 0, 0.05) !important;
+  }
+
+  /* Light theme input backgrounds */
+  body[data-theme="light"] .input,
+  body[data-theme="light"] .auth-input {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-primary);
+  }
+
+  body[data-theme="light"] .input::placeholder,
+  body[data-theme="light"] .auth-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  /* Light theme navbar */
+  body[data-theme="light"] .landing-nav {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: var(--color-border);
+  }
+
+  /* Light theme section-alt */
+  body[data-theme="light"] .section-alt {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  /* Theme dropdown - adapts to current theme */
+  .theme-dropdown {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  body[data-theme="light"] .theme-dropdown {
+    background: #ffffff;
+    border: 1px solid #84dcc6;
+    box-shadow: 0 4px 20px rgba(26, 58, 52, 0.1);
+  }
+
+  body[data-theme="pitch"] .theme-dropdown {
+    background: #006400;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+  }
+
+  /* Theme selector buttons */
+  .theme-option {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .theme-option:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .theme-selected {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  body[data-theme="light"] .theme-option {
+    color: #2d5a52 !important;
+  }
+
+  body[data-theme="light"] .theme-option:hover {
+    color: #1a3a34 !important;
+    background: #a5ffd6;
+  }
+
+  body[data-theme="light"] .theme-selected {
+    background: #f0fff8 !important;
+    color: #1a3a34 !important;
+    box-shadow: inset 0 0 0 2px #ff686b;
+  }
+
+  body[data-theme="pitch"] .theme-selected {
+    background: #9ef01a;
+    color: #004b23 !important;
+  }
+
+  /* Light theme modal */
+  body[data-theme="light"] .fixture-modal-content {
+    background: #ffffff;
+    border-color: var(--color-border-strong);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  body[data-theme="light"] .fixture-modal::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  /* Light theme improved cards */
+  body[data-theme="light"] .card,
+  body[data-theme="light"] .card-interactive,
+  body[data-theme="light"] .fixture-card,
+  body[data-theme="light"] .fixture-modal-content {
+    background: #ffffff !important;
+    border: 1px solid #84dcc6 !important;
+    box-shadow: 0 1px 3px rgba(26, 58, 52, 0.08);
+    color: var(--color-text-primary);
+  }
+
+  body[data-theme="light"] .card [class*="text-white"],
+  body[data-theme="light"] .card-interactive [class*="text-white"],
+  body[data-theme="light"] .fixture-card [class*="text-white"],
+  body[data-theme="light"] .fixture-modal-content [class*="text-white"] {
+    color: var(--color-text-primary) !important;
+  }
+
+  body[data-theme="light"] .card [class*="text-white/"],
+  body[data-theme="light"] .card-interactive [class*="text-white/"],
+  body[data-theme="light"] .fixture-card [class*="text-white/"],
+  body[data-theme="light"] .fixture-modal-content [class*="text-white/"] {
+    color: var(--color-text-secondary) !important;
+  }
+
+  /* Light theme: override specific component classes that use text-white internally */
+  body[data-theme="light"] .team-name-truncate,
+  body[data-theme="light"] .stat-value,
+  body[data-theme="light"] .section-title,
+  body[data-theme="light"] .fixture-card .text-sm,
+  body[data-theme="light"] .fixture-modal-content .text-sm,
+  body[data-theme="light"] .fixture-modal-content .text-lg,
+  body[data-theme="light"] .fixture-modal-content .text-xl {
+    color: var(--color-text-primary) !important;
+  }
+
+  body[data-theme="light"] .stat-label,
+  body[data-theme="light"] .section-subtitle {
+    color: var(--color-text-secondary) !important;
+  }
+
+  /* Light theme: all text inside fixture cards and modals */
+  body[data-theme="light"] .fixture-card,
+  body[data-theme="light"] .fixture-modal-content {
+    color: var(--color-text-primary);
+  }
+
+  body[data-theme="light"] .fixture-card span,
+  body[data-theme="light"] .fixture-card div,
+  body[data-theme="light"] .fixture-modal-content span,
+  body[data-theme="light"] .fixture-modal-content div,
+  body[data-theme="light"] .fixture-modal-content p {
+    color: var(--color-text-primary) !important;
+  }
+
+  /* Light theme: inputs inside cards */
+  body[data-theme="light"] .fixture-card input,
+  body[data-theme="light"] .fixture-modal-content input,
+  body[data-theme="light"] .prediction-input {
+    background: #f0fff8 !important;
+    color: var(--color-text-primary) !important;
+    border: 1px solid #84dcc6 !important;
+  }
+
+  /* Light theme: borders */
+  body[data-theme="light"] .fixture-card [class*="border-white"] {
+    border-color: #84dcc6 !important;
+  }
+
+  body[data-theme="light"] .card-interactive:hover,
+  body[data-theme="light"] .fixture-card:hover {
+    background: #f0fff8 !important;
+    box-shadow: 0 4px 12px rgba(26, 58, 52, 0.1);
+  }
+
+  /* Light theme empty state */
+  body[data-theme="light"] .empty-state {
+    background: rgba(165, 255, 214, 0.2);
+    border-color: #84dcc6;
+  }
+
+  /* Light theme badges */
+  body[data-theme="light"] .badge {
+    background: #e6fff5;
+    color: #1a3a34;
+    border-color: #84dcc6;
+  }
+
+  body[data-theme="light"] .badge-pending {
+    background: #fff0ef;
+    color: #b84749;
+    border-color: #ffa69e;
+  }
+
   /* Layout */
   .section {
     @apply py-20 lg:py-32;
@@ -40,8 +320,22 @@
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-all cursor-pointer text-white bg-emerald-600 hover:bg-emerald-500;
   }
 
+  body[data-theme="light"] .btn-landing {
+    box-shadow: 0 1px 3px rgba(5, 150, 105, 0.3);
+  }
+
   .btn-landing-secondary {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-semibold rounded-xl transition-all cursor-pointer text-white bg-white/10 border border-white/20 hover:bg-white/20;
+  }
+
+  body[data-theme="light"] .btn-landing-secondary {
+    background: #ffffff;
+    border-color: #84dcc6;
+    color: #1a3a34 !important;
+  }
+
+  body[data-theme="light"] .btn-landing-secondary:hover {
+    background: #f0fff8;
   }
 
   /* Badges */
@@ -129,8 +423,44 @@
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer text-white bg-indigo-600 hover:bg-indigo-500;
   }
 
+  body[data-theme="light"] .btn-primary {
+    background: #ff686b;
+    color: #ffffff !important;
+    box-shadow: 0 2px 4px rgba(255, 104, 107, 0.3);
+  }
+
+  body[data-theme="light"] .btn-primary:hover {
+    background: #e55558;
+  }
+
+  body[data-theme="pitch"] .btn-primary {
+    background: #9ef01a;
+    color: #004b23 !important;
+    font-weight: 600;
+  }
+
+  body[data-theme="pitch"] .btn-primary:hover {
+    background: #70e000;
+  }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-lg transition-colors cursor-pointer text-white bg-white/10 border border-white/20 hover:bg-white/20 backdrop-blur-sm;
+  }
+
+  body[data-theme="light"] .btn-secondary {
+    background: #ffffff;
+    border-color: #84dcc6;
+    color: #1a3a34 !important;
+  }
+
+  body[data-theme="light"] .btn-secondary:hover {
+    background: #f0fff8;
+    border-color: #5cc4aa;
+  }
+
+  body[data-theme="pitch"] .btn-secondary {
+    border-color: rgba(255, 255, 255, 0.4);
+    border-width: 2px;
   }
 
   .btn-lg {
@@ -158,6 +488,61 @@
 
   .auth-input {
     @apply block w-full px-4 py-3 bg-white/20 backdrop-blur-sm border border-white/30 rounded-lg text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent;
+  }
+
+  body[data-theme="light"] .auth-label {
+    color: #1a3a34 !important;
+  }
+
+  body[data-theme="light"] .auth-input {
+    background: #ffffff;
+    border-color: #84dcc6;
+    color: #1a3a34 !important;
+  }
+
+  body[data-theme="light"] .auth-input::placeholder {
+    color: #4a7a70;
+  }
+
+  /* Pitch theme inputs */
+  body[data-theme="pitch"] .input:focus,
+  body[data-theme="pitch"] .auth-input:focus {
+    --tw-ring-color: #9ef01a;
+  }
+
+  body[data-theme="pitch"] .input,
+  body[data-theme="pitch"] .auth-input {
+    border-color: rgba(255, 255, 255, 0.4);
+  }
+
+  /* Pitch theme: override all indigo buttons and focus rings */
+  body[data-theme="pitch"] [class*="bg-indigo-600"] {
+    background: #9ef01a !important;
+    color: #004b23 !important;
+  }
+
+  body[data-theme="pitch"] [class*="bg-indigo-600"]:hover,
+  body[data-theme="pitch"] [class*="hover\:bg-indigo-500"]:hover {
+    background: #70e000 !important;
+  }
+
+  body[data-theme="pitch"] [class*="focus\:ring-indigo"] {
+    --tw-ring-color: #9ef01a;
+  }
+
+  /* Light theme: override indigo buttons */
+  body[data-theme="light"] [class*="bg-indigo-600"] {
+    background: #ff686b !important;
+    color: #ffffff !important;
+  }
+
+  body[data-theme="light"] [class*="bg-indigo-600"]:hover,
+  body[data-theme="light"] [class*="hover\:bg-indigo-500"]:hover {
+    background: #e55558 !important;
+  }
+
+  body[data-theme="light"] [class*="focus\:ring-indigo"] {
+    --tw-ring-color: #ff686b;
   }
 
   /* Alerts */
@@ -231,6 +616,36 @@
     @apply bg-indigo-500 hover:bg-indigo-400 text-white;
   }
 
+  /* Light theme banners */
+  body[data-theme="light"] .banner-info {
+    background: rgba(255, 104, 107, 0.15);
+    border-color: #ffa69e;
+  }
+
+  body[data-theme="light"] .banner-info .tournament-banner-cta {
+    background: #ff686b;
+    color: #ffffff;
+  }
+
+  body[data-theme="light"] .banner-info .tournament-banner-cta:hover {
+    background: #e55558;
+  }
+
+  /* Pitch theme banners */
+  body[data-theme="pitch"] .banner-info {
+    background: rgba(158, 240, 26, 0.15);
+    border-color: rgba(158, 240, 26, 0.4);
+  }
+
+  body[data-theme="pitch"] .banner-info .tournament-banner-cta {
+    background: #9ef01a;
+    color: #004b23;
+  }
+
+  body[data-theme="pitch"] .banner-info .tournament-banner-cta:hover {
+    background: #70e000;
+  }
+
   .prediction-saved {
     animation: prediction-pulse 0.6s ease-out;
   }
@@ -260,5 +675,307 @@
     100% {
       background-color: transparent;
     }
+  }
+
+  /* Theme previews */
+  .theme-preview {
+    @apply rounded-lg overflow-hidden border-2 border-transparent transition-all;
+    height: 80px;
+  }
+
+  .theme-preview-header {
+    height: 20px;
+  }
+
+  .theme-preview-body {
+    @apply p-2 flex gap-1;
+    height: 60px;
+  }
+
+  .theme-preview-card {
+    @apply flex-1 rounded;
+    height: 100%;
+  }
+
+  .theme-preview-dark {
+    background: linear-gradient(to bottom right, #0f172a, #1e293b, #312e81);
+  }
+
+  .theme-preview-dark .theme-preview-header {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .theme-preview-dark .theme-preview-card {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .theme-preview-light {
+    background: linear-gradient(to bottom right, #ffffff, #a5ffd6, #84dcc6);
+  }
+
+  .theme-preview-light .theme-preview-header {
+    background: rgba(255, 255, 255, 0.9);
+    border-bottom: 1px solid #84dcc6;
+  }
+
+  .theme-preview-light .theme-preview-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #84dcc6;
+  }
+
+  .theme-preview-pitch {
+    background: linear-gradient(to bottom right, #004b23, #006400, #008000);
+    position: relative;
+  }
+
+  .theme-preview-pitch::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(90deg, transparent 49%, rgba(255,255,255,0.3) 49%, rgba(255,255,255,0.3) 51%, transparent 51%),
+      linear-gradient(transparent 49%, rgba(255,255,255,0.2) 49%, rgba(255,255,255,0.2) 51%, transparent 51%);
+    pointer-events: none;
+  }
+
+  .theme-preview-pitch .theme-preview-header {
+    background: rgba(255, 255, 255, 0.15);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .theme-preview-pitch .theme-preview-card {
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+  }
+
+  /* Pitch theme decorations */
+  body[data-theme="pitch"] {
+    position: relative;
+  }
+
+  body[data-theme="pitch"]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at center, transparent 80px, rgba(255,255,255,0.12) 80px, rgba(255,255,255,0.12) 84px, transparent 84px),
+      linear-gradient(90deg, transparent calc(50% - 2px), rgba(255,255,255,0.15) calc(50% - 2px), rgba(255,255,255,0.15) calc(50% + 2px), transparent calc(50% + 2px));
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body[data-theme="pitch"] .card,
+  body[data-theme="pitch"] .fixture-card {
+    border-width: 2px;
+  }
+
+  body[data-theme="pitch"] .fixture-modal-content {
+    background: #006400;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  body[data-theme="pitch"] .fixture-modal::backdrop {
+    background: rgba(0, 75, 35, 0.7);
+    backdrop-filter: blur(4px);
+  }
+
+  /* Scoring rules component */
+  .scoring-rules {
+    @apply rounded-lg border backdrop-blur-sm;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .scoring-rules-summary {
+    @apply px-4 py-3 cursor-pointer text-sm font-medium rounded-lg;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scoring-rules-summary:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .scoring-rules-content {
+    @apply px-4 pb-4 pt-2 border-t;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .scoring-rules-intro {
+    @apply text-sm mb-3;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .scoring-card {
+    @apply rounded-lg p-3 backdrop-blur-sm;
+  }
+
+  .scoring-card-exact {
+    background: rgba(34, 197, 94, 0.2);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+  }
+
+  .scoring-card-exact .scoring-card-points {
+    @apply font-semibold;
+    color: #4ade80;
+  }
+
+  .scoring-card-exact .scoring-card-prediction {
+    color: rgba(134, 239, 172, 0.8);
+  }
+
+  .scoring-card-exact .scoring-card-label {
+    @apply text-xs mt-1;
+    color: rgba(74, 222, 128, 0.6);
+  }
+
+  .scoring-card-result {
+    background: rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+  }
+
+  .scoring-card-result .scoring-card-points {
+    @apply font-semibold;
+    color: #60a5fa;
+  }
+
+  .scoring-card-result .scoring-card-prediction {
+    color: rgba(147, 197, 253, 0.8);
+  }
+
+  .scoring-card-result .scoring-card-label {
+    @apply text-xs mt-1;
+    color: rgba(96, 165, 250, 0.6);
+  }
+
+  .scoring-card-wrong {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .scoring-card-wrong .scoring-card-points {
+    @apply font-semibold;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .scoring-card-wrong .scoring-card-prediction {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .scoring-card-wrong .scoring-card-label {
+    @apply text-xs mt-1;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .scoring-rules-note {
+    @apply text-xs mt-3;
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .scoring-rules-knockout {
+    @apply text-xs mt-2;
+    color: rgba(251, 191, 36, 0.8);
+  }
+
+  /* Light theme scoring rules */
+  body[data-theme="light"] .scoring-rules {
+    background: #ffffff;
+    border-color: #84dcc6;
+  }
+
+  body[data-theme="light"] .scoring-rules-summary {
+    color: #1a3a34;
+  }
+
+  body[data-theme="light"] .scoring-rules-summary:hover {
+    background: #f0fff8;
+  }
+
+  body[data-theme="light"] .scoring-rules-content {
+    border-color: #84dcc6;
+  }
+
+  body[data-theme="light"] .scoring-rules-intro {
+    color: #2d5a52;
+  }
+
+  body[data-theme="light"] .scoring-card-exact {
+    background: #dcfce7;
+    border-color: #86efac;
+  }
+
+  body[data-theme="light"] .scoring-card-exact .scoring-card-points {
+    color: #15803d;
+  }
+
+  body[data-theme="light"] .scoring-card-exact .scoring-card-prediction {
+    color: #166534;
+  }
+
+  body[data-theme="light"] .scoring-card-exact .scoring-card-label {
+    color: #16a34a;
+  }
+
+  body[data-theme="light"] .scoring-card-result {
+    background: #dbeafe;
+    border-color: #93c5fd;
+  }
+
+  body[data-theme="light"] .scoring-card-result .scoring-card-points {
+    color: #1d4ed8;
+  }
+
+  body[data-theme="light"] .scoring-card-result .scoring-card-prediction {
+    color: #1e40af;
+  }
+
+  body[data-theme="light"] .scoring-card-result .scoring-card-label {
+    color: #2563eb;
+  }
+
+  body[data-theme="light"] .scoring-card-wrong {
+    background: #f0fff8;
+    border-color: #84dcc6;
+  }
+
+  body[data-theme="light"] .scoring-card-wrong .scoring-card-points {
+    color: #2d5a52;
+  }
+
+  body[data-theme="light"] .scoring-card-wrong .scoring-card-prediction {
+    color: #4a7a70;
+  }
+
+  body[data-theme="light"] .scoring-card-wrong .scoring-card-label {
+    color: #6a9a90;
+  }
+
+  body[data-theme="light"] .scoring-rules-note {
+    color: #4a7a70;
+  }
+
+  body[data-theme="light"] .scoring-rules-knockout {
+    color: #b45309;
+  }
+
+  /* Pitch theme scoring rules */
+  body[data-theme="pitch"] .scoring-rules {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    border-width: 2px;
+  }
+
+  body[data-theme="pitch"] .scoring-rules-content {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  body[data-theme="pitch"] .scoring-card {
+    border-width: 2px;
+  }
+
+  body[data-theme="pitch"] .scoring-rules-knockout {
+    color: #9ef01a;
   }
 }

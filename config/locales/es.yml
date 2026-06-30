@@ -34,6 +34,12 @@ es:
     avatar_removed: "Avatar eliminado"
     account: "Cuenta"
     email: "Email"
+    theme: "Tema"
+    theme_hint: "Personaliza la apariencia de la aplicación"
+    themes:
+      dark: "Oscuro"
+      light: "Claro"
+      pitch: "Cancha"
 
   auth:
     login: "Iniciar sesión"

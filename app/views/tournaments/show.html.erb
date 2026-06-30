@@ -19,31 +19,31 @@
       <% end %>
     </div>
 
-    <details class="mb-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10">
-      <summary class="px-4 py-3 cursor-pointer text-sm font-medium text-white/80 hover:bg-white/5 rounded-lg">
+    <details class="scoring-rules mb-6">
+      <summary class="scoring-rules-summary">
         <%= t("scoring.title") %>
       </summary>
-      <div class="px-4 pb-4 pt-2 border-t border-white/10">
-        <p class="text-sm text-white/60 mb-3"><%= t("scoring.example_intro", home_team: "Argentina", home_score: 2, away_score: 1, away_team: "Brasil") %></p>
+      <div class="scoring-rules-content">
+        <p class="scoring-rules-intro"><%= t("scoring.example_intro", home_team: "Argentina", home_score: 2, away_score: 1, away_team: "Brasil") %></p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div class="bg-green-500/20 backdrop-blur-sm rounded-lg p-3 border border-green-400/30">
-            <div class="font-semibold text-green-400"><%= t("scoring.points_5") %></div>
-            <div class="text-green-300/80"><%= t("scoring.predicted", home: 2, away: 1) %></div>
-            <div class="text-xs text-green-400/60 mt-1"><%= t("scoring.exact_score") %></div>
+          <div class="scoring-card scoring-card-exact">
+            <div class="scoring-card-points"><%= t("scoring.points_5") %></div>
+            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 2, away: 1) %></div>
+            <div class="scoring-card-label"><%= t("scoring.exact_score") %></div>
           </div>
-          <div class="bg-blue-500/20 backdrop-blur-sm rounded-lg p-3 border border-blue-400/30">
-            <div class="font-semibold text-blue-400"><%= t("scoring.points_3") %></div>
-            <div class="text-blue-300/80"><%= t("scoring.predicted", home: 3, away: 0) %></div>
-            <div class="text-xs text-blue-400/60 mt-1"><%= t("scoring.correct_result") %></div>
+          <div class="scoring-card scoring-card-result">
+            <div class="scoring-card-points"><%= t("scoring.points_3") %></div>
+            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 3, away: 0) %></div>
+            <div class="scoring-card-label"><%= t("scoring.correct_result") %></div>
           </div>
-          <div class="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">
-            <div class="font-semibold text-white/80"><%= t("scoring.points_0") %></div>
-            <div class="text-white/60"><%= t("scoring.predicted", home: 0, away: 2) %></div>
-            <div class="text-xs text-white/40 mt-1"><%= t("scoring.wrong") %></div>
+          <div class="scoring-card scoring-card-wrong">
+            <div class="scoring-card-points"><%= t("scoring.points_0") %></div>
+            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 0, away: 2) %></div>
+            <div class="scoring-card-label"><%= t("scoring.wrong") %></div>
           </div>
         </div>
-        <p class="text-xs text-white/40 mt-3"><%= t("scoring.multiplier_note") %></p>
-        <p class="text-xs text-amber-400/80 mt-2"><%= t("scoring.knockout_note") %></p>
+        <p class="scoring-rules-note"><%= t("scoring.multiplier_note") %></p>
+        <p class="scoring-rules-knockout"><%= t("scoring.knockout_note") %></p>
       </div>
     </details>
 

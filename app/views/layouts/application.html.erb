@@ -34,7 +34,7 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="min-h-screen flex flex-col bg-linear-to-br from-slate-900 via-slate-800 to-indigo-950">
+  <body class="min-h-screen flex flex-col themed-bg" data-theme="<%= Current.user&.theme || 'dark' %>">
     <div class="flex-1">
       <%= yield %>
     </div>
