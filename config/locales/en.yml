@@ -306,6 +306,7 @@ en:
     points_0: "0 points"
     predicted: "You predicted %{home} - %{away}"
     multiplier_note: "Points are multiplied by phase: Groups x1, Quarter-finals x1.5, Semi-finals x1.75, Final x2"
+    knockout_note: "In knockout rounds, the score counts up to extra time (90' + ET). Penalties don't affect your prediction — a draw can still earn you points!"
 
   admin:
     access_denied: "You don't have access to this section"

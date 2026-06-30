@@ -309,6 +309,7 @@ es:
     points_0: "0 puntos"
     predicted: "Predijiste %{home} - %{away}"
     multiplier_note: "Los puntos se multiplican según la fase: Grupos x1, Cuartos x1.5, Semis x1.75, Final x2"
+    knockout_note: "En eliminatorias, el resultado cuenta hasta el tiempo extra (90' + prórroga). Los penales no afectan tu predicción — ¡el empate puede darte puntos!"
 
   errors:
     messages:
