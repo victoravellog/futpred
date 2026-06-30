@@ -53,10 +53,8 @@ namespace :football_data do
         matches = client.matches(code)
         matches_by_id = matches.index_by { |m| m["id"].to_s }
 
-        knockout_rounds = tournament.rounds.where.not(stage_type: :group_stage)
-        knockout_fixtures = Fixture.finished.where(round: knockout_rounds)
-
-        knockout_fixtures.find_each do |fixture|
+        # Check all finished fixtures - API data will tell us which had penalties
+        tournament.fixtures.finished.find_each do |fixture|
           match_data = matches_by_id[fixture.external_id]
           next unless match_data
 
