@@ -23,3 +23,27 @@ argentina_chile_finished:
   away_score: 1
   status: 2
   external_id: fix-003
+
+# Partido de cuartos con penales (1-1 en 120min, 4-3 en penales)
+brasil_colombia_penalties:
+  round: copa_cuartos
+  home_team: brasil
+  away_team: colombia
+  kickoff_at: <%= 2.days.ago %>
+  home_score: 1
+  away_score: 1
+  home_penalty_score: 4
+  away_penalty_score: 3
+  status: 2
+  external_id: fix-004
+
+# Partido de final sin penales
+argentina_brasil_final:
+  round: copa_final
+  home_team: argentina
+  away_team: brasil
+  kickoff_at: <%= 3.days.ago %>
+  home_score: 3
+  away_score: 1
+  status: 2
+  external_id: fix-005
