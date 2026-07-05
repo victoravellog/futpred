@@ -197,11 +197,16 @@ Producción se deploya con **Kamal** a un servidor Hetzner.
 
 ### Releases y Deploy Automático
 
-El deploy se ejecuta automáticamente via GitHub Actions cuando se publica un release:
+El deploy se ejecuta automáticamente via GitHub Actions cuando se publica un release.
+
+**Versionado:** Incremental `v1.0.X` (ej: v1.0.36 → v1.0.37)
 
 ```bash
+# Ver último release para saber el siguiente número
+gh release list --limit 1
+
 # Crear release (dispara deploy automático)
-gh release create v1.0.X --title "v1.0.X - Descripción corta" --notes "Changelog..."
+gh release create v1.0.X --title "v1.0.X - Descripción corta" --notes "Descripción del cambio"
 ```
 
 El workflow `.github/workflows/deploy.yml` se encarga de hacer `kamal deploy`.
