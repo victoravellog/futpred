@@ -1,6 +1,6 @@
 service: futpred
 
-image: ghcr.io/victoravellog/futpred
+image: victoravellog/futpred
 
 servers:
   web:
@@ -39,7 +39,7 @@ builder:
   arch: amd64
   cache:
     type: registry
-    image: ghcr.io/victoravellog/futpred-build-cache
+    image: victoravellog/futpred-build-cache
 
 aliases:
   console: app exec --interactive --reuse "bin/rails console"
