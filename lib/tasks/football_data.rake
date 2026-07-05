@@ -97,22 +97,29 @@ namespace :football_data do
     puts "Done!"
   end
 
-  desc "Recalculate missing prediction scores for finished fixtures"
+  desc "Recalculate all prediction scores for finished fixtures"
   task recalculate_predictions: :environment do
-    predictions = Prediction.joins(:fixture)
-      .where(fixtures: { status: :finished })
-      .where(points_earned: nil)
+    predictions = Prediction.joins(:fixture).where(fixtures: { status: :finished })
 
-    puts "Found #{predictions.count} predictions without points..."
+    puts "Recalculating #{predictions.count} predictions..."
 
+    changed = 0
     predictions.find_each do |prediction|
-      fixture = prediction.fixture
-      result = CalculatePredictionScore.call(prediction: prediction)
-      puts "  #{fixture.home_team.name} vs #{fixture.away_team.name}: " \
-           "#{prediction.predicted_home_score}-#{prediction.predicted_away_score} -> #{result.points} pts"
+      old_points = prediction.points_earned
+      prediction.update_column(:points_earned, nil)
+      CalculatePredictionScore.call(prediction: prediction)
+      new_points = prediction.reload.points_earned
+
+      if old_points != new_points
+        fixture = prediction.fixture
+        puts "  #{fixture.home_team.name} vs #{fixture.away_team.name}: " \
+             "#{prediction.predicted_home_score}-#{prediction.predicted_away_score} " \
+             "(#{old_points} -> #{new_points} pts)"
+        changed += 1
+      end
     end
 
-    puts "Done!"
+    puts "Done! #{changed} predictions updated."
   end
 
   desc "Backfill group names for existing fixtures"
