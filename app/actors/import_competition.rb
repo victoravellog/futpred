@@ -1,4 +1,6 @@
 class ImportCompetition < Actor
+  include FootballDataMapping
+
   input :competition_code
 
   output :tournament
@@ -68,14 +70,17 @@ class ImportCompetition < Actor
 
       next unless home_team && away_team
 
+      scores = extract_scores(match_data)
       fixture = round.fixtures.find_or_initialize_by(external_id: match_data["id"].to_s)
       fixture.update!(
         home_team: home_team,
         away_team: away_team,
         kickoff_at: Time.parse(match_data["utcDate"]),
         status: map_status(match_data["status"]),
-        home_score: match_data.dig("score", "fullTime", "home"),
-        away_score: match_data.dig("score", "fullTime", "away"),
+        home_score: scores[:home],
+        away_score: scores[:away],
+        home_penalty_score: scores[:home_penalty],
+        away_penalty_score: scores[:away_penalty],
         group_name: humanize_group(match_data["group"])
       )
     end
@@ -107,15 +112,5 @@ class ImportCompetition < Actor
     return nil unless group
     match = group.match(/GROUP_(\w+)/)
     match ? "Grupo #{match[1]}" : nil
-  end
-
-  def map_status(api_status)
-    case api_status
-    when "SCHEDULED", "TIMED" then :scheduled
-    when "IN_PLAY", "PAUSED", "LIVE" then :live
-    when "FINISHED" then :finished
-    when "POSTPONED", "CANCELLED" then :cancelled
-    else :scheduled
-    end
   end
 end

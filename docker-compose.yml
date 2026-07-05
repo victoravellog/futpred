@@ -31,7 +31,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: futpred_sidekiq
-    command: bundle exec sidekiq
+    command: ["bundle", "exec", "sidekiq"]
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle

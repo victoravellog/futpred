@@ -1,4 +1,6 @@
 class SyncResults < Actor
+  include FootballDataMapping
+
   input :tournament
 
   output :updated_count
@@ -82,44 +84,6 @@ class SyncResults < Actor
   def calculate_predictions(fixture)
     fixture.predictions.find_each do |prediction|
       CalculatePredictionScore.call(prediction: prediction)
-    end
-  end
-
-  def map_status(api_status)
-    case api_status
-    when "SCHEDULED", "TIMED" then :scheduled
-    when "IN_PLAY", "PAUSED", "LIVE" then :live
-    when "FINISHED" then :finished
-    when "POSTPONED", "CANCELLED" then :cancelled
-    else :scheduled
-    end
-  end
-
-  def extract_scores(match_data)
-    score_data = match_data["score"]
-    penalties = score_data&.dig("penalties")
-
-    if penalties && penalties["home"].present?
-      # Match went to penalties - use regularTime + extraTime for prediction scoring
-      regular = score_data.dig("regularTime") || {}
-      extra = score_data.dig("extraTime") || {}
-
-      {
-        home: (regular["home"] || 0) + (extra["home"] || 0),
-        away: (regular["away"] || 0) + (extra["away"] || 0),
-        home_penalty: penalties["home"],
-        away_penalty: penalties["away"]
-      }
-    else
-      # Normal match - use fullTime
-      full_time = score_data&.dig("fullTime") || {}
-
-      {
-        home: full_time["home"],
-        away: full_time["away"],
-        home_penalty: nil,
-        away_penalty: nil
-      }
     end
   end
 end

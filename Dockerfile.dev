@@ -30,6 +30,17 @@ COPY . .
 
 RUN gem install foreman
 
+# Entrypoint ensures gems/packages are up to date before starting
+COPY <<'EOF' /usr/local/bin/dev-entrypoint
+#!/bin/bash
+set -e
+bundle check || bundle install
+npm install --silent
+exec "$@"
+EOF
+RUN chmod +x /usr/local/bin/dev-entrypoint
+
 EXPOSE 3000
 
+ENTRYPOINT ["/usr/local/bin/dev-entrypoint"]
 CMD ["bin/dev"]
