@@ -97,6 +97,24 @@ namespace :football_data do
     puts "Done!"
   end
 
+  desc "Recalculate missing prediction scores for finished fixtures"
+  task recalculate_predictions: :environment do
+    predictions = Prediction.joins(:fixture)
+      .where(fixtures: { status: :finished })
+      .where(points_earned: nil)
+
+    puts "Found #{predictions.count} predictions without points..."
+
+    predictions.find_each do |prediction|
+      fixture = prediction.fixture
+      result = CalculatePredictionScore.call(prediction: prediction)
+      puts "  #{fixture.home_team.name} vs #{fixture.away_team.name}: " \
+           "#{prediction.predicted_home_score}-#{prediction.predicted_away_score} -> #{result.points} pts"
+    end
+
+    puts "Done!"
+  end
+
   desc "Backfill group names for existing fixtures"
   task backfill_groups: :environment do
     client = FootballDataClient.new
