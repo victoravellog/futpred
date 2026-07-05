@@ -115,7 +115,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_30_215637) do
     t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "stage_type", default: 0, null: false
     t.index ["tournament_id"], name: "index_rounds_on_tournament_id"
   end
 
