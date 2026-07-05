@@ -248,6 +248,7 @@ es:
     no_fixtures: "No hay partidos cargados en este torneo todavía."
     leaderboard: "Clasificación"
     points_multiplier: "x%{multiplier} puntos"
+    round_finished: "Finalizada"
     your_points: "Tus puntos: %{points}"
     add_tournament: "Agregar torneo"
     select_to_add: "Selecciona un torneo para agregarlo a tu grupo"

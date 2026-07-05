@@ -30,4 +30,24 @@ RSpec.describe Round, type: :model do
       expect(round.fixtures).to be_present
     end
   end
+
+  describe "#finished?" do
+    it "returns false when round has no fixtures" do
+      round = Round.new(name: "Empty", tournament: tournaments(:copa_america))
+      round.save!
+      expect(round.finished?).to be false
+    end
+
+    it "returns false when some fixtures are not finished" do
+      round = rounds(:copa_grupos)
+      round.fixtures.first.update!(status: :scheduled, home_score: nil, away_score: nil)
+      expect(round.finished?).to be false
+    end
+
+    it "returns true when all fixtures are finished" do
+      round = rounds(:copa_grupos)
+      round.fixtures.update_all(status: :finished, home_score: 1, away_score: 0)
+      expect(round.finished?).to be true
+    end
+  end
 end

@@ -7,6 +7,10 @@ class Round < ApplicationRecord
 
   before_validation :set_defaults
 
+  def finished?
+    fixtures.any? && fixtures.all?(&:finished?)
+  end
+
   private
 
   def set_defaults

@@ -388,11 +388,6 @@
     animation: modal-fade-in 0.2s ease-out;
   }
 
-  @keyframes modal-fade-in {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
   .fixture-card .prediction-form {
     @apply flex items-center gap-1;
   }
@@ -650,31 +645,8 @@
     animation: prediction-pulse 0.6s ease-out;
   }
 
-  @keyframes prediction-pulse {
-    0% {
-      background-color: rgb(34 197 94 / 0.4);
-      box-shadow: 0 0 20px rgb(34 197 94 / 0.3);
-      transform: scale(1.02);
-    }
-    100% {
-      background-color: transparent;
-      box-shadow: none;
-      transform: scale(1);
-    }
-  }
-
   .prediction-saved-modal {
     animation: modal-success 0.5s ease-out;
-  }
-
-  @keyframes modal-success {
-    0% {
-      background-color: rgb(34 197 94 / 0.3);
-      border-radius: 0.5rem;
-    }
-    100% {
-      background-color: transparent;
-    }
   }
 
   /* Theme previews */
@@ -978,4 +950,50 @@
   body[data-theme="pitch"] .scoring-rules-knockout {
     color: #9ef01a;
   }
+
+  /* Round collapsible */
+  .round-summary {
+    list-style: none;
+  }
+
+  .round-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .round-chevron {
+    transform: rotate(0deg);
+  }
+
+  .group\/round[open] .round-chevron {
+    transform: rotate(90deg);
+  }
+}
+
+/* Keyframes must be outside @layer for proper animation support */
+@keyframes prediction-pulse {
+  0% {
+    background-color: rgb(34 197 94 / 0.4);
+    box-shadow: 0 0 20px rgb(34 197 94 / 0.3);
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes modal-success {
+  0% {
+    background-color: rgb(34 197 94 / 0.3);
+    border-radius: 0.5rem;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }

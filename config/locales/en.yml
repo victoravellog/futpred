@@ -245,6 +245,7 @@ en:
     no_fixtures: "No fixtures loaded for this tournament yet."
     leaderboard: "Leaderboard"
     points_multiplier: "x%{multiplier} points"
+    round_finished: "Finished"
     your_points: "Your points: %{points}"
     add_tournament: "Add tournament"
     select_to_add: "Select a tournament to add to your group"
