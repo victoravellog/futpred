@@ -139,6 +139,28 @@ bin/rails football_data:sync                  # Sincronizar resultados
 FOOTBALL_DATA_API_KEY=tu_api_key  # Obtener en https://www.football-data.org/
 ```
 
+## Football-Data.org API
+
+**IMPORTANTE:** El campo `fullTime` de la API **incluye los goles de penales**, lo cual es incorrecto para calcular predicciones.
+
+Para partidos con penales, usar `regularTime + extraTime`:
+```ruby
+# MAL - fullTime incluye penales (ej: 3-5 cuando fue 1-1 + penales 2-4)
+home_score: match_data.dig("score", "fullTime", "home")
+
+# BIEN - usar regularTime + extraTime
+regular = score_data["regularTime"] || {}
+extra = score_data["extraTime"] || {}
+home_score: (regular["home"] || 0) + (extra["home"] || 0)
+```
+
+Esta lógica está centralizada en `FootballDataMapping` concern (`app/actors/concerns/`).
+
+Si hay datos corruptos en producción, ejecutar:
+```bash
+kamal app exec "bin/rails football_data:fix_knockout_scores"
+```
+
 ## Modelo de datos
 
 ```
