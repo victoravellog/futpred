@@ -40,3 +40,12 @@
 
 /config/credentials/development.key
 CLAUDE.local.md
+
+# Claude Code local files
+.claude/settings.local.json
+.claude/skills/
+.agents/
+skills-lock.json
+
+# Generated sitemap
+/public/sitemap.xml
