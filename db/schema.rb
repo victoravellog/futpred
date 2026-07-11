@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_30_215637) do
+ActiveRecord::Schema[8.0].define(version: 2026_07_11_213509) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -98,7 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_30_215637) do
     t.bigint "fixture_id", null: false
     t.integer "predicted_home_score"
     t.integer "predicted_away_score"
-    t.integer "points_earned"
+    t.decimal "points_earned", precision: 5, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "organization_tournament_id"

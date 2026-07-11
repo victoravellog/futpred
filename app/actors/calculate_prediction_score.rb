@@ -11,7 +11,7 @@ class CalculatePredictionScore < Actor
     return self.points = 0 if already_calculated?
 
     base_points = calculate_base_points
-    self.points = (base_points * multiplier).round
+    self.points = base_points * multiplier
 
     prediction.update!(points_earned: points)
   end

@@ -135,8 +135,8 @@ RSpec.describe CalculatePredictionScore do
 
         result = described_class.call(prediction: prediction)
 
-        # exact score = 5 pts * 1.5 (cuartos) = 7.5 rounded = 8 pts
-        expect(result.points).to eq(8)
+        # exact score = 5 pts * 1.5 (cuartos) = 7.5 pts
+        expect(result.points).to eq(7.5)
       end
 
       it "awards points for correct draw prediction even if one team won on penalties" do
@@ -151,8 +151,8 @@ RSpec.describe CalculatePredictionScore do
 
         result = described_class.call(prediction: prediction)
 
-        # correct result (draw) = 3 pts * 1.5 = 4.5 rounded = 5 pts
-        expect(result.points).to eq(5)
+        # correct result (draw) = 3 pts * 1.5 = 4.5 pts
+        expect(result.points).to eq(4.5)
       end
 
       it "does not award points if predicted a winner but match was draw in 120min" do
