@@ -12,12 +12,20 @@
              when :large then "w-10 h-10"
              else "w-6 h-6"
              end
+  container_size = case size
+                   when :small then "w-6 h-6"
+                   when :medium then "w-10 h-10"
+                   when :large then "w-12 h-12"
+                   else "w-8 h-8"
+                   end
 %>
-<% if team.logo_url.present? %>
-  <img src="<%= team.logo_url %>" alt="<%= team.name %>" class="<%= img_size %> object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-  <span class="<%= text_size %>" style="display:none"><%= team.country_code.present? ? country_flag(team.country_code) : "⚽" %></span>
-<% elsif team.country_code.present? %>
-  <span class="<%= text_size %>"><%= country_flag(team.country_code) %></span>
-<% else %>
-  <span class="<%= text_size %>">⚽</span>
-<% end %>
+<div class="<%= container_size %> flex items-center justify-center mx-auto">
+  <% if team.logo_url.present? %>
+    <img src="<%= team.logo_url %>" alt="<%= team.name %>" class="<%= img_size %> object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
+    <span class="<%= text_size %>" style="display:none"><%= team.country_code.present? ? country_flag(team.country_code) : "⚽" %></span>
+  <% elsif team.country_code.present? %>
+    <span class="<%= text_size %>"><%= country_flag(team.country_code) %></span>
+  <% else %>
+    <span class="<%= text_size %>">⚽</span>
+  <% end %>
+</div>
