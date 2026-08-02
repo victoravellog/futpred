@@ -1,0 +1,33 @@
+<div class="card p-4">
+  <div class="flex justify-between items-center mb-3">
+    <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+      <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+      </svg>
+      <%= t("standings.title") %>
+    </h3>
+    <%= link_to tournament_standings_path(@tournament, organization_id: @organization.id), class: "text-xs text-indigo-400 hover:text-indigo-300" do %>
+      <%= t("common.view_all") %>
+    <% end %>
+  </div>
+
+  <% if standings.any? %>
+    <div class="flex items-center gap-2 py-1 text-[10px] text-white/40 uppercase tracking-wide">
+      <span class="w-4 text-right">#</span>
+      <span class="flex-1"><%= t("standings.team") %></span>
+      <span><%= t("standings.points_short") %></span>
+    </div>
+    <div class="space-y-1">
+      <% standings.each do |standing| %>
+        <div class="flex items-center gap-2 py-1.5 <%= standing.position <= 4 ? 'border-l-2 border-green-500 pl-2 -ml-2' : '' %>">
+          <span class="text-xs text-white/50 w-4 text-right"><%= standing.position %></span>
+          <%= render "teams/logo", team: standing.team, size: :xs %>
+          <span class="text-xs text-white truncate flex-1"><%= standing.team.display_name %></span>
+          <span class="text-xs font-medium text-white/80"><%= standing.points %></span>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-xs text-white/40 text-center py-4"><%= t("standings.no_data") %></p>
+  <% end %>
+</div>

@@ -1,7 +1,7 @@
 <div>
   <%= render "shared/navbar" %>
 
-  <main class="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+  <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
     <% if notice %>
       <div class="mb-4 alert-success"><%= notice %></div>
     <% end %>
@@ -11,153 +11,230 @@
         <h1 class="text-2xl font-bold text-white"><%= @tournament.name %></h1>
         <p class="text-lg text-indigo-400 font-semibold"><%= t("tournaments.your_points", points: @user_points || 0) %></p>
       </div>
-      <div class="flex gap-2">
-        <% if @tournament.league? %>
-          <%= link_to tournament_standings_path(@tournament, organization_id: @organization.id), class: "btn-secondary" do %>
-            <svg class="w-5 h-5 mr-2 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            <%= t("tournaments.standings") %>
-          <% end %>
-        <% end %>
-        <%= link_to tournament_leaderboard_path(@tournament, organization_id: @organization.id), class: "btn-secondary" do %>
-          <svg class="w-5 h-5 mr-2 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-          </svg>
-          <%= t("tournaments.leaderboard") %>
-        <% end %>
-      </div>
     </div>
 
     <% if @podium&.any? %>
       <%= render "tournaments/podium", podium: @podium %>
     <% end %>
 
-    <details class="scoring-rules mb-6">
-      <summary class="scoring-rules-summary">
-        <%= t("scoring.title") %>
-      </summary>
-      <div class="scoring-rules-content">
-        <p class="scoring-rules-intro"><%= t("scoring.example_intro", home_team: "Argentina", home_score: 2, away_score: 1, away_team: "Brasil") %></p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-          <div class="scoring-card scoring-card-exact">
-            <div class="scoring-card-points"><%= t("scoring.points_5") %></div>
-            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 2, away: 1) %></div>
-            <div class="scoring-card-label"><%= t("scoring.exact_score") %></div>
-          </div>
-          <div class="scoring-card scoring-card-result">
-            <div class="scoring-card-points"><%= t("scoring.points_3") %></div>
-            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 3, away: 0) %></div>
-            <div class="scoring-card-label"><%= t("scoring.correct_result") %></div>
-          </div>
-          <div class="scoring-card scoring-card-wrong">
-            <div class="scoring-card-points"><%= t("scoring.points_0") %></div>
-            <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 0, away: 2) %></div>
-            <div class="scoring-card-label"><%= t("scoring.wrong") %></div>
-          </div>
+    <div class="flex flex-col lg:flex-row gap-6">
+      <aside class="lg:w-64 flex-shrink-0 space-y-4">
+        <div class="hidden lg:block">
+          <%= render "tournaments/leaderboard_widget", leaderboard: @leaderboard_preview %>
         </div>
-        <p class="scoring-rules-note"><%= t("scoring.multiplier_note") %></p>
-        <p class="scoring-rules-knockout"><%= t("scoring.knockout_note") %></p>
-      </div>
-    </details>
-
-    <% if @rounds.any? %>
-      <%
-        today = Date.current
-        tomorrow = today + 1.day
-        all_fixtures = @rounds.flat_map { |r| r.fixtures.to_a }
-        pending_fixtures = all_fixtures.reject(&:finished?).sort_by(&:kickoff_at)
-
-        featured_fixtures = pending_fixtures.select { |f| f.kickoff_at.to_date.between?(today, tomorrow) }
-
-        if featured_fixtures.empty? && pending_fixtures.any?
-          next_date = pending_fixtures.first.kickoff_at.to_date
-          featured_fixtures = pending_fixtures.select { |f| f.kickoff_at.to_date == next_date }
-        end
-
-        has_featured = featured_fixtures.any?
-        featured_date = featured_fixtures.first&.kickoff_at&.to_date
-      %>
-
-      <% if has_featured %>
-        <div class="mb-8">
-          <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-            <%= t("tournaments.upcoming") %>
-          </h2>
-          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2">
-            <% featured_fixtures.first(6).each do |fixture| %>
-              <%= render "fixtures/fixture_card", fixture: fixture %>
-            <% end %>
-          </div>
-          <% if featured_fixtures.size > 6 %>
-            <p class="text-sm text-white/50 mt-3 text-center">
-              <%= t("tournaments.more_matches", count: featured_fixtures.size - 6) %>
-            </p>
-          <% end %>
-        </div>
-      <% end %>
-
-      <div class="space-y-6">
-        <% @rounds.each do |round| %>
-          <% round_finished = round.finished? %>
-          <details class="group/round bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10" <%= "open" unless round_finished %>>
-            <summary class="round-summary bg-white/5 px-4 py-3 border-b border-white/10 cursor-pointer hover:bg-white/10 transition-colors list-none">
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                  <svg class="round-chevron w-5 h-5 text-white/50 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                  </svg>
-                  <h2 class="font-medium text-white"><%= round.name %></h2>
-                  <% if round_finished %>
-                    <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 font-medium">
-                      <%= t("tournaments.round_finished") %>
-                    </span>
+        <details class="lg:hidden card" open>
+          <summary class="p-4 cursor-pointer flex justify-between items-center">
+            <span class="text-sm font-semibold text-white flex items-center gap-2">
+              <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <%= t("leaderboard.title") %>
+            </span>
+            <svg class="w-4 h-4 text-white/50 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </summary>
+          <div class="px-4 pb-4">
+            <% @leaderboard_preview.each_with_index do |user, index| %>
+              <div class="flex items-center gap-2 py-1.5 <%= user.id == Current.user.id ? 'bg-indigo-500/10 rounded -mx-2 px-2' : '' %>">
+                <span class="w-5 text-center">
+                  <% if index == 0 %>
+                    <span class="text-sm">🥇</span>
+                  <% elsif index == 1 %>
+                    <span class="text-sm">🥈</span>
+                  <% elsif index == 2 %>
+                    <span class="text-sm">🥉</span>
+                  <% else %>
+                    <span class="text-xs text-white/50"><%= index + 1 %></span>
                   <% end %>
-                </div>
-                <span class="text-xs text-white/50"><%= t("tournaments.points_multiplier", multiplier: round.scoring_multiplier) %></span>
-              </div>
-            </summary>
-
-            <% fixtures_by_date = round.fixtures.order(:kickoff_at).group_by { |f| f.kickoff_at.to_date } %>
-            <% fixtures_by_date.each do |date, day_fixtures| %>
-              <% sorted_fixtures = day_fixtures.sort_by(&:kickoff_at) %>
-              <% pending_count = sorted_fixtures.count { |f| !f.finished? && @user_predictions&.dig(f.id).nil? } %>
-              <% day_points = sorted_fixtures.sum { |f| @user_predictions&.dig(f.id)&.points_earned || 0 } if date < today %>
-              <details class="group" <%= "open" if date.between?(today, tomorrow) %>>
-                <summary class="px-4 py-2 bg-white/5 cursor-pointer hover:bg-white/10 flex justify-between items-center text-sm transition-colors">
-                  <span class="font-medium text-white/80">
-                    <% if date == today %>
-                      <span class="text-green-400"><%= t("tournaments.today") %></span> -
-                    <% elsif date == tomorrow %>
-                      <span class="text-blue-400"><%= t("tournaments.tomorrow") %></span> -
-                    <% end %>
-                    <%= l(date, format: :long) %>
-                  </span>
-                  <div class="flex items-center gap-2">
-                    <% if date < today && day_points && day_points > 0 %>
-                      <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400">
-                        +<%= day_points %> pts
-                      </span>
-                    <% end %>
-                    <%= render "fixtures/pending_badge", round: round, date: date, pending_count: pending_count %>
-                    <span class="text-xs text-white/50"><%= t("tournaments.fixtures_count", count: sorted_fixtures.count) %></span>
+                </span>
+                <% if user.avatar.attached? %>
+                  <%= image_tag user.avatar, class: "w-5 h-5 rounded-full object-cover" %>
+                <% elsif user.avatar_emoji %>
+                  <span class="text-sm"><%= user.avatar_emoji %></span>
+                <% else %>
+                  <div class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+                    <span class="text-[10px] text-white/80"><%= user.display_name[0].upcase %></span>
                   </div>
-                </summary>
-                <div class="fixture-cards-grid p-3">
-                  <% sorted_fixtures.each do |fixture| %>
-                    <%= render "fixtures/fixture_card", fixture: fixture, accordion_date: date %>
-                  <% end %>
-                </div>
-              </details>
+                <% end %>
+                <span class="text-xs <%= user.id == Current.user.id ? 'text-indigo-400 font-medium' : 'text-white' %> truncate flex-1">
+                  <%= user.display_name %>
+                </span>
+                <span class="text-xs font-medium text-white/80"><%= number_with_precision(user.total_points, precision: 1, strip_insignificant_zeros: true) %></span>
+              </div>
             <% end %>
+            <%= link_to tournament_leaderboard_path(@tournament, organization_id: @organization.id), class: "block text-xs text-indigo-400 hover:text-indigo-300 mt-2 text-center" do %>
+              <%= t("common.view_all") %>
+            <% end %>
+          </div>
+        </details>
+
+        <% if @tournament.league? && @standings_preview&.any? %>
+          <div class="hidden lg:block">
+            <%= render "tournaments/standings_widget", standings: @standings_preview %>
+          </div>
+          <details class="lg:hidden card">
+            <summary class="p-4 cursor-pointer flex justify-between items-center">
+              <span class="text-sm font-semibold text-white flex items-center gap-2">
+                <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <%= t("standings.title") %>
+              </span>
+              <svg class="w-4 h-4 text-white/50 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <div class="px-4 pb-4">
+              <div class="flex items-center gap-2 py-1 text-[10px] text-white/40 uppercase tracking-wide">
+                <span class="w-4 text-right">#</span>
+                <span class="flex-1"><%= t("standings.team") %></span>
+                <span><%= t("standings.points_short") %></span>
+              </div>
+              <% @standings_preview.each do |standing| %>
+                <div class="flex items-center gap-2 py-1.5 <%= standing.position <= 4 ? 'border-l-2 border-green-500 pl-2 -ml-2' : '' %>">
+                  <span class="text-xs text-white/50 w-4 text-right"><%= standing.position %></span>
+                  <%= render "teams/logo", team: standing.team, size: :xs %>
+                  <span class="text-xs text-white truncate flex-1"><%= standing.team.display_name %></span>
+                  <span class="text-xs font-medium text-white/80"><%= standing.points %></span>
+                </div>
+              <% end %>
+              <%= link_to tournament_standings_path(@tournament, organization_id: @organization.id), class: "block text-xs text-indigo-400 hover:text-indigo-300 mt-2 text-center" do %>
+                <%= t("common.view_all") %>
+              <% end %>
+            </div>
           </details>
         <% end %>
+
+        <details class="scoring-rules">
+          <summary class="scoring-rules-summary">
+            <%= t("scoring.title") %>
+          </summary>
+          <div class="scoring-rules-content">
+            <p class="scoring-rules-intro"><%= t("scoring.example_intro", home_team: "Argentina", home_score: 2, away_score: 1, away_team: "Brasil") %></p>
+            <div class="grid grid-cols-1 gap-3 text-sm">
+              <div class="scoring-card scoring-card-exact">
+                <div class="scoring-card-points"><%= t("scoring.points_5") %></div>
+                <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 2, away: 1) %></div>
+                <div class="scoring-card-label"><%= t("scoring.exact_score") %></div>
+              </div>
+              <div class="scoring-card scoring-card-result">
+                <div class="scoring-card-points"><%= t("scoring.points_3") %></div>
+                <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 3, away: 0) %></div>
+                <div class="scoring-card-label"><%= t("scoring.correct_result") %></div>
+              </div>
+              <div class="scoring-card scoring-card-wrong">
+                <div class="scoring-card-points"><%= t("scoring.points_0") %></div>
+                <div class="scoring-card-prediction"><%= t("scoring.predicted", home: 0, away: 2) %></div>
+                <div class="scoring-card-label"><%= t("scoring.wrong") %></div>
+              </div>
+            </div>
+            <p class="scoring-rules-note"><%= t("scoring.multiplier_note") %></p>
+            <p class="scoring-rules-knockout"><%= t("scoring.knockout_note") %></p>
+          </div>
+        </details>
+      </aside>
+
+      <div class="flex-1 min-w-0">
+        <% if @rounds.any? %>
+          <%
+            today = Date.current
+            tomorrow = today + 1.day
+            all_fixtures = @rounds.flat_map { |r| r.fixtures.to_a }
+            pending_fixtures = all_fixtures.reject(&:finished?).sort_by(&:kickoff_at)
+
+            featured_fixtures = pending_fixtures.select { |f| f.kickoff_at.to_date.between?(today, tomorrow) }
+
+            if featured_fixtures.empty? && pending_fixtures.any?
+              next_date = pending_fixtures.first.kickoff_at.to_date
+              featured_fixtures = pending_fixtures.select { |f| f.kickoff_at.to_date == next_date }
+            end
+
+            has_featured = featured_fixtures.any?
+            featured_date = featured_fixtures.first&.kickoff_at&.to_date
+          %>
+
+          <% if has_featured %>
+            <div class="mb-6">
+              <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <%= t("tournaments.upcoming") %>
+              </h2>
+              <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+                <% featured_fixtures.first(6).each do |fixture| %>
+                  <%= render "fixtures/fixture_card", fixture: fixture %>
+                <% end %>
+              </div>
+              <% if featured_fixtures.size > 6 %>
+                <p class="text-sm text-white/50 mt-3 text-center">
+                  <%= t("tournaments.more_matches", count: featured_fixtures.size - 6) %>
+                </p>
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="space-y-4">
+            <% @rounds.each do |round| %>
+              <% round_finished = round.finished? %>
+              <details class="group/round bg-white/5 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10" <%= "open" unless round_finished %>>
+                <summary class="round-summary bg-white/5 px-4 py-3 border-b border-white/10 cursor-pointer hover:bg-white/10 transition-colors list-none">
+                  <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                      <svg class="round-chevron w-5 h-5 text-white/50 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                      </svg>
+                      <h2 class="font-medium text-white"><%= round.name %></h2>
+                      <% if round_finished %>
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 font-medium">
+                          <%= t("tournaments.round_finished") %>
+                        </span>
+                      <% end %>
+                    </div>
+                    <span class="text-xs text-white/50"><%= t("tournaments.points_multiplier", multiplier: round.scoring_multiplier) %></span>
+                  </div>
+                </summary>
+
+                <% fixtures_by_date = round.fixtures.order(:kickoff_at).group_by { |f| f.kickoff_at.to_date } %>
+                <% fixtures_by_date.each do |date, day_fixtures| %>
+                  <% sorted_fixtures = day_fixtures.sort_by(&:kickoff_at) %>
+                  <% pending_count = sorted_fixtures.count { |f| !f.finished? && @user_predictions&.dig(f.id).nil? } %>
+                  <% day_points = sorted_fixtures.sum { |f| @user_predictions&.dig(f.id)&.points_earned || 0 } if date < today %>
+                  <details class="group" <%= "open" if date.between?(today, tomorrow) %>>
+                    <summary class="px-4 py-2 bg-white/5 cursor-pointer hover:bg-white/10 flex justify-between items-center text-sm transition-colors">
+                      <span class="font-medium text-white/80">
+                        <% if date == today %>
+                          <span class="text-green-400"><%= t("tournaments.today") %></span> -
+                        <% elsif date == tomorrow %>
+                          <span class="text-blue-400"><%= t("tournaments.tomorrow") %></span> -
+                        <% end %>
+                        <%= l(date, format: :long) %>
+                      </span>
+                      <div class="flex items-center gap-2">
+                        <% if date < today && day_points && day_points > 0 %>
+                          <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400">
+                            +<%= day_points %> pts
+                          </span>
+                        <% end %>
+                        <%= render "fixtures/pending_badge", round: round, date: date, pending_count: pending_count %>
+                        <span class="text-xs text-white/50"><%= t("tournaments.fixtures_count", count: sorted_fixtures.count) %></span>
+                      </div>
+                    </summary>
+                    <div class="fixture-cards-grid p-3">
+                      <% sorted_fixtures.each do |fixture| %>
+                        <%= render "fixtures/fixture_card", fixture: fixture, accordion_date: date %>
+                      <% end %>
+                    </div>
+                  </details>
+                <% end %>
+              </details>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="empty-state">
+            <p class="text-white/50"><%= t("tournaments.no_fixtures") %></p>
+          </div>
+        <% end %>
       </div>
-    <% else %>
-      <div class="empty-state">
-        <p class="text-white/50"><%= t("tournaments.no_fixtures") %></p>
-      </div>
-    <% end %>
+    </div>
   </main>
 </div>

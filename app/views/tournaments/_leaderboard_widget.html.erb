@@ -1,0 +1,48 @@
+<div class="card p-4">
+  <div class="flex justify-between items-center mb-3">
+    <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+      <svg class="w-4 h-4 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+      </svg>
+      <%= t("leaderboard.title") %>
+    </h3>
+    <%= link_to tournament_leaderboard_path(@tournament, organization_id: @organization.id), class: "text-xs text-indigo-400 hover:text-indigo-300" do %>
+      <%= t("common.view_all") %>
+    <% end %>
+  </div>
+
+  <% if leaderboard.any? %>
+    <div class="space-y-1">
+      <% leaderboard.each_with_index do |user, index| %>
+        <div class="flex items-center gap-2 py-1.5 <%= user.id == Current.user.id ? 'bg-indigo-500/10 rounded -mx-2 px-2' : '' %>">
+          <span class="w-5 text-center">
+            <% if index == 0 %>
+              <span class="text-sm">🥇</span>
+            <% elsif index == 1 %>
+              <span class="text-sm">🥈</span>
+            <% elsif index == 2 %>
+              <span class="text-sm">🥉</span>
+            <% else %>
+              <span class="text-xs text-white/50"><%= index + 1 %></span>
+            <% end %>
+          </span>
+          <% if user.avatar.attached? %>
+            <%= image_tag user.avatar, class: "w-5 h-5 rounded-full object-cover" %>
+          <% elsif user.avatar_emoji %>
+            <span class="text-sm"><%= user.avatar_emoji %></span>
+          <% else %>
+            <div class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center">
+              <span class="text-[10px] text-white/80"><%= user.display_name[0].upcase %></span>
+            </div>
+          <% end %>
+          <span class="text-xs <%= user.id == Current.user.id ? 'text-indigo-400 font-medium' : 'text-white' %> truncate flex-1">
+            <%= user.display_name %>
+          </span>
+          <span class="text-xs font-medium text-white/80"><%= number_with_precision(user.total_points, precision: 1, strip_insignificant_zeros: true) %></span>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-xs text-white/40 text-center py-4"><%= t("leaderboard.no_scores") %></p>
+  <% end %>
+</div>

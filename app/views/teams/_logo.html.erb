@@ -1,18 +1,21 @@
 <%
   size ||= :default
   text_size = case size
+              when :xs then "text-xs"
               when :small then "text-base"
               when :medium then "text-2xl"
               when :large then "text-3xl"
               else "text-xl"
               end
   img_size = case size
+             when :xs then "w-3 h-3"
              when :small then "w-4 h-4"
              when :medium then "w-8 h-8"
              when :large then "w-10 h-10"
              else "w-6 h-6"
              end
   container_size = case size
+                   when :xs then "w-4 h-4"
                    when :small then "w-6 h-6"
                    when :medium then "w-10 h-10"
                    when :large then "w-12 h-12"

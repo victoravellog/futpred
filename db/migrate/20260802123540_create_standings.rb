@@ -16,7 +16,7 @@ class CreateStandings < ActiveRecord::Migration[8.0]
       t.timestamps
     end
 
-    add_index :standings, [:tournament_id, :team_id], unique: true
-    add_index :standings, [:tournament_id, :position]
+    add_index :standings, [ :tournament_id, :team_id ], unique: true
+    add_index :standings, [ :tournament_id, :position ]
   end
 end

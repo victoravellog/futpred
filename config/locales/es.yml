@@ -111,6 +111,7 @@ es:
 
   common:
     back: "Volver"
+    view_all: "Ver todo"
 
   footer:
     made_with_love: "Hecho con ⚽ desde UK"
