@@ -80,6 +80,53 @@
     </div>
   </section>
 
+  <%# Ligas disponibles %>
+  <% if @featured_leagues&.any? %>
+    <section class="py-12 border-b border-white/5">
+      <div class="section-container">
+        <p class="text-center text-white/50 text-sm mb-6"><%= t("landing.leagues.title") %></p>
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          <% @featured_leagues.each do |league| %>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <img src="<%= league.logo_url %>" alt="<%= league.name %>" class="h-12 md:h-16 w-auto object-contain" loading="lazy">
+              <span class="text-xs text-white/50 hidden md:block"><%= league.name %></span>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mt-10 pt-8 border-t border-white/5">
+          <p class="text-center text-white/40 text-xs uppercase tracking-wider mb-4"><%= t("landing.leagues.coming_soon") %></p>
+          <div class="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/CL.png", alt: "Champions League", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Champions 26/27</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/ec.png", alt: "Eurocopa", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Eurocopa 2028</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/copa-america.png", alt: "Copa América", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Copa América 2028</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/copa-africa.png", alt: "Copa África", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Copa África 2027</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/copa-asia.png", alt: "Copa Asia", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Copa Asia 2027</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 opacity-70 hover:opacity-100 transition-opacity">
+              <%= image_tag "competitions/copa-oro.svg", alt: "Copa Oro", class: "h-10 md:h-12 w-auto object-contain" %>
+              <span class="text-xs text-white/50">Copa Oro 2027</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <% end %>
+
   <%# Cómo funciona %>
   <section id="como-funciona" class="section-alt">
     <div class="section-container">

@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def home
     redirect_to dashboard_path if authenticated?
+    @featured_leagues = Tournament.league.order(:name)
   end
 
   def pricing

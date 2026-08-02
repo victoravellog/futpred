@@ -122,6 +122,58 @@ namespace :football_data do
     puts "Done! #{changed} predictions updated."
   end
 
+  desc "Import Europe's top 5 leagues (PL, PD, BL1, SA, FL1)"
+  task import_top5_leagues: :environment do
+    leagues = {
+      "PL" => "Premier League",
+      "PD" => "La Liga",
+      "BL1" => "Bundesliga",
+      "SA" => "Serie A",
+      "FL1" => "Ligue 1"
+    }
+
+    leagues.each_with_index do |(code, name), index|
+      if index > 0
+        puts "  Waiting 60s to avoid rate limit..."
+        sleep(60)
+      end
+
+      import_with_retry(code, name)
+    end
+
+    puts "\nDone! Imported leagues:"
+    Tournament.league.each do |t|
+      puts "  - #{t.name}: #{t.fixtures.count} fixtures"
+    end
+  end
+
+  def import_with_retry(code, name, retries: 3)
+    puts "\nImporting #{name} (#{code})..."
+
+    result = ImportCompetition.call(competition_code: code)
+
+    if result.success?
+      tournament = result.tournament
+      puts "  Format: #{tournament.format}"
+      puts "  Teams: #{tournament.teams.count}"
+      puts "  Rounds: #{tournament.rounds.count}"
+      puts "  Fixtures: #{tournament.fixtures.count}"
+    else
+      puts "  Error: #{result.failure}"
+    end
+  rescue FootballDataClient::ApiError => e
+    if e.message.include?("429") && retries > 0
+      wait_time = e.message.match(/Wait (\d+) seconds/)&.[](1)&.to_i || 60
+      puts "  Rate limited. Waiting #{wait_time}s and retrying (#{retries} retries left)..."
+      sleep(wait_time + 5)
+      import_with_retry(code, name, retries: retries - 1)
+    else
+      puts "  Error importing #{name}: #{e.message}"
+    end
+  rescue StandardError => e
+    puts "  Error importing #{name}: #{e.message}"
+  end
+
   desc "Backfill group names for existing fixtures"
   task backfill_groups: :environment do
     client = FootballDataClient.new

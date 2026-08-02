@@ -11,7 +11,8 @@ class ImportCompetition < Actor
     self.tournament = Tournament.find_or_initialize_by(external_id: data["code"])
     tournament.update!(
       name: data["name"],
-      logo_url: data["emblem"]
+      logo_url: data["emblem"],
+      format: detect_format(data)
     )
 
     import_teams(data["code"])
@@ -50,6 +51,14 @@ class ImportCompetition < Actor
 
     matches = client.matches(competition_code, season: current_season["startDate"].to_s[0..3].to_i)
 
+    if tournament.league?
+      import_league_rounds(matches)
+    else
+      import_cup_rounds(matches)
+    end
+  end
+
+  def import_cup_rounds(matches)
     matches_by_stage = matches.group_by { |m| m["stage"] }
 
     matches_by_stage.each_with_index do |(stage, stage_matches), index|
@@ -60,6 +69,20 @@ class ImportCompetition < Actor
       )
 
       import_fixtures(round, stage_matches)
+    end
+  end
+
+  def import_league_rounds(matches)
+    matches_by_matchday = matches.group_by { |m| m["matchday"] }.sort_by { |k, _| k || 0 }
+
+    matches_by_matchday.each do |matchday, matchday_matches|
+      round = tournament.rounds.find_or_initialize_by(name: humanize_matchday(matchday))
+      round.update!(
+        position: matchday || 0,
+        scoring_multiplier: 1.0
+      )
+
+      import_fixtures(round, matchday_matches)
     end
   end
 
@@ -112,5 +135,13 @@ class ImportCompetition < Actor
     return nil unless group
     match = group.match(/GROUP_(\w+)/)
     match ? "Grupo #{match[1]}" : nil
+  end
+
+  def humanize_matchday(matchday)
+    "Jornada #{matchday}"
+  end
+
+  def detect_format(competition_data)
+    competition_data["type"] == "LEAGUE" ? :league : :cup
   end
 end

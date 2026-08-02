@@ -17,6 +17,8 @@ class TournamentsController < ApplicationController
     @user_points = @organization_tournament.predictions
                                            .where(user: Current.user)
                                            .sum(:points_earned)
+
+    load_podium if @tournament.finished?
   end
 
   def new
@@ -52,5 +54,20 @@ class TournamentsController < ApplicationController
                             .joins("INNER JOIN memberships ON memberships.organization_id = organization_tournaments.organization_id")
                             .where(memberships: { user_id: Current.user.id })
                             .find(params[:id])
+  end
+
+  def load_podium
+    points_subquery = Prediction.where(organization_tournament: @organization_tournament)
+                                .where.not(points_earned: nil)
+                                .group(:user_id)
+                                .select("user_id, SUM(points_earned) as total_points")
+
+    @podium = User.joins(:memberships)
+                  .where(memberships: { organization_id: @organization.id })
+                  .joins("LEFT JOIN (#{points_subquery.to_sql}) points ON points.user_id = users.id")
+                  .select("users.*, COALESCE(points.total_points, 0) as total_points")
+                  .group("users.id, points.total_points")
+                  .order("total_points DESC, users.email_address ASC")
+                  .limit(3)
   end
 end

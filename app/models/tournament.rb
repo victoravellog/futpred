@@ -1,4 +1,6 @@
 class Tournament < ApplicationRecord
+  enum :format, { cup: 0, league: 1 }
+
   has_many :rounds, -> { order(position: :asc) }, dependent: :destroy
   has_many :tournament_teams, dependent: :destroy
   has_many :teams, through: :tournament_teams
@@ -26,5 +28,9 @@ class Tournament < ApplicationRecord
   def self.starting_within(days)
     cutoff = days.days.from_now
     all.select { |t| t.starts_at.present? && t.starts_at > Time.current && t.starts_at <= cutoff }
+  end
+
+  def finished?
+    fixtures.any? && fixtures.all?(&:finished?)
   end
 end

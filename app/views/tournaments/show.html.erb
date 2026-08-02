@@ -19,6 +19,10 @@
       <% end %>
     </div>
 
+    <% if @podium&.any? %>
+      <%= render "tournaments/podium", podium: @podium %>
+    <% end %>
+
     <details class="scoring-rules mb-6">
       <summary class="scoring-rules-summary">
         <%= t("scoring.title") %>

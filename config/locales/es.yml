@@ -186,9 +186,9 @@ es:
       sign_in: "Iniciar sesión"
       create_group: "Crear grupo gratis"
     hero:
-      badge: "Mundial 2026 — ya disponible"
+      badge: "Champions League y ligas europeas"
       headline: "Predice, compite y gana con tus amigos o tu equipo"
-      subtitle: "Crea tu grupo de predicciones para el Mundial, la Champions o cualquier torneo. Invita con tu link, predice los resultados y compite por el primer lugar."
+      subtitle: "Crea tu grupo de predicciones para la Champions, La Liga, Premier League o cualquier torneo. Invita con tu link, predice los resultados y compite por el primer lugar."
       cta_primary: "Crear grupo gratis"
       cta_secondary: "Ver cómo funciona"
     how_it_works:
@@ -202,22 +202,22 @@ es:
       step3_description: "Cada uno hace sus predicciones antes de cada partido. Los puntos se calculan automáticamente."
     success_story:
       badge: "Imagina esto"
-      quote: "El Mundial puede ser el evento más comentado del año en tu empresa"
-      description_html: "Imagina tu empresa de 150 empleados usando FutPred durante el Mundial 2026. <span class='text-emerald-300 font-semibold'>60 participantes activos</span> compitiendo durante todo el torneo, generando conversaciones en Slack, apuestas de café y un gran sentido de comunidad."
+      quote: "Cada torneo puede ser el evento más comentado del año en tu empresa"
+      description_html: "Imagina tu empresa de 150 empleados usando FutPred durante la temporada. <span class='text-emerald-300 font-semibold'>60 participantes activos</span> compitiendo semana a semana, generando conversaciones en Slack, apuestas de café y un gran sentido de comunidad."
       stat1_value: "60"
       stat1_label: "participantes"
       stat2_value: "40%"
       stat2_label: "de la empresa"
-      stat3_value: "104"
-      stat3_label: "partidos predichos"
+      stat3_value: "380"
+      stat3_label: "partidos por liga"
       leaderboard_title: "Leaderboard Final"
-      leaderboard_tournament: "Mundial 2026"
+      leaderboard_tournament: "La Liga 24/25"
     audience:
       title: "Para quién es FutPred"
       subtitle: "Perfecto para cualquier grupo que quiera agregar emoción a los torneos de fútbol."
       companies:
         title: "Empresas"
-        description: "Crea engagement entre equipos durante el Mundial o la Champions. Perfecto para HR, culture o simplemente para pasarla bien."
+        description: "Crea engagement entre equipos durante la Champions o las ligas europeas. Perfecto para HR, culture o simplemente para pasarla bien."
         feature1: "Invitación por link privado"
         feature2: "Leaderboard en tiempo real"
         feature3: "Sin límite de participantes"
@@ -234,9 +234,12 @@ es:
         feature1: "Múltiples torneos"
         feature2: "Multiplicadores por ronda"
         feature3: "Historial de temporadas"
+    leagues:
+      title: "Ligas disponibles"
+      coming_soon: "Próximamente"
     cta:
-      title: "El Mundial 2026 ya está aquí"
-      subtitle: "No esperes a que empiece para organizar tu grupo. Crea tu espacio ahora y ten todo listo para el saque inicial."
+      title: "La temporada ya comenzó"
+      subtitle: "Únete a la acción de las mejores ligas europeas. Crea tu grupo ahora y empieza a predecir desde la próxima jornada."
       button: "Empezar gratis"
 
   tournaments:
@@ -250,6 +253,9 @@ es:
     points_multiplier: "x%{multiplier} puntos"
     round_finished: "Finalizada"
     your_points: "Tus puntos: %{points}"
+    podium:
+      title: "Podio Final"
+      see_full_ranking: "Ver clasificación completa"
     add_tournament: "Agregar torneo"
     select_to_add: "Selecciona un torneo para agregarlo a tu grupo"
     add: "Agregar"
