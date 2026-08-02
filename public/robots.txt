@@ -33,3 +33,7 @@ Disallow: /invite
 
 # Sitemap
 Sitemap: https://futpred.com/sitemap.xml
+
+# LLMs / AI agents
+# See https://llmstxt.org for the llms.txt standard
+LLMs: https://futpred.com/llms.txt

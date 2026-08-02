@@ -1,0 +1,35 @@
+# FutPred - Football Predictions App
+
+> FutPred is a social football predictions app where friends compete by predicting match scores.
+
+## What is FutPred?
+FutPred is a web application for football (soccer) fans to predict match results and compete with friends. Users create or join groups, predict scores for upcoming matches in tournaments like the World Cup, Euro, Champions League, and top European leagues (Premier League, La Liga, Bundesliga, Serie A, Ligue 1), and earn points based on prediction accuracy.
+
+## Key Features
+- Predict exact scores for football matches
+- Create private groups to compete with friends, family, or coworkers
+- Automatic result syncing from official sources
+- Points system: 5 points for exact score, 3 points for correct outcome
+- Multipliers for knockout rounds
+- Real-time leaderboards
+- Support for cups (World Cup, Euro, Champions League) and leagues
+
+## Who is it for?
+- Football fans who enjoy predicting match results
+- Friend groups wanting to add fun competition to watching football
+- Office pools for major tournaments
+- Fantasy football enthusiasts looking for a simpler alternative
+
+## Languages
+- Spanish (primary)
+- English
+
+## Links
+- Website: https://futpred.com
+- Pricing: https://futpred.com/pricing
+- Contact: https://futpred.com/contact
+
+## Technical
+- Web app (responsive, works on mobile and desktop)
+- No app download required
+- Free tier available

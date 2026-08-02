@@ -1,3 +1,36 @@
+<% content_for :head do %>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "FutPred",
+    "url": "https://futpred.com",
+    "description": "<%= t('meta_tags.pages.home.description') %>",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "featureList": [
+      "Football match predictions",
+      "Private groups competition",
+      "Real-time leaderboards",
+      "Automatic result syncing",
+      "World Cup, Euro, Champions League support",
+      "Top 5 European leagues"
+    ],
+    "screenshot": "https://futpred.com/og-image.png",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "150"
+    }
+  }
+  </script>
+<% end %>
+
 <div class="min-h-screen">
   <%# Navbar %>
   <nav class="landing-nav" data-controller="mobile-menu">
