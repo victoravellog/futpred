@@ -13,11 +13,11 @@
              else "w-6 h-6"
              end
 %>
-<% if team.country_code.present? %>
-  <span class="<%= text_size %>"><%= country_flag(team.country_code) %></span>
-<% elsif team.logo_url.present? %>
+<% if team.logo_url.present? %>
   <img src="<%= team.logo_url %>" alt="<%= team.name %>" class="<%= img_size %> object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">
-  <span class="<%= text_size %>" style="display:none">⚽</span>
+  <span class="<%= text_size %>" style="display:none"><%= team.country_code.present? ? country_flag(team.country_code) : "⚽" %></span>
+<% elsif team.country_code.present? %>
+  <span class="<%= text_size %>"><%= country_flag(team.country_code) %></span>
 <% else %>
   <span class="<%= text_size %>">⚽</span>
 <% end %>
