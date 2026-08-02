@@ -41,8 +41,8 @@
                     <span class="text-white/60 font-medium"><%= standing.position %></span>
                   </td>
                   <td class="px-3 py-3 whitespace-nowrap">
-                    <div class="flex items-center space-x-3">
-                      <%= render "teams/logo", team: standing.team, size: :small %>
+                    <div class="flex items-center gap-3">
+                      <img src="<%= standing.team.logo_url %>" alt="<%= standing.team.name %>" class="w-6 h-6 object-contain" onerror="this.style.display='none'">
                       <span class="text-white font-medium text-sm"><%= standing.team.display_name %></span>
                     </div>
                   </td>

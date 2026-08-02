@@ -20,7 +20,8 @@ class SyncStandings < Actor
   end
 
   def fetch_standings
-    client.standings(tournament.external_id)
+    season = client.current_season(tournament.external_id)
+    client.standings(tournament.external_id, season: season)
   rescue FootballDataClient::ApiError => e
     Rails.logger.error("SyncStandings API error for #{tournament.name}: #{e.message}")
     []

@@ -31,9 +31,17 @@ class FootballDataClient
     get("/matches/#{match_id}")
   end
 
-  def standings(competition_code)
-    data = get("/competitions/#{competition_code}/standings")
+  def standings(competition_code, season: nil)
+    params = {}
+    params[:season] = season if season
+    data = get("/competitions/#{competition_code}/standings", params)
     data["standings"]&.first&.dig("table") || []
+  end
+
+  def current_season(competition_code)
+    data = competition(competition_code)
+    start_date = data.dig("currentSeason", "startDate")
+    start_date ? Date.parse(start_date).year : nil
   end
 
   private
