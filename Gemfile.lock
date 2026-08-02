@@ -343,7 +343,7 @@ GEM
       fugit (~> 1.8, >= 1.11.1)
       globalid (>= 1.0.1)
       sidekiq (>= 6.5.0)
-    sitemap_generator (7.0.1)
+    sitemap_generator (7.1.1)
       builder (~> 3.0)
     solid_cable (4.0.0)
       actioncable (>= 7.2)
