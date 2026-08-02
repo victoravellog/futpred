@@ -3,6 +3,7 @@ class SyncResultsJob < ApplicationJob
 
   def perform
     import_new_fixtures_if_needed
+    sync_league_standings
     return unless should_sync?
 
     active_tournaments.find_each do |tournament|
@@ -86,5 +87,13 @@ class SyncResultsJob < ApplicationJob
               .where(fixtures: { status: [ :scheduled, :live ] })
               .where(fixtures: { kickoff_at: 3.hours.ago.. })
               .distinct
+  end
+
+  def sync_league_standings
+    Tournament.league.where.not(external_id: nil).find_each do |tournament|
+      SyncStandings.call(tournament: tournament)
+    rescue StandardError => e
+      Rails.logger.error("SyncResultsJob: Error syncing standings for #{tournament.name}: #{e.message}")
+    end
   end
 end

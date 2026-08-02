@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_02_112543) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_02_123540) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -127,6 +127,26 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_02_112543) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "standings", force: :cascade do |t|
+    t.bigint "tournament_id", null: false
+    t.bigint "team_id", null: false
+    t.integer "position", default: 0, null: false
+    t.integer "played_games", default: 0, null: false
+    t.integer "won", default: 0, null: false
+    t.integer "draw", default: 0, null: false
+    t.integer "lost", default: 0, null: false
+    t.integer "points", default: 0, null: false
+    t.integer "goals_for", default: 0, null: false
+    t.integer "goals_against", default: 0, null: false
+    t.integer "goal_difference", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_standings_on_team_id"
+    t.index ["tournament_id", "position"], name: "index_standings_on_tournament_id_and_position"
+    t.index ["tournament_id", "team_id"], name: "index_standings_on_tournament_id_and_team_id", unique: true
+    t.index ["tournament_id"], name: "index_standings_on_tournament_id"
+  end
+
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.string "logo_url"
@@ -195,6 +215,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_02_112543) do
   add_foreign_key "predictions", "users"
   add_foreign_key "rounds", "tournaments"
   add_foreign_key "sessions", "users"
+  add_foreign_key "standings", "teams"
+  add_foreign_key "standings", "tournaments"
   add_foreign_key "tournament_notifications", "tournaments"
   add_foreign_key "tournament_notifications", "users"
   add_foreign_key "tournament_teams", "teams"

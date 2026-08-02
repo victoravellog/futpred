@@ -8,6 +8,7 @@ class Tournament < ApplicationRecord
   has_many :organization_tournaments, dependent: :destroy
   has_many :organizations, through: :organization_tournaments
   has_many :tournament_notifications, dependent: :destroy
+  has_many :standings, -> { order(position: :asc) }, dependent: :destroy
 
   validates :name, presence: true
 

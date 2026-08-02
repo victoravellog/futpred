@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :tournaments, only: [ :show ] do
     resources :fixtures, only: [ :index ]
     resource :leaderboard, only: [ :show ]
+    resource :standings, only: [ :show ]
   end
 
   resources :fixtures, only: [] do

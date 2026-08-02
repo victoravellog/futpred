@@ -250,6 +250,7 @@ es:
     created: "Torneo creado exitosamente"
     no_fixtures: "No hay partidos cargados en este torneo todavía."
     leaderboard: "Clasificación"
+    standings: "Tabla"
     points_multiplier: "x%{multiplier} puntos"
     round_finished: "Finalizada"
     your_points: "Tus puntos: %{points}"
@@ -310,6 +311,20 @@ es:
     you: "(tú)"
     no_scores: "Aún no hay puntuaciones registradas."
     no_scores_hint: "Los puntos se calculan cuando terminan los partidos."
+
+  standings:
+    title: "Tabla de Posiciones"
+    team: "Equipo"
+    played_short: "PJ"
+    won_short: "G"
+    draw_short: "E"
+    lost_short: "P"
+    gf_short: "GF"
+    ga_short: "GC"
+    gd_short: "DG"
+    points_short: "Pts"
+    no_data: "Aún no hay datos de la tabla."
+    no_data_hint: "La tabla se actualiza automáticamente."
 
   scoring:
     title: "¿Cómo se calculan los puntos?"

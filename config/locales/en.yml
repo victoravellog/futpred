@@ -247,6 +247,7 @@ en:
     created: "Tournament created successfully"
     no_fixtures: "No fixtures loaded for this tournament yet."
     leaderboard: "Leaderboard"
+    standings: "Table"
     points_multiplier: "x%{multiplier} points"
     round_finished: "Finished"
     your_points: "Your points: %{points}"
@@ -307,6 +308,20 @@ en:
     you: "(you)"
     no_scores: "No scores recorded yet."
     no_scores_hint: "Points are calculated when matches finish."
+
+  standings:
+    title: "League Table"
+    team: "Team"
+    played_short: "P"
+    won_short: "W"
+    draw_short: "D"
+    lost_short: "L"
+    gf_short: "GF"
+    ga_short: "GA"
+    gd_short: "GD"
+    points_short: "Pts"
+    no_data: "No table data yet."
+    no_data_hint: "The table updates automatically."
 
   scoring:
     title: "How are points calculated?"

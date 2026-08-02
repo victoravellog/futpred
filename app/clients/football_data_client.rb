@@ -31,6 +31,11 @@ class FootballDataClient
     get("/matches/#{match_id}")
   end
 
+  def standings(competition_code)
+    data = get("/competitions/#{competition_code}/standings")
+    data["standings"]&.first&.dig("table") || []
+  end
+
   private
 
   def get(path, params = {})
