@@ -3,6 +3,7 @@ class InvitesController < ApplicationController
 
   def show
     @organization = Organization.find_by!(invite_token: params[:token])
+    authenticated?
 
     if Current.user
       if Current.user.organizations.include?(@organization)
