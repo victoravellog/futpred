@@ -5,10 +5,10 @@ image: victoravellog/futpred
 servers:
   web:
     hosts:
-      - 135.181.33.41
+      - <%= ENV['DEPLOY_HOST'] %>
   job:
     hosts:
-      - 135.181.33.41
+      - <%= ENV['DEPLOY_HOST'] %>
     cmd: bundle exec sidekiq
 
 proxy:
@@ -50,7 +50,7 @@ aliases:
 accessories:
   db:
     image: postgres:17
-    host: 135.181.33.41
+    host: <%= ENV['DEPLOY_HOST'] %>
     port: "127.0.0.1:5432:5432"
     env:
       clear:
@@ -62,7 +62,7 @@ accessories:
       - data:/var/lib/postgresql/data
   redis:
     image: redis:7-alpine
-    host: 135.181.33.41
+    host: <%= ENV['DEPLOY_HOST'] %>
     port: "127.0.0.1:6379:6379"
     directories:
       - data:/data
