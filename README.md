@@ -6,7 +6,13 @@ App de predicciones de fútbol / Football predictions app
 
 ![Landing](docs/images/landing.jpg)
 
-![How it works](docs/images/how-it-works.jpg)
+### Inside the app
+
+| Dark mode | Light mode |
+|-----------|------------|
+| ![Podium Dark](docs/images/podium-dark.jpg) | ![Podium Light](docs/images/podium-light.jpg) |
+
+![Predictions](docs/images/predictions-dark.jpg)
 
 ---
 
