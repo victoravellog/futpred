@@ -2,7 +2,7 @@
 
 App de predicciones de fútbol / Football predictions app
 
-🌐 **Live:** [futpred.com](https://futpred.com)
+🌐 **Live:** [futpred.com](https://futpred.com) · Available in English & Spanish · 3 themes (Dark, Light, Cancha)
 
 ![Landing](docs/images/landing.jpg)
 
